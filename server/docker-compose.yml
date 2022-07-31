@@ -1,0 +1,33 @@
+version: "3.7"
+
+services:
+    agsl-be:
+        container_name: agsl-be_dev
+        image: agsl-be_dev:1.0
+        build:
+            context: .
+            target: development
+            dockerfile: ./Dockerfile
+        ports:
+            - "3000:3000"
+        volumes:
+            - ./:/usr/src/app
+            - /usr/src/app/node_modules
+        command: npm run start:dev
+    db:
+        image: postgres:14.4-alpine
+        env_file:
+            -   .env
+        restart: always
+        environment:
+            - POSTGRES_USER="${POSTGRES_USER}"
+            - POSTGRES_PASSWORD="${POSTGRES_PASSWORD}"
+            - POSTGRES_DB="${POSTGRES_DB}"
+        ports:
+            - '5432:5432'
+        volumes:
+            - db:/var/lib/postgresql/data
+
+volumes:
+    db:
+        driver: local
