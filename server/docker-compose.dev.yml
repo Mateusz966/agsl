@@ -5,7 +5,7 @@ services:
         container_name: agsl-be_dev
         image: agsl-be_dev:1.0
         build:
-            context: .
+            context: ./
             target: development
             dockerfile: ./Dockerfile
         ports:

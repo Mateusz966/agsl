@@ -2,13 +2,13 @@ FROM node:16-alpine AS development
 
 WORKDIR /usr/src/app
 
-COPY package*.json ./
+COPY ./package*json ./
 
 RUN npm install glob rimraf
 
 RUN npm install
 
-COPY . .
+COPY ./ ./
 
 FROM node:16-alpine AS production
 
