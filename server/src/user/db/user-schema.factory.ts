@@ -10,7 +10,7 @@ export class UserSchemaFactory
   create(user: User): UserSchema {
     return {
       id: user.getId(),
-      email: user.getName(),
+      email: user.getPassword(),
       name: user.getName(),
       password: user.getPassword(),
     };
