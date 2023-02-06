@@ -31,6 +31,5 @@ export type PaginatedQueryParams = {
 export interface RepositoryPort<Entity> {
   create(entity: Entity): Promise<Entity>;
   findOneById(id: string): Promise<Entity>;
-  findd(findOptions: any): Promise<Entity[]>;
   delete(entity: Entity): Promise<boolean>;
 }
