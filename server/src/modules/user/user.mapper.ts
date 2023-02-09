@@ -3,7 +3,7 @@ import { Mapper } from '@libs/ddd';
 import { UserEntity } from './domain/user.entity';
 import { UserResponseDto } from './dtos/user.response.dto';
 import { Injectable } from '@nestjs/common';
-import { UserModelEntity } from '@modules/user/database/user-model.entity';
+import { UserModel } from '@modules/user/database/user.model';
 
 /**
  * Mapper constructs objects that are used in different layers:
@@ -14,11 +14,11 @@ import { UserModelEntity } from '@modules/user/database/user-model.entity';
 
 @Injectable()
 export class UserMapper
-  implements Mapper<UserEntity, UserModelEntity, UserResponseDto>
+  implements Mapper<UserEntity, UserModel, UserResponseDto>
 {
-  toPersistence(entity: UserEntity): UserModelEntity {
+  toPersistence(entity: UserEntity): UserModel {
     const copy = entity.getPropsCopy();
-    const record: UserModelEntity = {
+    const record: UserModel = {
       id: copy.id,
       createdAt: copy.createdAt,
       updatedAt: copy.updatedAt,
@@ -30,7 +30,7 @@ export class UserMapper
     return record;
   }
 
-  toDomain(record: UserModelEntity): UserEntity {
+  toDomain(record: UserModel): UserEntity {
     const entity = new UserEntity({
       id: record.id,
       createdAt: new Date(record.createdAt),

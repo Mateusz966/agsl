@@ -2,9 +2,7 @@ import { EntityRepository, SqlEntityManager } from '@mikro-orm/postgresql';
 import { EntityName } from '@mikro-orm/core';
 import { EventEmitter2 } from '@nestjs/event-emitter';
 import { AggregateRoot, Mapper } from '@libs/ddd';
-
-import { UserEntity } from '@modules/user/domain/user.entity';
-import {UserModelEntity} from "@modules/user/database/user-model.entity";
+import { UserModel } from '@modules/user/database/user.model';
 
 export abstract class SqlRepositoryBase<
   T extends object,
@@ -21,9 +19,9 @@ export abstract class SqlRepositoryBase<
     this.eventEmitter = eventEmitter;
   }
 
-  //@ts-ignore
+  // @ts-ignore
   override async create(data: Aggregate): Promise<Aggregate | null> {
-    const res = this._em.create(UserModelEntity, data);
+    const res = this._em.create(UserModel, data);
 
     return this.mapper.toDomain(res);
   }

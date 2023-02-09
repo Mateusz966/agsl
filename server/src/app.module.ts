@@ -8,13 +8,7 @@ import { MikroOrmModule } from '@mikro-orm/nestjs';
 
 @Module({
   imports: [
-    MikroOrmModule.forRoot({
-      autoLoadEntities: true,
-      dbName: 'postgres',
-      user: 'postgres',
-      password: 'postgres',
-      type: 'postgresql',
-    }),
+    MikroOrmModule.forRoot(),
     EventEmitterModule.forRoot(),
     UserModule,
     CqrsModule,

@@ -7,10 +7,11 @@ import { AggregateID } from '@libs/ddd';
 import { UserEntity } from '@modules/user/domain/user.entity';
 
 import { ConflictException } from '@libs/exceptions/exception.codes';
+import { UserModelRepository } from '@modules/user/database/user-model.repository';
 
 @CommandHandler(CreateUserCommand)
 export class CreateUserService implements ICommandHandler {
-  constructor(private readonly userRepo: UserRepositoryPort) {}
+  constructor(private readonly userRepo: UserModelRepository) {}
 
   async execute(command: CreateUserCommand): Promise<AggregateID> {
     const user = UserEntity.create({

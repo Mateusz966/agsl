@@ -1,6 +1,6 @@
 import { UserRepositoryPort } from './user.repository.port';
 import { SqlRepositoryBase } from '@src/libs/db/sql-repository.base';
-import { UserModelEntity } from '@modules/user/database/user-model.entity';
+import { UserModel } from '@modules/user/database/user.model';
 
 import { UserMapper } from '@modules/user/user.mapper';
 import { EventEmitter2 } from '@nestjs/event-emitter';
@@ -11,7 +11,7 @@ import { UserEntity } from '@modules/user/domain/user.entity';
  * */
 
 export class UserModelRepository
-  extends SqlRepositoryBase<UserModelEntity, UserEntity>
+  extends SqlRepositoryBase<UserModel, UserEntity>
   implements UserRepositoryPort
 {
   constructor(
@@ -23,7 +23,7 @@ export class UserModelRepository
     super(_em, entityName, mapper, eventEmitter);
   }
   async findOneByEmail(email: string): Promise<UserEntity | null> {
-    const res = await this._em.findOne(UserModelEntity, { email });
+    const res = await this._em.findOne(UserModel, { email });
     return this.mapper.toDomain(res);
   }
 
@@ -32,7 +32,7 @@ export class UserModelRepository
   }
 
   async findOneById(id: string): Promise<UserEntity> {
-    const res = await this.em.findOne(UserModelEntity, { id });
+    const res = await this.em.findOne(UserModel, { id });
     return this.mapper.toDomain(res);
   }
 }
