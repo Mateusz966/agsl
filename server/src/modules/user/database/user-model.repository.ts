@@ -26,10 +26,11 @@ export class UserModelRepository
       userRepository.queryRunner,
     );
   }
-  async findOneByEmail(email: string): Promise<UserModel | null> {
+  //@ts-ignore
+  async findOneByEmail(email: string): Promise<UserEntity | null> {
     const res = await this.userRepository.findOne({ where: { email } });
 
-    return res;
+    return this.mapper.toDomain(res);
   }
 
   //@ts-ignore
