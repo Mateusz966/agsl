@@ -1,24 +1,24 @@
 import { Module } from '@nestjs/common';
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
-import { KnexModule } from 'nestjs-knex';
+import { EventEmitterModule } from '@nestjs/event-emitter';
+import { CqrsModule } from '@nestjs/cqrs';
+import { UserModule } from '@modules/user/user.module';
+import { TypeOrmModule } from '@nestjs/typeorm';
+import { UserModel } from '@modules/user/database/user.model';
+
+import { databaseConfig } from '@config/database.config';
 
 @Module({
   imports: [
-    KnexModule.forRoot({
-      config: {
-        migrations: {
-          tableName: 'knex_migrations',
-        },
-        client: 'pg',
-        connection: {
-          database: 'postgres',
-          user: 'postgres',
-          password: 'postgres',
-          port: 5666,
-        },
-      },
+    TypeOrmModule.forRoot({
+      ...databaseConfig,
+      synchronize: true,
+      entities: [UserModel],
     }),
+    EventEmitterModule.forRoot(),
+    UserModule,
+    CqrsModule,
   ],
   controllers: [AppController],
   providers: [AppService],
