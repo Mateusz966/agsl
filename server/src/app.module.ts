@@ -4,11 +4,18 @@ import { AppService } from './app.service';
 import { EventEmitterModule } from '@nestjs/event-emitter';
 import { CqrsModule } from '@nestjs/cqrs';
 import { UserModule } from '@modules/user/user.module';
-import { MikroOrmModule } from '@mikro-orm/nestjs';
+import { TypeOrmModule } from '@nestjs/typeorm';
+import { UserModel } from '@modules/user/database/user.model';
+
+import { databaseConfig } from '@config/database.config';
 
 @Module({
   imports: [
-    MikroOrmModule.forRoot(),
+    TypeOrmModule.forRoot({
+      ...databaseConfig,
+      synchronize: true,
+      entities: [UserModel],
+    }),
     EventEmitterModule.forRoot(),
     UserModule,
     CqrsModule,

@@ -5,6 +5,8 @@
     in a respective repository.
 */
 
+import {DeleteResult} from "typeorm";
+
 export class Paginated<T> {
   readonly count: number;
   readonly limit: number;
@@ -31,5 +33,5 @@ export type PaginatedQueryParams = {
 export interface RepositoryPort<Entity> {
   create(entity: Entity): Promise<Entity>;
   findOneById(id: string): Promise<Entity>;
-  delete(entity: Entity): Promise<boolean>;
+  delete(entity: Entity): Promise<DeleteResult>;
 }

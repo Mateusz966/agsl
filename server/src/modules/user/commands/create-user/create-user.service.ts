@@ -1,4 +1,3 @@
-import { UserRepositoryPort } from '@modules/user/database/user.repository.port';
 import { CommandHandler, ICommandHandler } from '@nestjs/cqrs';
 
 import { CreateUserCommand } from './create-user.command';
@@ -8,6 +7,7 @@ import { UserEntity } from '@modules/user/domain/user.entity';
 
 import { ConflictException } from '@libs/exceptions/exception.codes';
 import { UserModelRepository } from '@modules/user/database/user-model.repository';
+import * as bcrypt from 'bcrypt';
 
 @CommandHandler(CreateUserCommand)
 export class CreateUserService implements ICommandHandler {
@@ -16,7 +16,7 @@ export class CreateUserService implements ICommandHandler {
   async execute(command: CreateUserCommand): Promise<AggregateID> {
     const user = UserEntity.create({
       nick: command.nick,
-      password: command.password,
+      password: await this.hashPwd(command.password),
       email: command.email,
     });
 
@@ -29,5 +29,9 @@ export class CreateUserService implements ICommandHandler {
       }
       throw error;
     }
+  }
+
+  private async hashPwd(pwd: string) {
+    return await bcrypt.hash(pwd, 10);
   }
 }

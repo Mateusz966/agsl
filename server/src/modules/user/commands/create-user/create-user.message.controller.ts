@@ -14,7 +14,6 @@ export class CreateUserMessageController {
     const command = new CreateUserCommand(message);
 
     const id = await this.commandBus.execute(command);
-    console.log('id', id);
     return new IdResponse(id.unwrap());
   }
 }

@@ -1,27 +1,15 @@
-import { Entity, EntityRepositoryType, Enum, Property } from '@mikro-orm/core';
 import { ModelBase } from '@libs/db/model.base';
 import { UserRoles } from '@modules/user/domain/user.types';
-import { UserModelRepository } from '@modules/user/database/user-model.repository';
+import { Column, Entity } from 'typeorm';
 
-@Entity({ customRepository: () => UserModelRepository, tableName: 'user' })
+@Entity({ name: 'user' })
 export class UserModel extends ModelBase {
-  [EntityRepositoryType]?: UserModelRepository;
-
-  @Property({ nullable: true })
+  @Column({ nullable: true })
   nick: string | undefined;
-  @Property({ unique: true })
+  @Column({ unique: true })
   email: string;
-  @Property()
+  @Column()
   password: string;
-  @Enum()
+  @Column()
   role: UserRoles;
-
-  constructor({ role, id, email, password, nick }: UserModel) {
-    super();
-    this.id = id;
-    this.role = role;
-    this.email = email;
-    this.nick = nick;
-    this.password = password;
-  }
 }

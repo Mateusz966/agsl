@@ -1,7 +1,7 @@
 import { UserRepositoryPort } from './user.repository.port';
-import { SqlRepositoryBase } from '@src/libs/db/sql-repository.base';
 import { UserModel } from '@modules/user/database/user.model';
-
+import { Repository } from 'typeorm';
+import { InjectRepository } from '@nestjs/typeorm';
 import { UserMapper } from '@modules/user/user.mapper';
 import { EventEmitter2 } from '@nestjs/event-emitter';
 import { UserEntity } from '@modules/user/domain/user.entity';
@@ -11,28 +11,40 @@ import { UserEntity } from '@modules/user/domain/user.entity';
  * */
 
 export class UserModelRepository
-  extends SqlRepositoryBase<UserModel, UserEntity>
+  extends Repository<UserModel>
   implements UserRepositoryPort
 {
   constructor(
-    _em,
-    entityName,
-    mapper: UserMapper,
-    eventEmitter: EventEmitter2,
+    @InjectRepository(UserModel)
+    private userRepository: Repository<UserModel>,
+    private mapper: UserMapper,
+    private eventEmitter: EventEmitter2,
   ) {
-    super(_em, entityName, mapper, eventEmitter);
+    super(
+      userRepository.target,
+      userRepository.manager,
+      userRepository.queryRunner,
+    );
   }
-  async findOneByEmail(email: string): Promise<UserEntity | null> {
-    const res = await this._em.findOne(UserModel, { email });
+  async findOneByEmail(email: string): Promise<UserModel | null> {
+    const res = await this.userRepository.findOne({ where: { email } });
+
+    return res;
+  }
+
+  //@ts-ignore
+  async create(user: UserEntity) {
+    const res = await this.userRepository.save(this.mapper.toPersistence(user));
+
     return this.mapper.toDomain(res);
   }
 
-  async delete(entity: UserEntity): Promise<boolean> {
-    return Promise.resolve(false);
-  }
-
-  async findOneById(id: string): Promise<UserEntity> {
-    const res = await this.em.findOne(UserModel, { id });
-    return this.mapper.toDomain(res);
-  }
+  // async delete(entity: UserEntity): Promise<boolean> {
+  //   return Promise.resolve(false);
+  // }
+  //
+  // async findOneById(id: string): Promise<UserEntity> {
+  //   const res = await this.em.findOne(UserModel, { id });
+  //   return this.mapper.toDomain(res);
+  // }
 }

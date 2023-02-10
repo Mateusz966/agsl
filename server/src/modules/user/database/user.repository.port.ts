@@ -1,6 +1,6 @@
-import { UserEntity } from '../domain/user.entity';
 import { RepositoryPort } from '@libs/ddd/repository.port';
+import { UserModel } from '@modules/user/database/user.model';
 
-export interface UserRepositoryPort extends RepositoryPort<UserEntity> {
-  findOneByEmail(email: string): Promise<UserEntity | null>;
+export interface UserRepositoryPort extends RepositoryPort<UserModel> {
+  findOneByEmail(email: string): Promise<UserModel | null>;
 }
