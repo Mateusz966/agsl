@@ -5,6 +5,7 @@ import { InjectRepository } from '@nestjs/typeorm';
 import { UserMapper } from '@modules/user/user.mapper';
 import { EventEmitter2 } from '@nestjs/event-emitter';
 import { UserEntity } from '@modules/user/domain/user.entity';
+import { NotFoundException } from '@libs/exceptions/exception.codes';
 
 /**
  *  Repository is used for retrieving/saving domain entities
@@ -27,8 +28,12 @@ export class UserModelRepository
     );
   }
   //@ts-ignore
-  async findOneByEmail(email: string): Promise<UserEntity | null> {
+  async findOneByEmail(email: string): Promise<UserEntity> {
     const res = await this.userRepository.findOne({ where: { email } });
+
+    if (!res) {
+      throw new NotFoundException('user not found');
+    }
 
     return this.mapper.toDomain(res);
   }

@@ -8,9 +8,11 @@ import { TypeOrmModule } from '@nestjs/typeorm';
 import { UserModel } from '@modules/user/database/user.model';
 
 import { databaseConfig } from '@config/database.config';
+import { AuthModule } from '@modules/auth/auth.module';
 
 @Module({
   imports: [
+    CqrsModule,
     TypeOrmModule.forRoot({
       ...databaseConfig,
       synchronize: true,
@@ -18,7 +20,7 @@ import { databaseConfig } from '@config/database.config';
     }),
     EventEmitterModule.forRoot(),
     UserModule,
-    CqrsModule,
+    AuthModule,
   ],
   controllers: [AppController],
   providers: [AppService],

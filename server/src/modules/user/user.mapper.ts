@@ -47,9 +47,7 @@ export class UserMapper
 
   toResponse(entity: UserEntity): UserResponseDto {
     const props = entity.getPropsCopy();
-    const response = new UserResponseDto(entity);
-    response.email = props.email;
-    return response;
+    return new UserResponseDto(props);
   }
 
   /* ^ Data returned to the user is whitelisted to avoid leaks.

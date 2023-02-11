@@ -21,11 +21,11 @@ export abstract class AggregateRoot<EntityProps> extends Entity<EntityProps> {
   }
 
   public async publishEvents(eventEmitter: EventEmitter2): Promise<void> {
-    console.log('eventEmitter', eventEmitter);
+
     this.logger.log('test log');
     await Promise.all(
       this.domainEvents.map(async (event) => {
-        console.log('event', event);
+
         this.logger.log(
           `${event.constructor.name} event published for aggregate ${this.constructor.name} : ${this.id}`,
         );
