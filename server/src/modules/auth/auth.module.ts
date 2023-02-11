@@ -6,7 +6,8 @@ import { AuthMapper } from '@modules/auth/auth.mapper';
 import { LocalStrategy } from '@modules/auth/local.strategy';
 import { JwtModule } from '@nestjs/jwt';
 import { PassportModule } from '@nestjs/passport';
-import {JwtStrategy} from "@modules/auth/jwt.strategy";
+import { JwtStrategy } from '@modules/auth/jwt.strategy';
+import { jwtExpirationTime, jwtSecret } from '@config/jwtSecrets';
 
 const httpControllers = [AuthController];
 @Module({
@@ -14,8 +15,8 @@ const httpControllers = [AuthController];
     CqrsModule,
     PassportModule,
     JwtModule.register({
-      secret: 'test',
-      signOptions: { expiresIn: '60s' },
+      secret: jwtSecret,
+      signOptions: { expiresIn: jwtExpirationTime },
     }),
   ],
   controllers: [...httpControllers],
