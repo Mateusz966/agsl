@@ -3,7 +3,6 @@ import { UserModel } from '@modules/user/database/user.model';
 import { Repository } from 'typeorm';
 import { InjectRepository } from '@nestjs/typeorm';
 import { UserMapper } from '@modules/user/user.mapper';
-import { EventEmitter2 } from '@nestjs/event-emitter';
 import { UserEntity } from '@modules/user/domain/user.entity';
 
 /**
@@ -18,7 +17,6 @@ export class UserModelRepository
     @InjectRepository(UserModel)
     private userRepository: Repository<UserModel>,
     private mapper: UserMapper,
-    private eventEmitter: EventEmitter2,
   ) {
     super(
       userRepository.target,
@@ -26,10 +24,9 @@ export class UserModelRepository
       userRepository.queryRunner,
     );
   }
-  async findOneByEmail(email: string): Promise<UserModel | null> {
-    const res = await this.userRepository.findOne({ where: { email } });
 
-    return res;
+  async findOneByEmail(email: string): Promise<UserModel | null> {
+    return await this.userRepository.findOne({ where: { email } });
   }
 
   //@ts-ignore

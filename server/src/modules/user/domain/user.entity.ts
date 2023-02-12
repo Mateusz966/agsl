@@ -61,6 +61,13 @@ export class UserEntity extends AggregateRoot<UserProps> {
     );
   }
 
+  get authData() {
+    return {
+      password: this.props.password,
+      email: this.props.email,
+    };
+  }
+
   /* Update method only changes properties that we allow, in this
    case only address. This prevents from illegal actions,
    for example setting email from outside by doing something
