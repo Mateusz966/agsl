@@ -1,21 +1,31 @@
 import React from 'react';
-import {useController, UseControllerProps} from 'react-hook-form';
+import {useController} from 'react-hook-form';
 
 import TextInput from '../../atoms/TextInput';
+import {ControlledTextInputProps} from './types';
 
-const ControlledTextInput = ({control, name, ...props}: UseControllerProps) => {
+const ControlledTextInput = ({
+  isPassword = false,
+  rules,
+  control,
+  name,
+  ...props
+}: ControlledTextInputProps) => {
   const {
     field: {onChange, onBlur, value},
   } = useController({
     name,
     control,
     defaultValue: '',
+    rules,
   });
   return (
     <TextInput
       name={name}
+      secureTextEntry={isPassword}
+      rules={rules}
       control={control}
-      onChange={onChange}
+      onChangeText={onChange}
       onBlur={onBlur}
       value={value}
       label={name}

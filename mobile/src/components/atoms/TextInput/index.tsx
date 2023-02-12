@@ -1,4 +1,4 @@
-import React, {memo} from 'react';
+import React from 'react';
 import {View} from 'react-native';
 import {TextInput as Input} from 'react-native-paper';
 import {theme} from '../../../utils/theme';
