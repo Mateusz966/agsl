@@ -18,7 +18,7 @@ const Home: NextPage = () => {
           Test to <a href="https://nextjs.org">Next.js!</a>
         </h1>
 
-        <Link href="/login">
+        <Link href="/auth/sign-up">
           idź na login
         </Link>
 
