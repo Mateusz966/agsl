@@ -19,6 +19,13 @@ export class ResponseBase extends IdResponse {
     this.updatedAt = new Date(props.updatedAt).toISOString();
   }
 
+    @ApiProperty({
+    example: 'joh-doe@gmail.com',
+    description: "User's email address",
+  })
+  email: string;
+
+
   @ApiProperty({ example: '2020-11-24T17:43:15.970Z' })
   readonly createdAt: string;
 

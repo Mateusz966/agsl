@@ -10,6 +10,10 @@ export class UserModel extends ModelBase {
   email: string;
   @Column()
   password: string;
-  @Column()
+  @Column({
+    type: 'enum',
+    enum: UserRoles,
+    default: UserRoles.user,
+  })
   role: UserRoles;
 }
