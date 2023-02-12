@@ -1,36 +1,24 @@
-import * as React from 'react';
-import {SafeAreaView, StyleSheet} from 'react-native';
+import React from 'react';
 import {SegmentedButtons} from 'react-native-paper';
+import {TabProps} from './types';
 
-const Tabs = () => {
-  const [value, setValue] = React.useState('');
-
+const Tabs = ({value, setValue}: TabProps) => {
   return (
-    <SafeAreaView style={styles.container}>
-      <SegmentedButtons
-        value={value}
-        onValueChange={setValue}
-        buttons={[
-          {
-            value: 'walk',
-            label: 'Walking',
-          },
-          {
-            value: 'train',
-            label: 'Transit',
-          },
-          {value: 'drive', label: 'Driving'},
-        ]}
-      />
-    </SafeAreaView>
+    <SegmentedButtons
+      value={value}
+      onValueChange={setValue}
+      buttons={[
+        {
+          value: 'login',
+          label: 'Sign in',
+        },
+        {
+          value: 'register',
+          label: 'Sign up',
+        },
+      ]}
+    />
   );
 };
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    alignItems: 'center',
-  },
-});
 
 export default Tabs;

@@ -1,3 +1,4 @@
-import {SegmentedButtons} from 'react-native-paper';
-
-export type TabProps = React.ComponentProps<typeof SegmentedButtons>;
+export interface TabProps {
+  value: string;
+  setValue: React.Dispatch<React.SetStateAction<string>>;
+}
