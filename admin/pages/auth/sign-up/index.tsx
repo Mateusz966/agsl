@@ -35,6 +35,7 @@ export default function Login() {
           fill
           src="/login-photo.avif"
           alt="login photo"
+          style={{ objectFit: "cover" }}
         />
       </Flex>
       <Flex w="50%">
