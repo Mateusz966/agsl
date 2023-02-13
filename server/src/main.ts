@@ -13,12 +13,19 @@ async function bootstrap() {
     new FastifyAdapter({
       logger: true,
     }),
+    {
+      cors: {
+        origin: 'http://localhost:3001',
+        credentials: true,
+      },
+    },
   );
   app.useGlobalPipes(new ValidationPipe({ transform: true, whitelist: true }));
   const options = new DocumentBuilder().build();
 
   const document = SwaggerModule.createDocument(app, options);
   SwaggerModule.setup('docs', app, document);
+
   await app.listen(3000, '0.0.0.0');
 }
 bootstrap();

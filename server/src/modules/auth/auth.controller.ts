@@ -23,7 +23,7 @@ import { LocalAuthGuard } from '@modules/auth/local-auth.guard';
 export class AuthController {
   constructor(private readonly authService: AuthService) {}
 
-  @ApiOperation({ summary: 'Sign up a user' })
+  @ApiOperation({ summary: 'Sign in a user from mobile app' })
   @ApiResponse({
     status: HttpStatus.OK,
     type: IdResponse,
@@ -52,6 +52,20 @@ export class AuthController {
     }
   }
 
+  @ApiOperation({ summary: 'Sign in a user from dashboard app' })
+  @ApiResponse({
+    status: HttpStatus.OK,
+    type: IdResponse,
+  })
+  @ApiResponse({
+    status: HttpStatus.CONFLICT,
+    description: UserAlreadyExistsError.message,
+    type: ApiErrorResponse,
+  })
+  @ApiResponse({
+    status: HttpStatus.BAD_REQUEST,
+    type: ApiErrorResponse,
+  })
   @Post(routesV1.auth.dashboard['sign-in'])
   @HttpCode(HttpStatus.OK)
   @UseGuards(LocalAuthGuard)

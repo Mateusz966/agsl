@@ -1,8 +1,7 @@
-
-const authRoot = '/auth'
+const authRoot = "/auth";
 export const appRoutes = {
   auth: {
     root: authRoot,
-    ['sign-up']: `${authRoot}/sign-up`
-  }
-}
+    ["sign-in"]: `${authRoot}/dashboard/sign-in`,
+  },
+};
