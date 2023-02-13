@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {memo} from 'react';
 import {View} from 'react-native';
 import {TextInput as Input} from 'react-native-paper';
 import {theme} from '../../../utils/theme';
@@ -10,11 +10,11 @@ const TextInput = ({...props}: TextInputProps) => (
     <Input
       style={styles.input}
       selectionColor={theme.colors.primary}
-      underlineColor="transparent"
-      mode="outlined"
+      underlineColor={theme.colors.primary}
+      mode="flat"
       {...props}
     />
   </View>
 );
 
-export default TextInput;
+export default memo(TextInput);

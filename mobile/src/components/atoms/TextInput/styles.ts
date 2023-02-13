@@ -3,8 +3,8 @@ import {theme} from '../../../utils/theme';
 
 export const styles = StyleSheet.create({
   container: {
-    width: '100%',
-    marginVertical: 12,
+    marginVertical: 16,
+    marginHorizontal: 30,
   },
   input: {
     backgroundColor: theme.colors.surface,

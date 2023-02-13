@@ -1,17 +1,20 @@
-import React from 'react';
-import {View} from 'react-native';
+import React, {memo} from 'react';
+import {useWindowDimensions, View} from 'react-native';
 import Button from '../../atoms/Button';
 import {useForm} from 'react-hook-form';
 import ControlledTextInput from '../ControlledTextInput';
 import {regex} from '../const';
+import {styles} from '../styles';
 
 const LoginComponent = () => {
   const {handleSubmit, control} = useForm({mode: 'onChange'});
+  const layout = useWindowDimensions();
+
   const onSubmit = e => {
     return console.log(e);
   };
   return (
-    <View>
+    <View style={styles.container}>
       <ControlledTextInput
         control={control}
         rules={{pattern: regex, required: true}}
@@ -23,7 +26,11 @@ const LoginComponent = () => {
         isPassword
         name="password"
       />
-      <Button onPress={handleSubmit(onSubmit)}>Login in</Button>
+      <Button
+        style={[styles.button, {width: layout.width - 70}]}
+        onPress={handleSubmit(onSubmit)}>
+        Sign in
+      </Button>
     </View>
   );
 };

@@ -1,4 +1,4 @@
 export interface TabProps {
-  value: string;
-  setValue: React.Dispatch<React.SetStateAction<string>>;
+  index: number;
+  setIndex: React.Dispatch<React.SetStateAction<number>>;
 }

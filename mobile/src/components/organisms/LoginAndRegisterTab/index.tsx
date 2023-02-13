@@ -1,16 +1,10 @@
 import React, {useState} from 'react';
-import LoginComponent from '../../molecules/LoginComponent';
-import RegisterComponent from '../../molecules/RegisterComponent';
+import {View} from 'react-native';
 import Tabs from '../../molecules/Tabs';
 
 const LoginOrRegisterTab = () => {
-  const [value, setValue] = useState('login');
-  return (
-    <>
-      <Tabs value={value} setValue={setValue} />
-      {value === 'login' ? <LoginComponent /> : <RegisterComponent />}
-    </>
-  );
+  const [index, setIndex] = useState(0);
+  return <Tabs index={index} setIndex={setIndex} />;
 };
 
 export default LoginOrRegisterTab;
