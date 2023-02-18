@@ -13,6 +13,9 @@ import React from 'react';
 import {Provider} from 'react-native-paper';
 import Navigation from './navigators';
 import {theme} from './utils/theme';
+import {QueryClient, QueryClientProvider} from 'react-query';
+
+const queryClient = new QueryClient();
 
 const Content = () => {
   return (
@@ -24,9 +27,11 @@ const Content = () => {
 
 const App = () => {
   return (
-    <Provider theme={theme}>
-      <Content />
-    </Provider>
+    <QueryClientProvider client={queryClient}>
+      <Provider theme={theme}>
+        <Content />
+      </Provider>
+    </QueryClientProvider>
   );
 };
 export default App;

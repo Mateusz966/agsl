@@ -10,7 +10,7 @@ const ControlledTextInput = ({
   control,
   name,
   ...props
-}: ControlledTextInputProps) => {
+}: ControlledTextInputProps<T>) => {
   const {
     field: {onChange, onBlur, value},
   } = useController({
