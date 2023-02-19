@@ -1,5 +1,5 @@
 import React, {memo, useState} from 'react';
-import {useWindowDimensions, View} from 'react-native';
+import {useWindowDimensions} from 'react-native';
 import {SceneMap, TabBar, TabView} from 'react-native-tab-view';
 import LoginComponent from '../LoginComponent';
 import RegisterComponent from '../RegisterComponent';

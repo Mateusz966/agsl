@@ -1,56 +1,45 @@
 import React from 'react';
 import {useWindowDimensions, View} from 'react-native';
 import Button from '../../atoms/Button';
-import {useForm} from 'react-hook-form';
-import {zodResolver} from '@hookform/resolvers/zod';
 import ControlledTextInput from '../ControlledTextInput';
-import {regex} from '../const';
 import {styles} from '../styles';
-import client from '../../../api/client';
-import {UserRegister, userRegisterSchema} from './validation';
 import {ErrorMessage} from '../../atoms/ErrorMessage';
+import useRegister from './useRegister';
+import {Snackbar} from 'react-native-paper';
 
 const RegisterComponent = () => {
+  const {form, mutation, text, visible, setVisible} = useRegister();
+
   const {
-    handleSubmit,
     control,
-    getValues,
     formState: {errors},
-  } = useForm<UserRegister>({
-    resolver: zodResolver(userRegisterSchema),
-  });
-  const values = getValues();
+    getValues,
+    handleSubmit,
+  } = form;
   const onSubmit = () => {
-    console.log(values);
-    client
-      .post('/v1/users', {
-        nick: values.nick,
-        email: values.email,
-        password: values.password,
-      })
-      .then(function (response) {
-        console.log(response);
-      })
-      .catch(function (error) {
-        console.log(error);
-      });
+    mutation.mutate(getValues());
+    form.reset();
   };
 
   const layout = useWindowDimensions();
 
   return (
     <View style={styles.container}>
-      <ControlledTextInput control={control} name="nick" />
+      <ControlledTextInput
+        error={errors.nick?.message ? true : false}
+        control={control}
+        name="nick"
+      />
       <ErrorMessage error={errors.nick?.message} />
       <ControlledTextInput
+        error={errors.email?.message ? true : false}
         control={control}
-        rules={{pattern: regex, required: true}}
         name="email"
       />
       <ErrorMessage error={errors.email?.message} />
       <ControlledTextInput
+        error={errors.password?.message ? true : false}
         control={control}
-        rules={{required: true}}
         isPassword
         name="password"
       />
@@ -60,6 +49,20 @@ const RegisterComponent = () => {
         onPress={handleSubmit(onSubmit)}>
         Sign up
       </Button>
+      <Snackbar
+        visible={visible}
+        duration={3000}
+        onDismiss={() => {
+          setVisible(!visible);
+        }}
+        action={{
+          label: 'Undo',
+          onPress: () => {
+            setVisible(!visible);
+          },
+        }}>
+        {text}
+      </Snackbar>
     </View>
   );
 };

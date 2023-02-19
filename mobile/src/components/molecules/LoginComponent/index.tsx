@@ -1,36 +1,63 @@
-import React, {memo} from 'react';
+import React from 'react';
 import {useWindowDimensions, View} from 'react-native';
 import Button from '../../atoms/Button';
-import {useForm} from 'react-hook-form';
+import ErrorMessage from '../../atoms/ErrorMessage';
 import ControlledTextInput from '../ControlledTextInput';
-import {regex} from '../const';
 import {styles} from '../styles';
+import {useLogin} from './useLogin';
+import {Snackbar} from 'react-native-paper';
 
 const LoginComponent = () => {
-  const {handleSubmit, control} = useForm({mode: 'onChange'});
   const layout = useWindowDimensions();
+  const {form, mutation, text, visible, setVisible} = useLogin();
 
-  const onSubmit = e => {
-    return console.log(e);
+  const {
+    getValues,
+    handleSubmit,
+    control,
+    formState: {errors},
+  } = form;
+  const onSubmit = () => {
+    mutation.mutate(getValues());
+    form.reset();
   };
+
   return (
     <View style={styles.container}>
       <ControlledTextInput
+        error={errors.email?.message ? true : false}
         control={control}
-        rules={{pattern: regex, required: true}}
         name="email"
       />
+      <ErrorMessage error={errors.email?.message} />
+
       <ControlledTextInput
+        error={errors.password?.message ? true : false}
         control={control}
-        rules={{required: true}}
         isPassword
         name="password"
       />
+      <ErrorMessage error={errors.password?.message} />
+
       <Button
         style={[styles.button, {width: layout.width - 70}]}
         onPress={handleSubmit(onSubmit)}>
         Sign in
       </Button>
+      <Snackbar
+        duration={3000}
+        visible={visible}
+        onDismiss={() => {
+          setVisible(!visible);
+        }}
+        action={{
+          label: 'Undo',
+          onPress: () => {
+            setVisible(!visible);
+          },
+        }}>
+        {text}
+      </Snackbar>
     </View>
   );
 };

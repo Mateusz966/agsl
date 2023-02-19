@@ -6,9 +6,9 @@ import {ControlledTextInputProps} from './types';
 
 const ControlledTextInput = ({
   isPassword = false,
-  rules,
   control,
   name,
+  error,
   ...props
 }: ControlledTextInputProps<T>) => {
   const {
@@ -17,13 +17,12 @@ const ControlledTextInput = ({
     name,
     control,
     defaultValue: '',
-    rules,
   });
   return (
     <TextInput
       name={name}
+      error={error}
       secureTextEntry={isPassword}
-      rules={rules}
       control={control}
       onChangeText={onChange}
       onBlur={onBlur}
