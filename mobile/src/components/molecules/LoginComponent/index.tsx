@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useState} from 'react';
 import {useWindowDimensions, View} from 'react-native';
 import Button from '../../atoms/Button';
 import ErrorMessage from '../../atoms/ErrorMessage';
@@ -6,31 +6,44 @@ import ControlledTextInput from '../ControlledTextInput';
 import {styles} from '../styles';
 import {useLogin} from './useLogin';
 import {Snackbar} from 'react-native-paper';
+import {UserLogin} from './validation';
 
 const LoginComponent = () => {
   const layout = useWindowDimensions();
   const {form, mutation, text, visible, setVisible} = useLogin();
+  const [currentEmail, setCurrentEmail] = useState('');
+  const [currentPassword, setCurrentPassword] = useState('');
 
+  const watchAllFields = form.watch();
+
+  const isInputChanged =
+    currentEmail !== watchAllFields.email ||
+    currentPassword !== watchAllFields.password;
   const {
-    getValues,
     handleSubmit,
     control,
     formState: {errors},
   } = form;
-  const onSubmit = () => {
-    mutation.mutate(getValues());
-    form.reset();
+  const onSubmit = (payload: UserLogin) => {
+    mutation.mutate(payload);
+    setCurrentEmail(payload.email);
+    setCurrentPassword(payload.password);
+    if (mutation.isSuccess) {
+      form.reset();
+    }
   };
 
   return (
     <View style={styles.container}>
+      {mutation.isError && !isInputChanged && (
+        <ErrorMessage error={'Invalid email or password'} />
+      )}
       <ControlledTextInput
         error={errors.email?.message ? true : false}
         control={control}
         name="email"
       />
       <ErrorMessage error={errors.email?.message} />
-
       <ControlledTextInput
         error={errors.password?.message ? true : false}
         control={control}
@@ -38,7 +51,6 @@ const LoginComponent = () => {
         name="password"
       />
       <ErrorMessage error={errors.password?.message} />
-
       <Button
         style={[styles.button, {width: layout.width - 70}]}
         onPress={handleSubmit(onSubmit)}>

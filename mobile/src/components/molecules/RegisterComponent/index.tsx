@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useState} from 'react';
 import {useWindowDimensions, View} from 'react-native';
 import Button from '../../atoms/Button';
 import ControlledTextInput from '../ControlledTextInput';
@@ -6,25 +6,43 @@ import {styles} from '../styles';
 import {ErrorMessage} from '../../atoms/ErrorMessage';
 import useRegister from './useRegister';
 import {Snackbar} from 'react-native-paper';
+import {UserRegister} from './validation';
 
 const RegisterComponent = () => {
   const {form, mutation, text, visible, setVisible} = useRegister();
 
+  const watchAllFields = form.watch();
+  const [currentNick, setCurrentNick] = useState('');
+  const [currentEmail, setCurrentEmail] = useState('');
+  const [currentPassword, setCurrentPassword] = useState('');
+
+  const isInputChanged =
+    currentEmail !== watchAllFields.email ||
+    currentPassword !== watchAllFields.password ||
+    currentNick !== watchAllFields.nick;
+
   const {
     control,
     formState: {errors},
-    getValues,
     handleSubmit,
   } = form;
-  const onSubmit = () => {
-    mutation.mutate(getValues());
-    form.reset();
+  const onSubmit = (payload: UserRegister) => {
+    mutation.mutate(payload);
+    setCurrentEmail(payload.email);
+    setCurrentPassword(payload.password);
+    setCurrentNick(payload.nick);
+    if (mutation.isSuccess) {
+      form.reset();
+    }
   };
 
   const layout = useWindowDimensions();
 
   return (
     <View style={styles.container}>
+      {mutation.isError && isInputChanged && (
+        <ErrorMessage error={'User already exist'} />
+      )}
       <ControlledTextInput
         error={errors.nick?.message ? true : false}
         control={control}

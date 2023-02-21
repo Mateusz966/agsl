@@ -5,6 +5,7 @@ import {RegisterRequest} from '../../../api/types';
 import {UserRegister, userRegisterSchema} from './validation';
 import {zodResolver} from '@hookform/resolvers/zod';
 import {useState} from 'react';
+import {ERROR_MESSAGES} from '../../../utils/errorDictionary';
 
 const useRegister = () => {
   const form = useForm<UserRegister>({
@@ -23,7 +24,7 @@ const useRegister = () => {
     },
     onError: error => {
       setVisible(true);
-      setText(`${error}: error message`);
+      setText(`${ERROR_MESSAGES[`${error}`]}`);
     },
   });
 

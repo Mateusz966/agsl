@@ -5,6 +5,7 @@ import {SignInRequest, SignInResponse} from '../../../api/types';
 import {UserLogin, userLoginSchema} from './validation';
 import {zodResolver} from '@hookform/resolvers/zod';
 import {useState} from 'react';
+import {ERROR_MESSAGES} from '../../../utils/errorDictionary';
 
 export const useLogin = () => {
   const [visible, setVisible] = useState(false);
@@ -19,11 +20,11 @@ export const useLogin = () => {
     },
     onSuccess: () => {
       setVisible(true);
-      setText("You're registered");
+      setText("You're logged in");
     },
     onError: error => {
       setVisible(true);
-      setText(`${error}: error message`);
+      setText(`${ERROR_MESSAGES[`${error}`]}`);
     },
   });
 
