@@ -1,20 +1,16 @@
 import axios from 'axios';
+import {AXIOS_CONFIGURATION} from './const';
 import {RegisterRequest, SignInRequest, SignInResponse} from './types';
-const baseUrl = 'http://10.0.2.2:3000/v1';
 
-export const authApi = axios.create({
-  baseURL: baseUrl,
-  timeout: 10000,
-  withCredentials: true,
-});
+const httpClient = axios.create(AXIOS_CONFIGURATION);
 
 export const signUpUser = async (user: RegisterRequest) => {
-  const response = await authApi.post('/users', user);
+  const response = await httpClient.post('/users', user);
   return response.data;
 };
 
 export const loginUser = async (user: SignInRequest) => {
-  const response = await authApi.post<SignInResponse>(
+  const response = await httpClient.post<SignInResponse>(
     '/auth/mobile/sign-in',
     user,
   );

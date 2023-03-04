@@ -7,7 +7,7 @@ export const styles = StyleSheet.create({
   },
 
   error: {
-    fontSize: 14,
+    ...theme.typography.small,
     color: theme.colors.error,
   },
 });

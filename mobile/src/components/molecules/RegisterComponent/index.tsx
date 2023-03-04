@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React from 'react';
 import {useWindowDimensions, View} from 'react-native';
 import Button from '../../atoms/Button';
 import ControlledTextInput from '../ControlledTextInput';
@@ -11,16 +11,6 @@ import {UserRegister} from './validation';
 const RegisterComponent = () => {
   const {form, mutation, text, visible, setVisible} = useRegister();
 
-  const watchAllFields = form.watch();
-  const [currentNick, setCurrentNick] = useState('');
-  const [currentEmail, setCurrentEmail] = useState('');
-  const [currentPassword, setCurrentPassword] = useState('');
-
-  const isInputChanged =
-    currentEmail !== watchAllFields.email ||
-    currentPassword !== watchAllFields.password ||
-    currentNick !== watchAllFields.nick;
-
   const {
     control,
     formState: {errors},
@@ -28,19 +18,13 @@ const RegisterComponent = () => {
   } = form;
   const onSubmit = (payload: UserRegister) => {
     mutation.mutate(payload);
-    setCurrentEmail(payload.email);
-    setCurrentPassword(payload.password);
-    setCurrentNick(payload.nick);
-    if (mutation.isSuccess) {
-      form.reset();
-    }
   };
 
   const layout = useWindowDimensions();
 
   return (
     <View style={styles.container}>
-      {mutation.isError && isInputChanged && (
+      {mutation.isError && form.formState.isDirty && (
         <ErrorMessage error={'User already exist'} />
       )}
       <ControlledTextInput

@@ -12,6 +12,7 @@ export const useLogin = () => {
   const [text, setText] = useState('');
   const form = useForm<UserLogin>({
     resolver: zodResolver(userLoginSchema),
+    mode: 'onChange',
   });
 
   const mutation = useMutation<SignInResponse, void, SignInRequest>({
@@ -21,6 +22,7 @@ export const useLogin = () => {
     onSuccess: () => {
       setVisible(true);
       setText("You're logged in");
+      form.reset();
     },
     onError: error => {
       setVisible(true);

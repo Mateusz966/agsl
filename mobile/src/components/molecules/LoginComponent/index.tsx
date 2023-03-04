@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React from 'react';
 import {useWindowDimensions, View} from 'react-native';
 import Button from '../../atoms/Button';
 import ErrorMessage from '../../atoms/ErrorMessage';
@@ -11,14 +11,7 @@ import {UserLogin} from './validation';
 const LoginComponent = () => {
   const layout = useWindowDimensions();
   const {form, mutation, text, visible, setVisible} = useLogin();
-  const [currentEmail, setCurrentEmail] = useState('');
-  const [currentPassword, setCurrentPassword] = useState('');
 
-  const watchAllFields = form.watch();
-
-  const isInputChanged =
-    currentEmail !== watchAllFields.email ||
-    currentPassword !== watchAllFields.password;
   const {
     handleSubmit,
     control,
@@ -26,18 +19,10 @@ const LoginComponent = () => {
   } = form;
   const onSubmit = (payload: UserLogin) => {
     mutation.mutate(payload);
-    setCurrentEmail(payload.email);
-    setCurrentPassword(payload.password);
-    if (mutation.isSuccess) {
-      form.reset();
-    }
   };
 
   return (
     <View style={styles.container}>
-      {mutation.isError && !isInputChanged && (
-        <ErrorMessage error={'Invalid email or password'} />
-      )}
       <ControlledTextInput
         error={errors.email?.message ? true : false}
         control={control}

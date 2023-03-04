@@ -8,4 +8,16 @@ export const theme = {
     secondary: '#414757',
     error: '#f13a59',
   },
+  typography: {
+    small: {
+      fontFamily: 'roboto',
+      fontSize: 14,
+      lineHeight: 16,
+    },
+    medium: {
+      fontFamily: 'roboto',
+      fontSize: 20,
+      lineHeight: 22,
+    },
+  },
 };

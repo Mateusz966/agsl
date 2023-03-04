@@ -1,4 +1,5 @@
 import {StyleSheet} from 'react-native';
+import {theme} from '../../../utils/theme';
 
 export const styles = StyleSheet.create({
   button: {
@@ -6,9 +7,7 @@ export const styles = StyleSheet.create({
     backgroundColor: '#6152BE',
   },
   text: {
-    fontFamily: 'roboto',
-    fontSize: 20,
+    ...theme.typography.medium,
     textAlign: 'center',
-    lineHeight: 22,
   },
 });

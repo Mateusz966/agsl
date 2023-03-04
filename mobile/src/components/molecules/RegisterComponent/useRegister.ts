@@ -21,6 +21,7 @@ const useRegister = () => {
     onSuccess: () => {
       setVisible(true);
       setText("You're registered");
+      form.reset();
     },
     onError: error => {
       setVisible(true);
