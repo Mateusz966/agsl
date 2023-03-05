@@ -1,0 +1,14 @@
+version: '3.9'
+services:
+  admin:
+    container_name: agsl-app-admin
+    build:
+      context: ./
+      target: runner
+    volumes:
+      - .:/app
+    command: npm run dev
+    ports:
+      - "3001:3000"
+    environment:
+      NODE_ENV: development
