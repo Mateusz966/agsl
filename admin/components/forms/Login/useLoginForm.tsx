@@ -1,9 +1,8 @@
 import { useForm, zodResolver } from "@mantine/form";
 import { loginSchema } from "../../../schemas/login";
 import { useMutation } from "@tanstack/react-query";
-import { LoginAPI } from "../../../api/login";
 import { SignInRequest, SignInResponse } from "../../../api/login/types";
-import { AxiosResponse } from "axios";
+import {signIn} from "next-auth/react";
 
 export const useLoginForm = () => {
   const form = useForm({
@@ -17,8 +16,8 @@ export const useLoginForm = () => {
   });
 
   const mutation = useMutation<SignInResponse, void, SignInRequest>({
-    mutationFn: (payload) => {
-      return LoginAPI.signIn(payload);
+    mutationFn: ({email, password}) => {
+      return signIn('credentials', { email, password, redirect: false  }) as any
     },
   });
 

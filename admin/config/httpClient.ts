@@ -1,6 +1,6 @@
 import axios from "axios";
 
-const apiUrl = 'http://localhost:3000/v1'
+const apiUrl = 'http://host.docker.internal:3002'
 
 export const httpClient = axios.create({
   baseURL: apiUrl,
