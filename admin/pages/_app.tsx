@@ -5,6 +5,7 @@ import { theme } from "../config/theme";
 import { useState } from "react";
 import { QueryClient } from "@tanstack/query-core";
 import { Hydrate, QueryClientProvider } from "@tanstack/react-query";
+import {SessionProvider} from "next-auth/react";
 
 export default function App(props: AppProps) {
   const { Component, pageProps } = props;
@@ -19,6 +20,7 @@ export default function App(props: AppProps) {
           content="minimum-scale=1, initial-scale=1, width=device-width"
         />
       </Head>
+      <SessionProvider session={pageProps.session}>
       <QueryClientProvider client={queryClient}>
         <Hydrate state={pageProps.dehydratedState}>
           <MantineProvider
@@ -34,6 +36,7 @@ export default function App(props: AppProps) {
           </MantineProvider>
         </Hydrate>
       </QueryClientProvider>
+        </SessionProvider>
     </>
   );
 }

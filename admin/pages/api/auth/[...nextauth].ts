@@ -14,7 +14,7 @@ const authOptions: NextAuthOptions = {
       async authorize(credentials, req) {
         const { email, password } = credentials as { email: string; password: string; } ;
         const res = await httpClient.post(`/v1/auth/dashboard/sign-in`, { email, password })
-        console.log('resss', res);
+
         if (res.status === 200) {
           return res.data
         } else {
