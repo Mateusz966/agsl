@@ -1,12 +1,11 @@
 import React, {useCallback} from 'react';
-import {View} from 'react-native';
 import Button from '../../molecules/Button';
 import ErrorMessage from '../../atoms/ErrorMessage';
 import ControlledTextInput from '../../molecules/ControlledTextInput';
-import {styles} from './styles';
 import {useLogin} from './useLogin';
 import {UserLogin} from './validation';
 import SnackbarMessage from '../../atoms/SnackbarMessage';
+import {Layout} from '../../atoms/Layout';
 
 const LoginComponent = () => {
   const {form, mutation, text, visible, setVisible} = useLogin();
@@ -26,7 +25,7 @@ const LoginComponent = () => {
   );
 
   return (
-    <View style={styles.container}>
+    <Layout>
       <ControlledTextInput
         error={errors.email?.message}
         control={control}
@@ -46,7 +45,7 @@ const LoginComponent = () => {
         text={text}
         onDismiss={handleOnDissmiss}
       />
-    </View>
+    </Layout>
   );
 };
 

@@ -21,7 +21,7 @@ const ControlledTextInput = ({
   return (
     <TextInput
       name={name}
-      error={error ? true : false}
+      error={!!error}
       secureTextEntry={isPassword}
       control={control}
       onChangeText={onChange}
