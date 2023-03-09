@@ -1,8 +1,10 @@
 import React, {memo, useState} from 'react';
 import {useWindowDimensions} from 'react-native';
 import {SceneMap, TabBar, TabView} from 'react-native-tab-view';
-import LoginComponent from '../LoginComponent';
-import RegisterComponent from '../RegisterComponent';
+import {colors} from '../../../utils/theme';
+import LoginComponent from '../../organisms/LoginComponent';
+import RegisterComponent from '../../organisms/RegisterComponent';
+import {styles} from './styles';
 import {TabProps} from './types';
 
 const Tabs = ({index, setIndex}: TabProps) => {
@@ -19,13 +21,13 @@ const Tabs = ({index, setIndex}: TabProps) => {
   return (
     <TabView
       navigationState={{index, routes}}
-      sceneContainerStyle={{backgroundColor: '#ededed'}}
+      sceneContainerStyle={styles.container}
       renderScene={renderScene}
       renderTabBar={props => (
         <TabBar
-          indicatorStyle={{backgroundColor: '#FFFFFF'}}
-          activeColor="#FFFFFF"
-          indicatorContainerStyle={{backgroundColor: '#6152BE'}}
+          indicatorStyle={styles.indicatorStyle}
+          activeColor={colors.tabActive}
+          indicatorContainerStyle={styles.indicatorContainerStyle}
           {...props}
         />
       )}

@@ -1,5 +1,5 @@
 import {StyleSheet} from 'react-native';
-import {theme} from '../../../utils/theme';
+import {colors} from '../../../utils/theme';
 
 export const styles = StyleSheet.create({
   container: {
@@ -7,11 +7,11 @@ export const styles = StyleSheet.create({
     marginHorizontal: 30,
   },
   input: {
-    backgroundColor: theme.colors.surface,
+    backgroundColor: colors.surface,
   },
   error: {
     fontSize: 14,
-    color: theme.colors.error,
+    color: colors.error,
     paddingHorizontal: 4,
     paddingTop: 4,
   },

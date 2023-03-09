@@ -1,13 +1,14 @@
 import {StyleSheet} from 'react-native';
+import {colors} from '../../../utils/theme';
 
 export const styles = StyleSheet.create({
   container: {
-    flex: 1,
-    alignItems: 'center',
+    backgroundColor: colors.sceneContainerBackground,
   },
-  button: {
-    alignSelf: 'center',
-    marginVertical: 50,
-    borderRadius: 5,
+  indicatorStyle: {
+    backgroundColor: colors.tabActive,
+  },
+  indicatorContainerStyle: {
+    backgroundColor: colors.primaryButton,
   },
 });

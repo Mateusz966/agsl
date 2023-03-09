@@ -1,5 +1,5 @@
 import React, {memo} from 'react';
-import LoginAndRegisterTab from '../organisms/LoginAndRegisterTab';
+import LoginAndRegisterTab from '../templates/LoginAndRegisterTab';
 
 const LoginPage = () => <LoginAndRegisterTab />;
 export default memo(LoginPage);

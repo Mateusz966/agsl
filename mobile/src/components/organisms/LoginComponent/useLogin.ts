@@ -1,26 +1,27 @@
 import {useForm} from 'react-hook-form';
 import {useMutation} from 'react-query';
-import {signUpUser} from '../../../api/client';
-import {RegisterRequest} from '../../../api/types';
-import {UserRegister, userRegisterSchema} from './validation';
+import {SignInRequest, SignInResponse} from '../../../api/user/types';
+import {UserLogin, userLoginSchema} from './validation';
 import {zodResolver} from '@hookform/resolvers/zod';
 import {useState} from 'react';
 import {ERROR_MESSAGES} from '../../../utils/errorDictionary';
+import {loginUser} from '../../../api/user';
 
-const useRegister = () => {
-  const form = useForm<UserRegister>({
-    resolver: zodResolver(userRegisterSchema),
-  });
+export const useLogin = () => {
   const [visible, setVisible] = useState(false);
   const [text, setText] = useState('');
+  const form = useForm<UserLogin>({
+    resolver: zodResolver(userLoginSchema),
+    mode: 'onChange',
+  });
 
-  const mutation = useMutation<void, void, RegisterRequest>({
+  const mutation = useMutation<SignInResponse, void, SignInRequest>({
     mutationFn: payload => {
-      return signUpUser(payload);
+      return loginUser(payload);
     },
     onSuccess: () => {
       setVisible(true);
-      setText("You're registered");
+      setText("You're logged in");
       form.reset();
     },
     onError: error => {
@@ -29,7 +30,5 @@ const useRegister = () => {
     },
   });
 
-  return {form, mutation, text, visible, setVisible};
+  return {form, mutation, visible, text, setVisible};
 };
-
-export default useRegister;
