@@ -19,7 +19,7 @@ const Home: NextPage = () => {
           Test to <a href="https://nextjs.org">Next.js!</a>
         </h1>
 
-        <Link href={`${appRoutes.auth["sign-up"]}`}>
+        <Link href={`${appRoutes.auth["sign-in"]}`}>
           idź na login
         </Link>
 
