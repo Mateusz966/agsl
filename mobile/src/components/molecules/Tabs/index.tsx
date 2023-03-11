@@ -1,7 +1,7 @@
 import React, {memo, useState} from 'react';
 import {useWindowDimensions} from 'react-native';
 import {SceneMap, TabBar, TabView} from 'react-native-tab-view';
-import {colors} from '../../../utils/theme';
+import {colors} from '../../../config/theme';
 import LoginComponent from '../../organisms/LoginComponent';
 import RegisterComponent from '../../organisms/RegisterComponent';
 import {styles} from './styles';

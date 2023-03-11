@@ -39,7 +39,9 @@ const LoginComponent = () => {
         name="password"
       />
       <ErrorMessage error={errors.password?.message} />
-      <Button onPress={handleSubmit(onSubmit)}>Sign in</Button>
+      <Button loading={mutation.isLoading} onPress={handleSubmit(onSubmit)}>
+        Sign in
+      </Button>
       <SnackbarMessage
         visible={visible}
         text={text}

@@ -1,12 +1,11 @@
 import React, {useCallback} from 'react';
-import {View} from 'react-native';
 import Button from '../../molecules/Button';
 import ControlledTextInput from '../../molecules/ControlledTextInput';
-import {styles} from '../LoginComponent/styles';
 import {ErrorMessage} from '../../atoms/ErrorMessage';
 import useRegister from './useRegister';
 import {UserRegister} from './validation';
 import SnackbarMessage from '../../atoms/SnackbarMessage';
+import {Layout} from '../../atoms/Layout';
 
 const RegisterComponent = () => {
   const {form, mutation, text, visible, setVisible} = useRegister();
@@ -27,7 +26,7 @@ const RegisterComponent = () => {
   );
 
   return (
-    <View style={styles.container}>
+    <Layout>
       <ControlledTextInput
         error={errors.nick?.message}
         control={control}
@@ -47,13 +46,15 @@ const RegisterComponent = () => {
         name="password"
       />
       <ErrorMessage error={errors.password?.message} />
-      <Button onPress={handleSubmit(onSubmit)}>Sign up</Button>
+      <Button loading={mutation.isLoading} onPress={handleSubmit(onSubmit)}>
+        Sign up
+      </Button>
       <SnackbarMessage
         visible={visible}
         text={text}
         onDismiss={handleOnDissmiss}
       />
-    </View>
+    </Layout>
   );
 };
 export default RegisterComponent;

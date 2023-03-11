@@ -12,7 +12,7 @@ import {NavigationContainer} from '@react-navigation/native';
 import React from 'react';
 import {Provider} from 'react-native-paper';
 import Navigation from './navigators';
-import {theme} from './utils/theme';
+import {theme} from './config/theme';
 import {QueryClient, QueryClientProvider} from 'react-query';
 
 const queryClient = new QueryClient();

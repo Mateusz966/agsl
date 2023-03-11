@@ -1,6 +1,6 @@
 import React, {memo} from 'react';
 import {Button as PaperButton} from 'react-native-paper';
-import {components} from '../../../utils/theme';
+import {components} from '../../../config/theme';
 import {styles} from './styles';
 import {ButtonProps} from './types';
 

@@ -1,9 +1,10 @@
 import {StyleSheet} from 'react-native';
-import {colors, typography} from '../../../utils/theme';
+import {colors, typography} from '../../../config/theme';
 
 export const styles = StyleSheet.create({
   container: {
-    marginHorizontal: 30,
+    marginTop: 10,
+    marginBottom: 10,
   },
 
   error: {
