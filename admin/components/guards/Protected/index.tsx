@@ -1,13 +1,14 @@
 import { FC, ReactElement } from "react";
 import { useSession } from "next-auth/react";
 import { useRouter } from "next/router";
+import {appRoutes} from "../../../config/app.routes";
 
 const Protected: FC<{ children: ReactElement }> = ({ children }) => {
-  const { status, data } = useSession();
+  const { status } = useSession();
   const { replace } = useRouter();
 
   if (status === "unauthenticated") {
-    replace("/auth/signin");
+    replace(appRoutes.app.auth["sign-in"]);
   }
 
   if (status === "authenticated") {

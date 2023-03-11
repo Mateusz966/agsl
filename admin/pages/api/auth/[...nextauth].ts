@@ -1,7 +1,7 @@
 import NextAuth, { NextAuthOptions } from "next-auth";
 import CredentialsProvider from "next-auth/providers/credentials";
-import {httpClient} from "../../../config/httpClient";
-
+import { httpClient } from "../../../config/httpClient";
+import { appRoutes } from "../../../config/app.routes";
 
 const authOptions: NextAuthOptions = {
   session: {
@@ -12,11 +12,17 @@ const authOptions: NextAuthOptions = {
       type: "credentials",
       credentials: {},
       async authorize(credentials, req) {
-        const { email, password } = credentials as { email: string; password: string; } ;
-        const res = await httpClient.post(`/v1/auth/dashboard/sign-in`, { email, password })
+        const { email, password } = credentials as {
+          email: string;
+          password: string;
+        };
+        const res = await httpClient.post(appRoutes.api.v1.auth["sign-in"], {
+          email,
+          password,
+        });
 
         if (res.status === 200) {
-          return res.data
+          return res.data;
         } else {
           return null;
         }
@@ -24,7 +30,7 @@ const authOptions: NextAuthOptions = {
     }),
   ],
   pages: {
-    signIn: "/auth/signin"
-  }
+    signIn: "/auth/signin",
+  },
 };
 export default NextAuth(authOptions);

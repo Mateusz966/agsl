@@ -1,13 +1,24 @@
 const authRoot = "/auth";
-const usersRoot = '/users';
+const usersRoot = "/users";
+const dashboardRoot = "/dashboard";
 export const appRoutes = {
-  v1: {
-    auth: {
-      root: authRoot,
-      ["sign-in"]: `${authRoot}/sign-in`,
+  api: {
+    v1: {
+      users: {
+        create: `/v1/${usersRoot}`,
+      },
+      auth: {
+        root: authRoot,
+        ["sign-in"]: `v1/auth/dashboard/sign-in`,
+      },
     },
-    users: {
-      create: `/v1/${usersRoot}`
-    }
+  },
+  app: {
+    auth: {
+      ["sign-in"]: `${authRoot}/signin`,
+    },
+    dashboard: {
+      root: dashboardRoot,
+    },
   },
 };
