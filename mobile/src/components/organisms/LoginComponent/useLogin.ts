@@ -13,6 +13,10 @@ export const useLogin = () => {
   const form = useForm<UserLogin>({
     resolver: zodResolver(userLoginSchema),
     mode: 'onChange',
+    defaultValues: {
+      email: '',
+      password: '',
+    },
   });
 
   const mutation = useMutation<SignInResponse, void, SignInRequest>({
