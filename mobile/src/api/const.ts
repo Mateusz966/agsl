@@ -3,6 +3,6 @@ export const API_ROUTES = {
 };
 
 export const AXIOS_CONFIGURATION = {
-  baseURL: 'http://10.0.2.2:3000/',
+  baseURL: 'http://10.0.2.2:3002/',
   timeout: 10000,
 };

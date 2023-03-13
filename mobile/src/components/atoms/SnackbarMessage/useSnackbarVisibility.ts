@@ -1,6 +1,6 @@
 import {useCallback, useState} from 'react';
 
-export const useVisible = () => {
+export const useSnackbarVisibility = () => {
   const [visible, setVisible] = useState(false);
 
   const handleOnDissmiss = useCallback(

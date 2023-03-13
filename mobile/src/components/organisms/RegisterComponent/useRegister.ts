@@ -6,13 +6,13 @@ import {zodResolver} from '@hookform/resolvers/zod';
 import {useState} from 'react';
 import {ERROR_MESSAGES} from '../../../utils/errorDictionary';
 import {signUpUser} from '../../../api/user';
-import {useVisible} from '../../atoms/SnackbarMessage/useVisible';
+import {useSnackbarVisibility} from '../../atoms/SnackbarMessage/useSnackbarVisibility';
 
 const useRegister = () => {
   const form = useForm<UserRegister>({
     resolver: zodResolver(userRegisterSchema),
   });
-  const {visible, setVisible} = useVisible();
+  const {visible, setVisible} = useSnackbarVisibility();
   const [text, setText] = useState('');
 
   const mutation = useMutation<void, void, RegisterRequest>({

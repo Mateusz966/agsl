@@ -6,10 +6,10 @@ import {zodResolver} from '@hookform/resolvers/zod';
 import {useState} from 'react';
 import {ERROR_MESSAGES} from '../../../utils/errorDictionary';
 import {loginUser} from '../../../api/user';
-import {useVisible} from '../../atoms/SnackbarMessage/useVisible';
+import {useSnackbarVisibility} from '../../atoms/SnackbarMessage/useSnackbarVisibility';
 
 export const useLogin = () => {
-  const {visible, setVisible} = useVisible();
+  const {visible, setVisible} = useSnackbarVisibility();
   const [text, setText] = useState('');
   const form = useForm<UserLogin>({
     resolver: zodResolver(userLoginSchema),

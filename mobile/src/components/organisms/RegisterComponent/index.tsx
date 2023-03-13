@@ -5,11 +5,11 @@ import {ErrorMessage} from '../../atoms/ErrorMessage';
 import useRegister from './useRegister';
 import SnackbarMessage from '../../atoms/SnackbarMessage';
 import {Layout} from '../../atoms/Layout';
-import {useVisible} from '../../atoms/SnackbarMessage/useVisible';
+import {useSnackbarVisibility} from '../../atoms/SnackbarMessage/useSnackbarVisibility';
 
 const RegisterComponent = () => {
   const {form, mutation, text, visible, onSubmit} = useRegister();
-  const {handleOnDissmiss} = useVisible();
+  const {handleOnDissmiss} = useSnackbarVisibility();
 
   const {
     control,
