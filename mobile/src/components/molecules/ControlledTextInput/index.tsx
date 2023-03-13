@@ -1,35 +1,34 @@
 import React from 'react';
-import {useController} from 'react-hook-form';
+import {Controller, FieldPath, FieldValues} from 'react-hook-form';
 
 import TextInput from '../../atoms/TextInput';
 import {ControlledTextInputProps} from './types';
 
-const ControlledTextInput = ({
+const ControlledTextInput = <
+  TFieldValues extends FieldValues,
+  TName extends FieldPath<TFieldValues>,
+>({
   isPassword = false,
   control,
   name,
   error,
-  ...props
-}: ControlledTextInputProps<T>) => {
-  const {
-    field: {onChange, onBlur, value},
-  } = useController({
-    name,
-    control,
-    defaultValue: '',
-  });
+  placeholder,
+}: ControlledTextInputProps<TFieldValues, TName>) => {
   return (
-    <TextInput
-      name={name}
-      error={!!error}
-      secureTextEntry={isPassword}
+    <Controller
       control={control}
-      onChangeText={onChange}
-      onBlur={onBlur}
-      value={value}
-      label={name}
-      placeholder={name}
-      {...props}
+      name={name}
+      render={({field: {onChange, onBlur, value}}) => (
+        <TextInput
+          error={!!error}
+          secureTextEntry={isPassword}
+          label={name}
+          placeholder={placeholder}
+          onChangeText={onChange}
+          onBlur={onBlur}
+          value={value}
+        />
+      )}
     />
   );
 };
