@@ -15,7 +15,7 @@ async function bootstrap() {
     }),
     {
       cors: {
-        origin: 'http://localhost:3001',
+        origin: ['http://localhost:3000'],
         credentials: true,
       },
     },
@@ -26,6 +26,6 @@ async function bootstrap() {
   const document = SwaggerModule.createDocument(app, options);
   SwaggerModule.setup('docs', app, document);
 
-  await app.listen(3000, '0.0.0.0');
+  await app.listen(3002, '0.0.0.0');
 }
 bootstrap();
