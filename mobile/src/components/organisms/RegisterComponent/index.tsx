@@ -1,29 +1,21 @@
-import React, {useCallback} from 'react';
+import React from 'react';
 import Button from '../../molecules/Button';
 import ControlledTextInput from '../../molecules/ControlledTextInput';
 import {ErrorMessage} from '../../atoms/ErrorMessage';
 import useRegister from './useRegister';
-import {UserRegister} from './validation';
 import SnackbarMessage from '../../atoms/SnackbarMessage';
 import {Layout} from '../../atoms/Layout';
+import {useVisible} from '../../atoms/SnackbarMessage/useVisible';
 
 const RegisterComponent = () => {
-  const {form, mutation, text, visible, setVisible} = useRegister();
+  const {form, mutation, text, visible, onSubmit} = useRegister();
+  const {handleOnDissmiss} = useVisible();
 
   const {
     control,
     formState: {errors},
     handleSubmit,
   } = form;
-
-  const onSubmit = (payload: UserRegister) => {
-    mutation.mutate(payload);
-  };
-
-  const handleOnDissmiss = useCallback(
-    () => setVisible(!visible),
-    [setVisible, visible],
-  );
 
   return (
     <Layout>

@@ -1,28 +1,20 @@
-import React, {useCallback} from 'react';
+import React from 'react';
 import Button from '../../molecules/Button';
 import ErrorMessage from '../../atoms/ErrorMessage';
 import ControlledTextInput from '../../molecules/ControlledTextInput';
 import {useLogin} from './useLogin';
-import {UserLogin} from './validation';
 import SnackbarMessage from '../../atoms/SnackbarMessage';
 import {Layout} from '../../atoms/Layout';
+import {useVisible} from '../../atoms/SnackbarMessage/useVisible';
 
 const LoginComponent = () => {
-  const {form, mutation, text, visible, setVisible} = useLogin();
+  const {form, mutation, text, visible, onSubmit} = useLogin();
+  const {handleOnDissmiss} = useVisible();
   const {
     handleSubmit,
     control,
     formState: {errors},
   } = form;
-
-  const onSubmit = (payload: UserLogin) => {
-    mutation.mutate(payload);
-  };
-
-  const handleOnDissmiss = useCallback(
-    () => setVisible(!visible),
-    [setVisible, visible],
-  );
 
   return (
     <Layout>

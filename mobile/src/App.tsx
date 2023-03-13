@@ -13,7 +13,7 @@ import React from 'react';
 import {Provider} from 'react-native-paper';
 import Navigation from './navigators';
 import {theme} from './config/theme';
-import {QueryClient, QueryClientProvider} from 'react-query';
+import {QueryClient, QueryClientProvider} from '@tanstack/react-query';
 
 const queryClient = new QueryClient();
 
