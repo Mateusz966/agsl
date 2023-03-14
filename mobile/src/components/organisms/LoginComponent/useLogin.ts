@@ -7,9 +7,18 @@ import {useState} from 'react';
 import {ERROR_MESSAGES} from '../../../utils/errorDictionary';
 import {loginUser} from '../../../api/user';
 import {useSnackbarVisibility} from '../../atoms/SnackbarMessage/useSnackbarVisibility';
+import Navigation from '../../../navigators';
+import {StackNavigationState, useNavigation} from '@react-navigation/native';
+import {Scenes} from '../../../navigators/const';
+import {NativeStackNavigationOptions} from '@react-navigation/native-stack';
+import {
+  AddDishNavigationProps,
+  RootStackParamList,
+} from '../../../navigators/types';
 
 export const useLogin = () => {
   const {visible, setVisible} = useSnackbarVisibility();
+  const navigation = useNavigation<AddDishNavigationProps>();
   const [text, setText] = useState('');
   const form = useForm<UserLogin>({
     resolver: zodResolver(userLoginSchema),
@@ -27,6 +36,7 @@ export const useLogin = () => {
     onSuccess: () => {
       setVisible(true);
       setText("You're logged in");
+      navigation.navigate(Scenes.AddDish);
       form.reset();
     },
     onError: error => {
