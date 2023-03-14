@@ -9,7 +9,7 @@ export const signUpUser = async (user: RegisterRequest) => {
 
 export const loginUser = async (user: SignInRequest) => {
   const response = await httpClient.post<SignInResponse>(
-    API_ROUTES.v1.register,
+    API_ROUTES.v1.login,
     user,
   );
   return response.data;
