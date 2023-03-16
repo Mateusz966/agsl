@@ -21,7 +21,7 @@ export class CreateUserService implements ICommandHandler {
     });
 
     try {
-      await this.userRepo.create(user);
+      await this.userRepo.createOrUpdate(user);
       return user.id;
     } catch (error) {
       if (error instanceof ConflictException) {
