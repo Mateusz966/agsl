@@ -3,14 +3,14 @@ export interface UserProps {
   email: string;
   password: string;
   role: UserRoles;
-  nick?: string;
+  nick: string;
 }
 
 // Properties that are needed for a user creation
 export interface CreateUserProps {
   email: string;
   password: string;
-  nick?: string;
+  nick: string;
 }
 
 export enum UserRoles {

@@ -9,9 +9,14 @@ import { ConflictException } from '@libs/exceptions/exception.codes';
 import { UserModelRepository } from '@modules/user/database/user-model.repository';
 import * as bcrypt from 'bcrypt';
 
+import { EventEmitter2 } from '@nestjs/event-emitter';
+
 @CommandHandler(CreateUserCommand)
 export class CreateUserService implements ICommandHandler {
-  constructor(private readonly userRepo: UserModelRepository) {}
+  constructor(
+    private readonly userRepo: UserModelRepository,
+    private readonly eventEmitter: EventEmitter2,
+  ) {}
 
   async execute(command: CreateUserCommand): Promise<AggregateID> {
     const user = UserEntity.create({
@@ -22,6 +27,8 @@ export class CreateUserService implements ICommandHandler {
 
     try {
       await this.userRepo.createOrUpdate(user);
+      await user.publishEvents(this.eventEmitter);
+
       return user.id;
     } catch (error) {
       if (error instanceof ConflictException) {
