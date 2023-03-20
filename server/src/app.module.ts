@@ -9,6 +9,9 @@ import { UserModel } from '@modules/user/database/user.model';
 
 import { databaseConfig } from '@config/database.config';
 import { AuthModule } from '@modules/auth/auth.module';
+import { DishModule } from '@modules/dish/dish.module';
+import { IngredientsModel } from '@modules/dish/database/ingredients.model';
+import { DishModel } from '@modules/dish/database/dish.model';
 
 @Module({
   imports: [
@@ -16,11 +19,12 @@ import { AuthModule } from '@modules/auth/auth.module';
     TypeOrmModule.forRoot({
       ...databaseConfig,
       synchronize: true,
-      entities: [UserModel],
+      entities: [UserModel, DishModel, IngredientsModel],
     }),
     EventEmitterModule.forRoot(),
     UserModule,
     AuthModule,
+    DishModule,
   ],
   controllers: [AppController],
   providers: [AppService],

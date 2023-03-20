@@ -17,7 +17,7 @@ import { CreateDishRequestDto } from '@modules/dish/commands/create-dish/create-
 import { CreateDishCommand } from '@modules/dish/commands/create-dish/create-dish.command';
 
 @Controller(routesV1.version)
-export class CreateUserHttpController {
+export class CreateDishHttpController {
   constructor(private readonly commandBus: CommandBus) {}
 
   @ApiOperation({ summary: 'Create a dish with list of ingredients' })

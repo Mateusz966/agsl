@@ -22,7 +22,7 @@ export class CreateDishRequestDto {
     description: 'Optional foto',
   })
   @IsOptional()
-  readonly photo?: FormData;
+  readonly photo?: any;
   @ApiProperty({
     description: 'List of dishes ingredients',
   })
