@@ -9,8 +9,9 @@ import {loginUser} from '../../../api/user';
 import {useSnackbarVisibility} from '../../atoms/SnackbarMessage/useSnackbarVisibility';
 
 export const useLogin = () => {
-  const {visible, setVisible} = useSnackbarVisibility();
+  const {visible, setVisible, handleOnDissmiss} = useSnackbarVisibility();
   const [text, setText] = useState('');
+
   const form = useForm<UserLogin>({
     resolver: zodResolver(userLoginSchema),
     mode: 'onChange',
@@ -27,7 +28,7 @@ export const useLogin = () => {
     onSuccess: () => {
       setVisible(true);
       setText("You're logged in");
-      form.reset();
+      form.reset({email: '', password: ''});
     },
     onError: error => {
       setVisible(true);
@@ -39,5 +40,5 @@ export const useLogin = () => {
     mutation.mutate(payload);
   };
 
-  return {form, mutation, visible, text, onSubmit};
+  return {form, mutation, text, onSubmit, visible, handleOnDissmiss};
 };

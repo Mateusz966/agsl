@@ -2,9 +2,9 @@ import React from 'react';
 import {Snackbar} from 'react-native-paper';
 import {DEFAULT_DURATION} from './const';
 import {styles} from './styles';
-import {SnackbarMessageProps} from './types';
+import {SnackBarProps} from './types';
 
-const SnackbarMessage = ({visible, text, onDismiss}: SnackbarMessageProps) => (
+const SnackbarMessage = ({visible, children, onDismiss}: SnackBarProps) => (
   <Snackbar
     visible={visible}
     wrapperStyle={styles.container}
@@ -14,7 +14,7 @@ const SnackbarMessage = ({visible, text, onDismiss}: SnackbarMessageProps) => (
       label: 'Undo',
       onPress: onDismiss,
     }}>
-    {text}
+    {children}
   </Snackbar>
 );
 

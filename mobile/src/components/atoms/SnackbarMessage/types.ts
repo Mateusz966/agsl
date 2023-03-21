@@ -1,5 +1,3 @@
-export interface SnackbarMessageProps {
-  visible: boolean;
-  text: string;
-  onDismiss: () => void;
-}
+import {Snackbar} from 'react-native-paper';
+
+export type SnackBarProps = React.ComponentProps<typeof Snackbar>;

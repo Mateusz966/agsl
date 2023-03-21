@@ -5,11 +5,11 @@ import ControlledTextInput from '../../molecules/ControlledTextInput';
 import {useLogin} from './useLogin';
 import SnackbarMessage from '../../atoms/SnackbarMessage';
 import {Layout} from '../../atoms/Layout';
-import {useSnackbarVisibility} from '../../atoms/SnackbarMessage/useSnackbarVisibility';
 
 const LoginComponent = () => {
-  const {form, mutation, text, visible, onSubmit} = useLogin();
-  const {handleOnDissmiss} = useSnackbarVisibility();
+  const {form, mutation, text, onSubmit, visible, handleOnDissmiss} =
+    useLogin();
+
   const {
     handleSubmit,
     control,
@@ -34,11 +34,9 @@ const LoginComponent = () => {
       <Button loading={mutation.isLoading} onPress={handleSubmit(onSubmit)}>
         Sign in
       </Button>
-      <SnackbarMessage
-        visible={visible}
-        text={text}
-        onDismiss={handleOnDissmiss}
-      />
+      <SnackbarMessage visible={visible} onDismiss={handleOnDissmiss}>
+        {text}
+      </SnackbarMessage>
     </Layout>
   );
 };
