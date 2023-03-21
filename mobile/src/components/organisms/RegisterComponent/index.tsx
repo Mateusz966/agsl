@@ -5,11 +5,10 @@ import {ErrorMessage} from '../../atoms/ErrorMessage';
 import useRegister from './useRegister';
 import SnackbarMessage from '../../atoms/SnackbarMessage';
 import {Layout} from '../../atoms/Layout';
-import {useSnackbarVisibility} from '../../atoms/SnackbarMessage/useSnackbarVisibility';
 
 const RegisterComponent = () => {
-  const {form, mutation, text, visible, onSubmit} = useRegister();
-  const {handleOnDissmiss} = useSnackbarVisibility();
+  const {form, mutation, text, onSubmit, visible, handleOnDissmiss} =
+    useRegister();
 
   const {
     control,
@@ -41,11 +40,9 @@ const RegisterComponent = () => {
       <Button loading={mutation.isLoading} onPress={handleSubmit(onSubmit)}>
         Sign up
       </Button>
-      <SnackbarMessage
-        visible={visible}
-        text={text}
-        onDismiss={handleOnDissmiss}
-      />
+      <SnackbarMessage visible={visible} onDismiss={handleOnDissmiss}>
+        {text}
+      </SnackbarMessage>
     </Layout>
   );
 };
