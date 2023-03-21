@@ -1,10 +1,9 @@
 import React from 'react';
-import {Snackbar} from 'react-native-paper';
+import {Snackbar, SnackbarProps} from 'react-native-paper';
 import {DEFAULT_DURATION} from './const';
 import {styles} from './styles';
-import {SnackBarProps} from './types';
 
-const SnackbarMessage = ({visible, children, onDismiss}: SnackBarProps) => (
+const SnackbarMessage = ({visible, children, onDismiss}: SnackbarProps) => (
   <Snackbar
     visible={visible}
     wrapperStyle={styles.container}
