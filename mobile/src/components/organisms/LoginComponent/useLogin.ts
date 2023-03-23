@@ -7,19 +7,15 @@ import {useState} from 'react';
 import {ERROR_MESSAGES} from '../../../utils/errorDictionary';
 import {loginUser} from '../../../api/user';
 import {useSnackbarVisibility} from '../../atoms/SnackbarMessage/useSnackbarVisibility';
-import Navigation from '../../../navigators';
-import {StackNavigationState, useNavigation} from '@react-navigation/native';
+import {useNavigation} from '@react-navigation/native';
 import {Scenes} from '../../../navigators/const';
-import {NativeStackNavigationOptions} from '@react-navigation/native-stack';
-import {
-  AddDishNavigationProps,
-  RootStackParamList,
-} from '../../../navigators/types';
+import {AddDishNavigationProps} from '../../../navigators/types';
 
 export const useLogin = () => {
-  const {visible, setVisible} = useSnackbarVisibility();
   const navigation = useNavigation<AddDishNavigationProps>();
+  const {visible, setVisible, handleOnDissmiss} = useSnackbarVisibility();
   const [text, setText] = useState('');
+
   const form = useForm<UserLogin>({
     resolver: zodResolver(userLoginSchema),
     mode: 'onChange',
@@ -36,8 +32,8 @@ export const useLogin = () => {
     onSuccess: () => {
       setVisible(true);
       setText("You're logged in");
+      form.reset({email: '', password: ''});
       navigation.navigate(Scenes.AddDish);
-      form.reset();
     },
     onError: error => {
       setVisible(true);
@@ -49,5 +45,5 @@ export const useLogin = () => {
     mutation.mutate(payload);
   };
 
-  return {form, mutation, visible, text, onSubmit};
+  return {form, mutation, text, onSubmit, visible, handleOnDissmiss};
 };

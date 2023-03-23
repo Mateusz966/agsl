@@ -12,7 +12,7 @@ const useRegister = () => {
   const form = useForm<UserRegister>({
     resolver: zodResolver(userRegisterSchema),
   });
-  const {visible, setVisible} = useSnackbarVisibility();
+  const {visible, setVisible, handleOnDissmiss} = useSnackbarVisibility();
   const [text, setText] = useState('');
 
   const mutation = useMutation<void, void, RegisterRequest>({
@@ -22,7 +22,7 @@ const useRegister = () => {
     onSuccess: () => {
       setVisible(true);
       setText("You're registered");
-      form.reset();
+      form.reset({nick: '', email: '', password: ''});
     },
     onError: error => {
       setVisible(true);
@@ -34,7 +34,7 @@ const useRegister = () => {
     mutation.mutate(payload);
   };
 
-  return {form, mutation, text, visible, onSubmit};
+  return {form, mutation, text, visible, onSubmit, handleOnDissmiss};
 };
 
 export default useRegister;
