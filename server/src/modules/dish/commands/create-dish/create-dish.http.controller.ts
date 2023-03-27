@@ -15,10 +15,14 @@ import { AggregateID } from '@libs/ddd';
 import { ApiErrorResponse } from '@src/libs/api/api-error.response';
 import { CreateDishRequestDto } from '@modules/dish/commands/create-dish/create-dish.request.dto';
 import { CreateDishCommand } from '@modules/dish/commands/create-dish/create-dish.command';
+import { FileService } from '@modules/file-uploader/file.service';
 
 @Controller(routesV1.version)
 export class CreateDishHttpController {
-  constructor(private readonly commandBus: CommandBus) {}
+  constructor(
+    private readonly commandBus: CommandBus,
+    private readonly fileService: FileService,
+  ) {}
 
   @ApiOperation({ summary: 'Create a dish with list of ingredients' })
   @ApiResponse({
@@ -35,13 +39,15 @@ export class CreateDishHttpController {
     type: ApiErrorResponse,
   })
   @Post(routesV1.dishes.root)
-  async create(@Body() body: CreateDishRequestDto): Promise<IdResponse> {
+  async create(@Body() body: any): Promise<IdResponse> {
     try {
-      const command = new CreateDishCommand(body);
+      await this.fileService.uploadFile('asd' as any, 'ad');
 
-      const res: AggregateID = await this.commandBus.execute(command);
+      // const command = new CreateDishCommand(body);
 
-      return new IdResponse(res);
+      // const res: AggregateID = await this.commandBus.execute(command);
+
+      return new IdResponse('2');
     } catch (error) {
       if (error instanceof UserAlreadyExistsError)
         throw new ConflictHttpException(error.message);

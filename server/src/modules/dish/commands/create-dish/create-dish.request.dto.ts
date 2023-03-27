@@ -8,6 +8,8 @@ import {
   MinLength,
   ValidateNested,
 } from 'class-validator';
+import { IngredientsProps } from '@modules/dish/domain/value-objects/ingredients.value-object';
+import { Type } from 'class-transformer';
 
 export class CreateDishRequestDto {
   @ApiProperty({
@@ -25,9 +27,13 @@ export class CreateDishRequestDto {
   readonly photo?: any;
   @ApiProperty({
     description: 'List of dishes ingredients',
+    example: [
+      { name: 'Tomatoes', amount: '1', unit: 'kg' },
+    ] as IngredientsProps[],
   })
   @IsArray()
   @ValidateNested({ each: true })
   @ArrayMinSize(1)
-  readonly ingredients: any[];
+  @Type(() => IngredientsProps)
+  readonly ingredients: IngredientsProps[];
 }

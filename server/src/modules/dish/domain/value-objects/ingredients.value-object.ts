@@ -3,7 +3,7 @@ import { Guard } from '@libs/guard';
 import { ArgumentOutOfRangeException } from '@libs/exceptions/exception.codes';
 
 export type IngredientMeasurementUnit = 'g' | 'ml' | 'kg' | 'l';
-export interface IngredientsProps {
+export class IngredientsProps {
   name: string;
   amount: string;
   unit: IngredientMeasurementUnit;

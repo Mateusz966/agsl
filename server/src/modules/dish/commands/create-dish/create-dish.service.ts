@@ -6,7 +6,9 @@ import { EventEmitter2 } from '@nestjs/event-emitter';
 
 @CommandHandler(CreateDishCommand)
 export class CreateDishService implements ICommandHandler {
-  constructor(private readonly eventEmitter: EventEmitter2) {}
+  constructor(
+    private readonly eventEmitter: EventEmitter2,
+  ) {}
 
   async execute(command: CreateDishCommand): Promise<any> {
     const dish = DishEntity.create({

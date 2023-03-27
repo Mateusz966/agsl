@@ -14,11 +14,11 @@ import { UserModel } from '@modules/user/database/user.model';
 
 @Injectable()
 export class UserMapper
-  implements Mapper<UserEntity, UserModel, UserResponseDto>
+  implements Mapper<UserEntity, Omit<UserModel, 'dish'>, UserResponseDto>
 {
-  toPersistence(entity: UserEntity): UserModel {
+  toPersistence(entity: UserEntity): Omit<UserModel, 'dish'> {
     const copy = entity.getPropsCopy();
-    const record: UserModel = {
+    return {
       id: copy.id,
       createdAt: copy.createdAt,
       updatedAt: copy.updatedAt,
@@ -27,7 +27,6 @@ export class UserMapper
       password: copy.password,
       nick: copy.nick,
     };
-    return record;
   }
 
   toDomain(record: UserModel): UserEntity {
