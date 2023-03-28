@@ -39,15 +39,13 @@ export class CreateDishHttpController {
     type: ApiErrorResponse,
   })
   @Post(routesV1.dishes.root)
-  async create(@Body() body: any): Promise<IdResponse> {
+  async create(@Body() body: CreateDishRequestDto): Promise<IdResponse> {
     try {
-      await this.fileService.uploadFile('asd' as any, 'ad');
+      const command = new CreateDishCommand(body);
 
-      // const command = new CreateDishCommand(body);
+      const res: AggregateID = await this.commandBus.execute(command);
 
-      // const res: AggregateID = await this.commandBus.execute(command);
-
-      return new IdResponse('2');
+      return new IdResponse(res);
     } catch (error) {
       if (error instanceof UserAlreadyExistsError)
         throw new ConflictHttpException(error.message);

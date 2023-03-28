@@ -6,7 +6,6 @@ import {
   IsString,
   MaxLength,
   MinLength,
-  ValidateNested,
 } from 'class-validator';
 import { IngredientsProps } from '@modules/dish/domain/value-objects/ingredients.value-object';
 import { Type } from 'class-transformer';
@@ -24,7 +23,7 @@ export class CreateDishRequestDto {
     description: 'Optional foto',
   })
   @IsOptional()
-  readonly photo?: any;
+  readonly photo?: Buffer;
   @ApiProperty({
     description: 'List of dishes ingredients',
     example: [
@@ -32,7 +31,6 @@ export class CreateDishRequestDto {
     ] as IngredientsProps[],
   })
   @IsArray()
-  @ValidateNested({ each: true })
   @ArrayMinSize(1)
   @Type(() => IngredientsProps)
   readonly ingredients: IngredientsProps[];

@@ -17,12 +17,13 @@ export class FileService implements OnModuleInit {
   }
 
   async uploadFile(file: Buffer, filename: string) {
+    const key = `${v4()}-${filename}`;
     const params = {
       Bucket: fileUploaderConfig.BUCKET_NAME,
       Body: 'file',
-      Key: `${v4()}-${filename}`,
+      Key: key,
     };
-    const res = this.s3.send(new PutObjectCommand(params));
-    console.log('aws log', res);
+    await this.s3.send(new PutObjectCommand(params));
+    return key;
   }
 }
