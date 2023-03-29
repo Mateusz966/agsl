@@ -16,15 +16,11 @@ import { IdResponse } from '@libs/api/id.response.dto';
 import { AggregateID } from '@libs/ddd';
 import { ApiErrorResponse } from '@src/libs/api/api-error.response';
 import { CreateDishCommand } from '@modules/dish/commands/create-dish/create-dish.command';
-import { FileService } from '@modules/file-uploader/file.service';
 import { FileFastifyInterceptor } from 'fastify-file-interceptor';
 
 @Controller(routesV1.version)
 export class CreateDishHttpController {
-  constructor(
-    private readonly commandBus: CommandBus,
-    private readonly fileService: FileService,
-  ) {}
+  constructor(private readonly commandBus: CommandBus) {}
 
   @ApiOperation({ summary: 'Create a dish with list of ingredients' })
   @ApiConsumes('multipart/form-data')
