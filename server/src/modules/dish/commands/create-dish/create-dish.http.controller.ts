@@ -15,13 +15,9 @@ import { UserAlreadyExistsError } from '@modules/user/domain/user.errors';
 import { IdResponse } from '@libs/api/id.response.dto';
 import { AggregateID } from '@libs/ddd';
 import { ApiErrorResponse } from '@src/libs/api/api-error.response';
-import { CreateDishRequestDto } from '@modules/dish/commands/create-dish/create-dish.request.dto';
 import { CreateDishCommand } from '@modules/dish/commands/create-dish/create-dish.command';
 import { FileService } from '@modules/file-uploader/file.service';
-import {
-  FileFastifyInterceptor,
-  memoryStorage,
-} from 'fastify-file-interceptor';
+import { FileFastifyInterceptor } from 'fastify-file-interceptor';
 
 @Controller(routesV1.version)
 export class CreateDishHttpController {
