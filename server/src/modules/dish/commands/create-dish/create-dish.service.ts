@@ -15,7 +15,10 @@ export class CreateDishService implements ICommandHandler {
 
   async execute(command: CreateDishCommand): Promise<any> {
     try {
-      const fileKey = await this.fileService.uploadFile(command.photo, 'dish');
+      const fileKey = await this.fileService.uploadFile(
+        command.photo,
+        'dish-photo',
+      );
       const dish = DishEntity.create({
         ingredients: new Ingredients(command.ingredients),
         name: command.name,

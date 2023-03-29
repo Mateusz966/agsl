@@ -2,7 +2,6 @@ import { ApiProperty } from '@nestjs/swagger';
 import {
   ArrayMinSize,
   IsArray,
-  IsOptional,
   IsString,
   MaxLength,
   MinLength,
@@ -22,16 +21,6 @@ export class CreateDishRequestDto {
   @ApiProperty({
     description: 'Optional foto',
   })
-  @IsOptional()
-  readonly photo?: Buffer;
-  @ApiProperty({
-    description: 'List of dishes ingredients',
-    example: [
-      { name: 'Tomatoes', amount: '1', unit: 'kg' },
-    ] as IngredientsProps[],
-  })
-  @IsArray()
-  @ArrayMinSize(1)
   @Type(() => IngredientsProps)
   readonly ingredients: IngredientsProps[];
 }

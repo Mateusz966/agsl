@@ -4,9 +4,11 @@ import {
   Controller,
   HttpStatus,
   Post,
+  UploadedFile,
+  UseInterceptors,
 } from '@nestjs/common';
 import { routesV1 } from '@config/app.routes';
-import { ApiOperation, ApiResponse } from '@nestjs/swagger';
+import { ApiConsumes, ApiOperation, ApiResponse } from '@nestjs/swagger';
 import { CommandBus } from '@nestjs/cqrs';
 
 import { UserAlreadyExistsError } from '@modules/user/domain/user.errors';
@@ -16,6 +18,10 @@ import { ApiErrorResponse } from '@src/libs/api/api-error.response';
 import { CreateDishRequestDto } from '@modules/dish/commands/create-dish/create-dish.request.dto';
 import { CreateDishCommand } from '@modules/dish/commands/create-dish/create-dish.command';
 import { FileService } from '@modules/file-uploader/file.service';
+import {
+  FileFastifyInterceptor,
+  memoryStorage,
+} from 'fastify-file-interceptor';
 
 @Controller(routesV1.version)
 export class CreateDishHttpController {
@@ -25,6 +31,7 @@ export class CreateDishHttpController {
   ) {}
 
   @ApiOperation({ summary: 'Create a dish with list of ingredients' })
+  @ApiConsumes('multipart/form-data')
   @ApiResponse({
     status: HttpStatus.OK,
     type: IdResponse,
@@ -39,9 +46,13 @@ export class CreateDishHttpController {
     type: ApiErrorResponse,
   })
   @Post(routesV1.dishes.root)
-  async create(@Body() body: CreateDishRequestDto): Promise<IdResponse> {
+  @UseInterceptors(FileFastifyInterceptor('photo'))
+  async create(
+    @UploadedFile() photo: Express.Multer.File,
+    @Body() body,
+  ): Promise<IdResponse> {
     try {
-      const command = new CreateDishCommand(body);
+      const command = new CreateDishCommand({ ...body, photo });
 
       const res: AggregateID = await this.commandBus.execute(command);
 

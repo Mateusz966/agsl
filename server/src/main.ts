@@ -6,7 +6,7 @@ import {
 import { AppModule } from './app.module';
 import { ValidationPipe } from '@nestjs/common';
 import { DocumentBuilder, SwaggerModule } from '@nestjs/swagger';
-
+import { contentParser } from 'fastify-file-interceptor';
 
 async function bootstrap() {
   const app = await NestFactory.create<NestFastifyApplication>(
@@ -21,6 +21,7 @@ async function bootstrap() {
       },
     },
   );
+  await app.register(contentParser);
   app.useGlobalPipes(new ValidationPipe({ transform: true, whitelist: true }));
   const options = new DocumentBuilder().build();
 

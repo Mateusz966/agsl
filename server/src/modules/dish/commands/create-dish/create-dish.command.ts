@@ -3,8 +3,8 @@ import { IngredientsProps } from '@modules/dish/domain/value-objects/ingredients
 
 export class CreateDishCommand extends Command {
   readonly name: string;
-  readonly photo?: Buffer;
-  readonly ingredients: IngredientsProps[]; // TODO TYPE
+  readonly photo?: Express.Multer.File;
+  readonly ingredients: IngredientsProps[];
 
   constructor(props: CommandProps<CreateDishCommand>) {
     super(props);

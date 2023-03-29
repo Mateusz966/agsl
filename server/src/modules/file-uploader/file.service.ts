@@ -16,11 +16,11 @@ export class FileService implements OnModuleInit {
     });
   }
 
-  async uploadFile(file: Buffer, filename: string) {
+  async uploadFile(file: Express.Multer.File, filename: string) {
     const key = `${v4()}-${filename}`;
     const params = {
       Bucket: fileUploaderConfig.BUCKET_NAME,
-      Body: 'file',
+      Body: file.buffer,
       Key: key,
     };
     await this.s3.send(new PutObjectCommand(params));
