@@ -1,4 +1,6 @@
 // All properties that a User has
+import { UserModel } from '@modules/user/database/user.model';
+
 export interface UserProps {
   email: string;
   password: string;
@@ -17,3 +19,5 @@ export enum UserRoles {
   admin = 'admin',
   user = 'user',
 }
+
+export type UserEntityPersistent = Omit<UserModel, 'dish' | 'dishPhoto'>;

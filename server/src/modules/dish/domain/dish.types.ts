@@ -14,7 +14,17 @@ export interface CreateDishProps {
   photo?: string;
 }
 
-export enum UserRoles {
-  admin = 'admin',
-  user = 'user',
-}
+export type DishEntityPersistent = {
+  dish: {
+    id: string;
+    name: string;
+  };
+  ingredients: Ingredients;
+  dishPhoto: string | undefined;
+  common: {
+    createdAt: Date;
+    updatedAt: Date;
+  };
+};
+
+export type DishPhoto = string | null;

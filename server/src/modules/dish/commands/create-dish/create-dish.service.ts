@@ -29,4 +29,6 @@ export class CreateDishService implements ICommandHandler {
       throw error;
     }
   }
+
+  private saveDish(disj: DishEntity) {}
 }

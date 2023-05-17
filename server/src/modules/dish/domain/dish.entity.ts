@@ -16,7 +16,7 @@ export class DishEntity extends AggregateRoot<DishProps> {
       new DishCreatedDomainEvent({
         aggregateId: id,
         name: props.name,
-        photo: props.photo,
+        photo: props.photo ?? null,
         ingredients: props.ingredients.unpack(),
       }),
     );
