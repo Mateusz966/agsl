@@ -7,6 +7,8 @@ import { CreateDishService } from '@modules/dish/commands/create-dish/create-dis
 import { IngredientsModel } from '@modules/dish/database/ingredients.model';
 import { FileModule } from '@modules/file-uploader/file.module';
 import { DishPhotoModel } from '@modules/dish/database/dish-photo.model';
+import { DishModelRepository } from '@modules/dish/database/dish-model.repository';
+import { DishMapper } from '@modules/dish/dish.mapper';
 
 const httpControllers = [CreateDishHttpController];
 
@@ -21,6 +23,12 @@ const mappers: Provider[] = [];
     TypeOrmModule.forFeature([DishModel, IngredientsModel, DishPhotoModel]),
   ],
   controllers: [...httpControllers],
-  providers: [Logger, ...commandHandlers, ...mappers],
+  providers: [
+    DishModelRepository,
+    DishMapper,
+    Logger,
+    ...commandHandlers,
+    ...mappers,
+  ],
 })
 export class DishModule {}

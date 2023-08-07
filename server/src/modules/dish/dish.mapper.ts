@@ -22,6 +22,7 @@ export class DishMapper
 {
   toPersistence(entity: DishEntity): DishEntityPersistent {
     const copy = entity.getPropsCopy();
+    console.log(copy)
     return {
       common: {
         createdAt: copy.createdAt,

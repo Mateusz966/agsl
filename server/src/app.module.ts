@@ -20,6 +20,7 @@ import { DishPhotoModel } from '@modules/dish/database/dish-photo.model';
     TypeOrmModule.forRoot({
       ...databaseConfig,
       synchronize: true,
+      logger: 'advanced-console',
       entities: [UserModel, DishModel, IngredientsModel, DishPhotoModel],
     }),
     EventEmitterModule.forRoot(),

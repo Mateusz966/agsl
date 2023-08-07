@@ -17,6 +17,10 @@ import { AggregateID } from '@libs/ddd';
 import { ApiErrorResponse } from '@src/libs/api/api-error.response';
 import { CreateDishCommand } from '@modules/dish/commands/create-dish/create-dish.command';
 import { FileFastifyInterceptor } from 'fastify-file-interceptor';
+import {
+  Ingredients,
+  IngredientsProps,
+} from '@modules/dish/domain/value-objects/ingredients.value-object';
 
 @Controller(routesV1.version)
 export class CreateDishHttpController {
@@ -41,10 +45,14 @@ export class CreateDishHttpController {
   @UseInterceptors(FileFastifyInterceptor('photo'))
   async create(
     @UploadedFile() photo: Express.Multer.File,
-    @Body() body,
+    @Body() body: { name: string; ingredients: IngredientsProps[] },
   ): Promise<IdResponse> {
     try {
-      const command = new CreateDishCommand({ ...body, photo });
+      const command = new CreateDishCommand({
+        ...body,
+        photo,
+        userId: 'd41fa9df-2387-4812-bcb0-149022f7bbff',
+      });
 
       const res: AggregateID = await this.commandBus.execute(command);
 

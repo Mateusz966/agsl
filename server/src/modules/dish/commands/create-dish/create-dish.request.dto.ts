@@ -1,11 +1,5 @@
 import { ApiProperty } from '@nestjs/swagger';
-import {
-  ArrayMinSize,
-  IsArray,
-  IsString,
-  MaxLength,
-  MinLength,
-} from 'class-validator';
+import { IsString, MaxLength, MinLength } from 'class-validator';
 import { IngredientsProps } from '@modules/dish/domain/value-objects/ingredients.value-object';
 import { Type } from 'class-transformer';
 
