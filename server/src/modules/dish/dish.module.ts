@@ -9,6 +9,7 @@ import { FileModule } from '@modules/file-uploader/file.module';
 import { DishPhotoModel } from '@modules/dish/database/dish-photo.model';
 import { DishModelRepository } from '@modules/dish/database/dish-model.repository';
 import { DishMapper } from '@modules/dish/dish.mapper';
+import { DishPhotoModelRepository } from '@modules/dish/database/dish-photo-model.repository';
 
 const httpControllers = [CreateDishHttpController];
 
@@ -25,6 +26,7 @@ const mappers: Provider[] = [];
   controllers: [...httpControllers],
   providers: [
     DishModelRepository,
+    DishPhotoModelRepository,
     DishMapper,
     Logger,
     ...commandHandlers,

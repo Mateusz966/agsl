@@ -8,6 +8,8 @@ import { Ingredients } from '@modules/dish/domain/value-objects/ingredients.valu
 import { DishModelRepository } from '@modules/dish/database/dish-model.repository';
 import { DishMapper } from '@modules/dish/dish.mapper';
 import { DishEntityPersistent } from '@modules/dish/domain/dish.types';
+import { DataSource } from 'typeorm';
+import { DishPhotoModelRepository } from '@modules/dish/database/dish-photo-model.repository';
 
 @CommandHandler(CreateDishCommand)
 export class CreateDishService implements ICommandHandler {
@@ -15,7 +17,9 @@ export class CreateDishService implements ICommandHandler {
     private readonly eventEmitter: EventEmitter2,
     private readonly fileService: FileService,
     private readonly dishRepo: DishModelRepository,
+    private readonly dishPhotoRepo: DishPhotoModelRepository,
     private readonly mapper: DishMapper,
+    private dataSource: DataSource,
   ) {}
 
   async execute(command: CreateDishCommand): Promise<any> {
@@ -38,7 +42,18 @@ export class CreateDishService implements ICommandHandler {
 
   private async saveDish(dishEntity: DishEntity, userId: string) {
     const { common, dish } = this.mapper.toPersistence(dishEntity);
+    const queryRunner = this.dataSource.createQueryRunner();
 
-    await this.dishRepo.save({ ...dish, ...common, user: { id: userId } });
+    await queryRunner.connect();
+    await queryRunner.startTransaction();
+
+    try {
+      await this.dishRepo.save({ ...dish, ...common, user: { id: userId } });
+      await this.dishPhotoRepo.save({ ...dish, user: { id: userId } });
+    } catch (e) {
+      await queryRunner.rollbackTransaction();
+    } finally {
+      await queryRunner.release();
+    }
   }
 }
