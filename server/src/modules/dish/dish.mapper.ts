@@ -22,7 +22,6 @@ export class DishMapper
 {
   toPersistence(entity: DishEntity): DishEntityPersistent {
     const copy = entity.getPropsCopy();
-    console.log(copy)
     return {
       common: {
         createdAt: copy.createdAt,
@@ -52,7 +51,7 @@ export class DishMapper
       updatedAt: new Date(dishRecord.updatedAt),
       props: {
         name: dishRecord.name,
-        photo: dishPhotoRecord.name,
+        photo: dishPhotoRecord.id,
         ingredients: new Ingredients(ingredientsRecord),
       },
     });

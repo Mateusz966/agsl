@@ -5,6 +5,7 @@ import {
   HttpStatus,
   Post,
   UploadedFile,
+  UseGuards,
   UseInterceptors,
 } from '@nestjs/common';
 import { routesV1 } from '@config/app.routes';
@@ -17,10 +18,10 @@ import { AggregateID } from '@libs/ddd';
 import { ApiErrorResponse } from '@src/libs/api/api-error.response';
 import { CreateDishCommand } from '@modules/dish/commands/create-dish/create-dish.command';
 import { FileFastifyInterceptor } from 'fastify-file-interceptor';
-import {
-  Ingredients,
-  IngredientsProps,
-} from '@modules/dish/domain/value-objects/ingredients.value-object';
+import { Ingredients } from '@modules/dish/domain/value-objects/ingredients.value-object';
+import { User } from '@libs/decorators/User.decorator';
+import { JwtAuthGuard } from '@modules/auth/jwt-auth.guard';
+import { JWTUser } from '@modules/auth/auth.types';
 
 @Controller(routesV1.version)
 export class CreateDishHttpController {
@@ -42,16 +43,23 @@ export class CreateDishHttpController {
     type: ApiErrorResponse,
   })
   @Post(routesV1.dishes.root)
+  @UseGuards(JwtAuthGuard)
   @UseInterceptors(FileFastifyInterceptor('photo'))
   async create(
     @UploadedFile() photo: Express.Multer.File,
-    @Body() body: { name: string; ingredients: IngredientsProps[] },
+    @Body() { name, ingredients }: { name: string; ingredients: string },
+    @User() user: JWTUser,
   ): Promise<IdResponse> {
     try {
+      const parsedIngredients = new Ingredients(
+        JSON.parse(ingredients),
+      ).unpack();
+
       const command = new CreateDishCommand({
-        ...body,
+        name,
+        ingredients: parsedIngredients,
         photo,
-        userId: 'd41fa9df-2387-4812-bcb0-149022f7bbff',
+        userId: user.id,
       });
 
       const res: AggregateID = await this.commandBus.execute(command);
