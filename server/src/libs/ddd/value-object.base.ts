@@ -42,7 +42,6 @@ export abstract class ValueObject<T> {
    * Unpack a value object to get its raw properties
    */
   public unpack(): T {
-    console.log(this.props)
     if (this.isDomainPrimitive(this.props)) {
       return this.props.value;
     }
