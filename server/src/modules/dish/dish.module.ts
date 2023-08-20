@@ -10,10 +10,14 @@ import { DishPhotoModel } from '@modules/dish/database/dish-photo.model';
 import { DishModelRepository } from '@modules/dish/database/dish-model.repository';
 import { DishMapper } from '@modules/dish/dish.mapper';
 import { DishPhotoModelRepository } from '@modules/dish/database/dish-photo-model.repository';
+import { GetDishByIdHttpController } from '@modules/dish/queries/get-dish-by-id/get-dish-by-id.http.controller';
+import { GetDishByIdQueryHandler } from '@modules/dish/queries/get-dish-by-id/get-dish-by-id.query-handler';
 
-const httpControllers = [CreateDishHttpController];
+const httpControllers = [CreateDishHttpController, GetDishByIdHttpController];
 
 const commandHandlers: Provider[] = [CreateDishService];
+
+const queryHandlers: Provider[] = [GetDishByIdQueryHandler];
 
 const mappers: Provider[] = [];
 
@@ -30,6 +34,7 @@ const mappers: Provider[] = [];
     DishMapper,
     Logger,
     ...commandHandlers,
+    ...queryHandlers,
     ...mappers,
   ],
 })

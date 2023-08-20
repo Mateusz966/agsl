@@ -10,6 +10,7 @@ import { v4 } from 'uuid';
 import { DataSource } from 'typeorm';
 import { DishModel } from '@modules/dish/database/dish.model';
 import { DishPhotoModel } from '@modules/dish/database/dish-photo.model';
+import { IngredientsModel } from '@modules/dish/database/ingredients.model';
 
 @CommandHandler(CreateDishCommand)
 export class CreateDishService implements ICommandHandler {
@@ -31,6 +32,7 @@ export class CreateDishService implements ICommandHandler {
         name: command.name,
         photo: fileKey,
       });
+
       await this.saveDish(dish, command.userId);
       await dish.publishEvents(this.eventEmitter);
     } catch (error) {
@@ -56,9 +58,21 @@ export class CreateDishService implements ICommandHandler {
         user: { id: userId },
       });
 
+      await Promise.all(
+        ingredients.unpack().map(async (ingredient) => {
+          await queryRunner.manager.getRepository(IngredientsModel).save({
+            id: v4(),
+            dish: { id: dish.id },
+            name: ingredient.name,
+            amount: ingredient.amount,
+            unit: ingredient.unit,
+          });
+        }),
+      );
+
       //FIXME: implement saving ingredients
 
-      // await queryRunner.commitTransaction();
+      await queryRunner.commitTransaction();
     } catch (e) {
       await queryRunner.rollbackTransaction();
       throw e;

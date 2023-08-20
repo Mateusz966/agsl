@@ -36,30 +36,26 @@ export class DishMapper
     };
   }
 
-  toDomain({
-    dishRecord,
-    dishPhotoRecord,
-    ingredientsRecord,
-  }: {
-    dishRecord: DishModel;
-    dishPhotoRecord: DishPhotoModel;
-    ingredientsRecord: IngredientsModel[];
-  }): DishEntity {
+  toDomain({ ingredients, dishPhoto, ...dishProps }: DishModel): DishEntity {
     return new DishEntity({
-      id: dishRecord.id,
-      createdAt: new Date(dishRecord.createdAt),
-      updatedAt: new Date(dishRecord.updatedAt),
+      id: dishProps.id,
+      createdAt: new Date(dishProps.createdAt),
+      updatedAt: new Date(dishProps.updatedAt),
       props: {
-        name: dishRecord.name,
-        photo: dishPhotoRecord.id,
-        ingredients: new Ingredients(ingredientsRecord),
+        name: dishProps.name,
+        photo: dishPhoto.id,
+        ingredients: new Ingredients(ingredients),
       },
     });
   }
 
   toResponse(entity: DishEntity): DishResponseDto {
     const props = entity.getPropsCopy();
-    return new DishResponseDto(props);
+    const res = new DishResponseDto(props);
+    res.name = props.name;
+    res.ingredients = props.ingredients.unpack();
+    res.photo = props.photo;
+    return res;
   }
 
   /* ^ Data returned to the user is whitelisted to avoid leaks.

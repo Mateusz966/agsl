@@ -23,5 +23,7 @@ export const routesV1 = {
   },
   dishes: {
     root: dishesRoot,
+    get: `${dishesRoot}/:id`,
+    all: dishesRoot,
   },
 };

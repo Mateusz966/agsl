@@ -11,10 +11,13 @@ export class CreateDishRequestDto {
   @MaxLength(320)
   @MinLength(5)
   @IsString()
-  readonly name: string;
+  name: string;
   @ApiProperty({
     description: 'Optional foto',
   })
+  @IsString()
+  photo?: string;
+
   @Type(() => IngredientsProps)
-  readonly ingredients: IngredientsProps[];
+  ingredients: IngredientsProps[];
 }

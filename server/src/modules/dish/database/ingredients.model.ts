@@ -11,7 +11,6 @@ export class IngredientsModel extends ModelBase {
   amount: string;
   @Column()
   unit: IngredientMeasurementUnit;
-
   @ManyToOne(() => DishModel, (dish) => dish.ingredients)
   dish: DishModel;
 }

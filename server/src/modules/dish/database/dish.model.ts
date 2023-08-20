@@ -9,12 +9,16 @@ export class DishModel extends ModelBase {
   @Column()
   name: string;
 
-  @OneToMany(() => IngredientsModel, (ingredient) => ingredient.dish)
-  ingredients: IngredientsModel;
+  @OneToMany(() => IngredientsModel, (ingredient) => ingredient.dish, {
+    eager: true,
+  })
+  ingredients: IngredientsModel[];
 
   @ManyToOne(() => UserModel, (user) => user.dish)
   user: UserModel;
 
-  @OneToMany(() => DishPhotoModel, (dishPhoto) => dishPhoto.dish)
+  @OneToMany(() => DishPhotoModel, (dishPhoto) => dishPhoto.dish, {
+    eager: true,
+  })
   dishPhoto: DishPhotoModel;
 }
