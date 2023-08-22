@@ -9,6 +9,10 @@ import { UserModel } from '@modules/user/database/user.model';
 
 import { databaseConfig } from '@config/database.config';
 import { AuthModule } from '@modules/auth/auth.module';
+import { DishModule } from '@modules/dish/dish.module';
+import { IngredientsModel } from '@modules/dish/database/ingredients.model';
+import { DishModel } from '@modules/dish/database/dish.model';
+import { DishPhotoModel } from '@modules/dish/database/dish-photo.model';
 
 @Module({
   imports: [
@@ -16,11 +20,13 @@ import { AuthModule } from '@modules/auth/auth.module';
     TypeOrmModule.forRoot({
       ...databaseConfig,
       synchronize: true,
-      entities: [UserModel],
+      logger: 'advanced-console',
+      entities: [UserModel, DishModel, IngredientsModel, DishPhotoModel],
     }),
     EventEmitterModule.forRoot(),
     UserModule,
     AuthModule,
+    DishModule,
   ],
   controllers: [AppController],
   providers: [AppService],

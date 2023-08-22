@@ -6,6 +6,7 @@
 */
 
 import {DeleteResult} from "typeorm";
+import { UserModel } from "@modules/user/database/user.model";
 
 export class Paginated<T> {
   readonly count: number;
@@ -29,9 +30,3 @@ export type PaginatedQueryParams = {
   offset: number;
   orderBy: OrderBy;
 };
-
-export interface RepositoryPort<Entity> {
-  create(entity: Entity): Promise<Entity>;
-  findOneById(id: string): Promise<Entity>;
-  delete(entity: Entity): Promise<DeleteResult>;
-}

@@ -4,6 +4,7 @@ import { UserEntity } from './domain/user.entity';
 import { UserResponseDto } from './dtos/user.response.dto';
 import { Injectable } from '@nestjs/common';
 import { UserModel } from '@modules/user/database/user.model';
+import { UserEntityPersistent } from '@modules/user/domain/user.types';
 
 /**
  * Mapper constructs objects that are used in different layers:
@@ -14,11 +15,11 @@ import { UserModel } from '@modules/user/database/user.model';
 
 @Injectable()
 export class UserMapper
-  implements Mapper<UserEntity, UserModel, UserResponseDto>
+  implements Mapper<UserEntity, UserEntityPersistent, UserResponseDto>
 {
-  toPersistence(entity: UserEntity): UserModel {
+  toPersistence(entity: UserEntity): UserEntityPersistent {
     const copy = entity.getPropsCopy();
-    const record: UserModel = {
+    return {
       id: copy.id,
       createdAt: copy.createdAt,
       updatedAt: copy.updatedAt,
@@ -27,7 +28,6 @@ export class UserMapper
       password: copy.password,
       nick: copy.nick,
     };
-    return record;
   }
 
   toDomain(record: UserModel): UserEntity {

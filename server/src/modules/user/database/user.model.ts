@@ -1,6 +1,8 @@
 import { ModelBase } from '@libs/db/model.base';
 import { UserRoles } from '@modules/user/domain/user.types';
-import { Column, Entity } from 'typeorm';
+import { Column, Entity, OneToMany } from 'typeorm';
+import { DishModel } from '@modules/dish/database/dish.model';
+import { DishPhotoModel } from '@modules/dish/database/dish-photo.model';
 
 @Entity({ name: 'user' })
 export class UserModel extends ModelBase {
@@ -16,4 +18,8 @@ export class UserModel extends ModelBase {
     default: UserRoles.user,
   })
   role: UserRoles;
+  @OneToMany(() => DishModel, (dish) => dish.user)
+  dish: DishModel;
+  @OneToMany(() => DishPhotoModel, (dishPhoto) => dishPhoto.user)
+  dishPhoto: DishPhotoModel;
 }

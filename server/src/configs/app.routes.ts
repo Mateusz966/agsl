@@ -1,6 +1,7 @@
 // Root
 const usersRoot = 'users';
 const authRoot = 'auth';
+const dishesRoot = 'dishes';
 
 // Api Versions
 const v1 = 'v1';
@@ -19,5 +20,10 @@ export const routesV1 = {
     mobile: {
       'sign-in': `${authRoot}/mobile/sign-in`,
     },
+  },
+  dishes: {
+    root: dishesRoot,
+    get: `${dishesRoot}/:id`,
+    all: dishesRoot,
   },
 };

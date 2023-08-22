@@ -29,19 +29,7 @@ export class UserModelRepository
     return await this.userRepository.findOne({ where: { email } });
   }
 
-  //@ts-ignore
-  async create(user: UserEntity) {
-    const res = await this.userRepository.save(this.mapper.toPersistence(user));
-
-    return this.mapper.toDomain(res);
+  async createOrUpdate(user: UserEntity) {
+    return await this.userRepository.save(this.mapper.toPersistence(user));
   }
-
-  // async delete(entity: UserEntity): Promise<boolean> {
-  //   return Promise.resolve(false);
-  // }
-  //
-  // async findOneById(id: string): Promise<UserEntity> {
-  //   const res = await this.em.findOne(UserModel, { id });
-  //   return this.mapper.toDomain(res);
-  // }
 }
