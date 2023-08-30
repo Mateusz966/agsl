@@ -7,6 +7,9 @@ import {useState} from 'react';
 import {ERROR_MESSAGES} from '../../../utils/errorDictionary';
 import {signUpUser} from '../../../api/user';
 import {useSnackbarVisibility} from '../../atoms/SnackbarMessage/useSnackbarVisibility';
+import {useNavigation} from '@react-navigation/core';
+import {AddDishNavigationProps} from '../../../navigators/types';
+import {Scenes} from '../../../navigators/const';
 
 const useRegister = () => {
   const form = useForm<UserRegister>({
@@ -14,7 +17,7 @@ const useRegister = () => {
   });
   const {visible, setVisible, handleOnDissmiss} = useSnackbarVisibility();
   const [text, setText] = useState('');
-
+  const navigation = useNavigation<AddDishNavigationProps>();
   const mutation = useMutation<void, void, RegisterRequest>({
     mutationFn: payload => {
       return signUpUser(payload);
@@ -23,6 +26,7 @@ const useRegister = () => {
       setVisible(true);
       setText("You're registered");
       form.reset({nick: '', email: '', password: ''});
+      navigation.navigate(Scenes.AddDish);
     },
     onError: error => {
       setVisible(true);
