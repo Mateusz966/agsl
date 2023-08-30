@@ -1,8 +1,8 @@
 import {zodResolver} from '@hookform/resolvers/zod';
 import {useForm} from 'react-hook-form';
-import {Dish, Unit} from './types';
 import {AddDish, addDishSchema} from './validation';
 import {useMutation} from '@tanstack/react-query';
+import {DishRequest, Unit} from '../../../api/dish/types';
 
 export const useAddDish = () => {
   const form = useForm<AddDish>({
@@ -21,7 +21,7 @@ export const useAddDish = () => {
     },
   });
 
-  const mutation = useMutation<void, void, Dish>({
+  const mutation = useMutation<void, void, DishRequest>({
     onSuccess: () => {
       form.reset();
     },
@@ -30,7 +30,7 @@ export const useAddDish = () => {
     },
   });
 
-  const onSubmit = (payload: Dish) => {
+  const onSubmit = (payload: DishRequest) => {
     mutation.mutate(payload);
   };
 
