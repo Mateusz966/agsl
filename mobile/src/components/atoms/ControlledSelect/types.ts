@@ -1,11 +1,16 @@
 import {FieldPath, FieldValues, UseControllerProps} from 'react-hook-form';
 
-export interface ControlledTextInputProps<
+export interface Option {
+  option: string;
+  value: string;
+}
+
+export interface ControlledSelectProps<
   TFieldValues extends FieldValues,
   TName extends FieldPath<TFieldValues>,
 > extends UseControllerProps<TFieldValues, TName> {
-  isPassword?: boolean;
-  error?: string;
-  placeholder?: string;
-  displayName?: string;
+  options: Option[];
+  handlePress: () => void;
+  expanded: boolean;
+  title: string;
 }

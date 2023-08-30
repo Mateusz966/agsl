@@ -1,7 +1,7 @@
 import React from 'react';
 import {Controller, FieldPath, FieldValues} from 'react-hook-form';
 
-import TextInput from '../../atoms/TextInput';
+import TextInput from '../TextInput';
 import {ControlledTextInputProps} from './types';
 
 const ControlledTextInput = <
