@@ -14,6 +14,10 @@ export interface CreateDishProps {
   photo?: string;
 }
 
+export interface UpdateDishProps extends CreateDishProps {
+  id: string;
+}
+
 export type DishEntityPersistent = {
   dish: {
     id: string;

@@ -70,8 +70,6 @@ export class CreateDishService implements ICommandHandler {
         }),
       );
 
-      //FIXME: implement saving ingredients
-
       await queryRunner.commitTransaction();
     } catch (e) {
       await queryRunner.rollbackTransaction();

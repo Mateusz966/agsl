@@ -1,7 +1,12 @@
 import { AggregateRoot, AggregateID } from '@libs/ddd';
 import { v4 } from 'uuid';
-import { CreateDishProps, DishProps } from '@modules/dish/domain/dish.types';
+import {
+  CreateDishProps,
+  DishProps,
+  UpdateDishProps,
+} from '@modules/dish/domain/dish.types';
 import { DishCreatedDomainEvent } from '@modules/dish/domain/events/dish-created.domain-event';
+import { DishUpdatedDomainEvent } from '@modules/dish/domain/events/dish-updated.domain-event';
 
 export class DishEntity extends AggregateRoot<DishProps> {
   protected readonly _id: AggregateID;
@@ -14,6 +19,22 @@ export class DishEntity extends AggregateRoot<DishProps> {
 
     dish.addEvent(
       new DishCreatedDomainEvent({
+        aggregateId: id,
+        name: props.name,
+        photo: props.photo ?? null,
+        ingredients: props.ingredients.unpack(),
+      }),
+    );
+    return dish;
+  }
+
+  static update(update: UpdateDishProps): DishEntity {
+    const { id, ...props } = update;
+
+    const dish = new DishEntity({ id, props });
+
+    dish.addEvent(
+      new DishUpdatedDomainEvent({
         aggregateId: id,
         name: props.name,
         photo: props.photo ?? null,
