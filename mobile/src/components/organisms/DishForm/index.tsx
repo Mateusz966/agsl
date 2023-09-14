@@ -6,14 +6,19 @@ import {useCamera} from '../Camera/useCamera';
 import {DISH_UNITS} from './const';
 import {useAddDish} from './useAddDish';
 import {useFieldArray} from 'react-hook-form';
-import {Image, ScrollView, Text, View} from 'react-native';
-import ControlledSelect from '../../atoms/ControlledSelect';
+import {Image, Pressable, ScrollView, Text, View} from 'react-native';
+import ControlledSelect from '../../molecules/ControlledSelect';
 import styles from './styles';
 import {Unit} from '../../../api/dish/types';
+import {ButtonType} from '../../molecules/Button/types';
+import {useModalVisibility} from '../../molecules/Modal/useModalVisibility';
+import Modal from '../../molecules/Modal';
+import Select from '../../molecules/Select';
 
 const DishForm = () => {
   const {handleLaunchCamera, handleLaunchImageLibrary} = useCamera();
   const [expanded, setExpanded] = React.useState(true);
+  const {handleOnDissmiss, setVisible, visible} = useModalVisibility();
 
   const handlePress = () => setExpanded(!expanded);
 
@@ -27,7 +32,7 @@ const DishForm = () => {
 
   const {fields, append, remove} = useFieldArray({
     control,
-    name: 'ingredient',
+    name: 'ingredients',
   });
   const [imgUrl, setImgUrl] = useState('');
 
@@ -66,28 +71,6 @@ const DishForm = () => {
   //   }
   // };
 
-  const [ingredients, setIngredients] = useState([]);
-  const [showAddIngredient, setShowAddIngredient] = useState(false);
-  const [newIngredient, setNewIngredient] = useState({
-    name: '',
-    quantity: '',
-    unit: '',
-  });
-
-  const toggleAddIngredient = () => {
-    setShowAddIngredient(!showAddIngredient);
-  };
-
-  const addIngredient = () => {
-    setIngredients([...ingredients, newIngredient]);
-    setNewIngredient({name: '', quantity: '', unit: ''});
-  };
-
-  const deleteIngredient = index => {
-    const updatedIngredients = ingredients.filter((_, i) => i !== index);
-    setIngredients(updatedIngredients);
-  };
-
   const handleSetPhoto = async () => {
     await handleLaunchImageLibrary().then(res => {
       if (res.assets && res.assets.length > 0) {
@@ -110,55 +93,82 @@ const DishForm = () => {
   console.log(fields);
   return (
     <>
-      <Text>Dodaj swój posiłek</Text>
-      <Layout>
-        <ScrollView>
-          {fields.map((item, index) => (
-            <View key={index}>
-              <View style={styles.ingredientRow}>
-                <Text>
-                  {item.name} - {item.quantity} {item.unit}
-                </Text>
-              </View>
-              <View
-                style={{
-                  rowGap: 20,
-                  padding: 20,
-                }}>
-                <ControlledTextInput
-                  name={`ingredient.${index}.name`}
-                  control={control}
-                  displayName="Nazwa"
-                />
-                <ControlledTextInput
-                  name={`ingredient.${index}.quantity`}
-                  control={control}
-                  displayName="Ilość"
-                />
-                <ControlledSelect
-                  control={control}
-                  handlePress={handlePress}
-                  expanded={expanded}
-                  options={DISH_UNITS}
-                  name={`ingredient.${index}.unit`}
-                  title={'Jednostka'}
-                />
-                <Button onPress={() => remove(index)}>-</Button>
-              </View>
-            </View>
-          ))}
-          <Button onPress={() => append({name: '', quantity: 0, unit: Unit.g})}>
-            Add dish
-          </Button>
-          <View style={{alignItems: 'center', marginBottom: 10}}>
+      <ScrollView>
+        <ControlledTextInput
+          name={`title`}
+          control={control}
+          displayName="Name of your meal"
+        />
+        <Pressable onPress={() => setVisible(true)}>
+          <Text>Add photo of your meal</Text>
+          <Modal onDismiss={handleOnDissmiss} visible={visible}>
+            <Button onPress={handleTakePhoto}>Take photo</Button>
+            <Button onPress={handleSetPhoto}>Open galery</Button>
+          </Modal>
+          <View
+            style={{
+              alignItems: 'center',
+              marginBottom: 10,
+              width: 200,
+              height: 200,
+            }}>
             {imgUrl && (
               <Image source={{uri: imgUrl}} style={{width: 200, height: 200}} />
             )}
           </View>
-          <Button onPress={handleTakePhoto}>Take photo</Button>
-          <Button onPress={handleSetPhoto}>Open galery</Button>
-        </ScrollView>
-      </Layout>
+        </Pressable>
+        {fields.map((item, index) => (
+          <View key={index}>
+            <View
+              style={{
+                marginTop: 20,
+                flexDirection: 'row',
+                alignItems: 'stretch',
+                justifyContent: 'space-between',
+              }}>
+              <ControlledTextInput
+                name={`ingredients.${index}.name`}
+                control={control}
+                displayName="Nazwa"
+              />
+              <ControlledTextInput
+                name={`ingredients.${index}.quantity`}
+                control={control}
+                displayName="Ilość"
+              />
+              <Select title="unit" options={DISH_UNITS} />
+              <Button onPress={() => remove(index)}>-</Button>
+            </View>
+          </View>
+        ))}
+        <Button
+          type={ButtonType.Secondary}
+          onPress={() => append({name: '', quantity: 0, unit: Unit.g})}>
+          + Add another ingredient
+        </Button>
+      </ScrollView>
+      <View
+        style={{
+          flexDirection: 'row-reverse',
+          gap: 10,
+          borderTopWidth: 0.5,
+          borderTopColor: 'black',
+          height: 70,
+          alignItems: 'center',
+        }}>
+        <Button
+          type={ButtonType.Primary}
+          style={{width: 150}}
+          onPress={handleSubmit(onSubmit)}>
+          Save
+        </Button>
+        <Button
+          type={ButtonType.Secondary}
+          style={{width: 150}}
+          onPress={() => {}}>
+          Cancel
+        </Button>
+      </View>
     </>
   );
 };
