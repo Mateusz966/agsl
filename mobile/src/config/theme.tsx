@@ -25,8 +25,12 @@ export const typography = {
 export const components = {
   button: {
     primary: {
-      width: '100%',
       backgroundColor: colors.primaryButton,
+      color: colors.tabActive,
+    },
+    secondary: {
+      backgroundColor: colors.tabActive,
+      color: colors.primary,
     },
   },
 };
