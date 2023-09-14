@@ -1,5 +1,5 @@
 import {z} from 'zod';
-import {Unit} from './types';
+import {Unit} from '../../../api/dish/types';
 
 const Ingredient = z.object({
   name: z.string().min(1, {message: 'Provide the name of ingredient'}),
@@ -7,10 +7,12 @@ const Ingredient = z.object({
   unit: z.nativeEnum(Unit),
 });
 
+export type Ingredient = z.infer<typeof Ingredient>;
+
 export const addDishSchema = z.object({
   title: z.string().min(1, {message: 'Provide the name of your dish'}),
   photo: z.any(z.instanceof(Blob)),
-  ingredient: z.array(Ingredient),
+  ingredients: z.array(z.custom<Ingredient>()),
 });
 
 export type AddDish = z.infer<typeof addDishSchema>;

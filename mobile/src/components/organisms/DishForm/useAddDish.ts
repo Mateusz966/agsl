@@ -11,7 +11,7 @@ export const useAddDish = () => {
     defaultValues: {
       title: '',
       photo: '',
-      ingredient: [
+      ingredients: [
         {
           name: '',
           quantity: 0,
