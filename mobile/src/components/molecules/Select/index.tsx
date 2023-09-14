@@ -1,28 +1,25 @@
 import * as React from 'react';
 import {List, RadioButton} from 'react-native-paper';
 import {SelectProps} from './types';
+import TextInput from '../../atoms/TextInput';
+import DropDown from 'react-native-paper-dropdown';
+import {useState} from 'react';
 
-const Select = ({
-  options,
-  onChange,
-  value,
-  expanded,
-  handlePress,
-  title,
-}: SelectProps) => (
-  <List.Accordion title={title} expanded={expanded} onPress={handlePress}>
-    <RadioButton.Group onValueChange={onChange} value={value}>
-      {options.map((option, index) => {
-        return (
-          <RadioButton.Item
-            key={index}
-            label={option.option}
-            value={option.value}
-          />
-        );
-      })}
-    </RadioButton.Group>
-  </List.Accordion>
-);
+const Select = ({options, title, expanded, onChange, value}: SelectProps) => {
+  const [showDropDown, setShowDropDown] = useState(false);
+  const [gender, setGender] = useState<string>('');
+  return (
+    <DropDown
+      label={title}
+      mode={'outlined'}
+      visible={showDropDown}
+      showDropDown={() => setShowDropDown(true)}
+      onDismiss={() => setShowDropDown(false)}
+      value={value}
+      setValue={setGender}
+      list={options}
+    />
+  );
+};
 
 export default Select;

@@ -7,7 +7,7 @@ export const CAMERA_OPTIONS: CameraOptions = {
 };
 
 export const DISH_UNITS = [
-  {option: Unit.g, value: 'g'},
-  {option: Unit.ml, value: 'ml'},
-  {option: Unit.portion, value: 'portion'},
+  {label: Unit.g, value: 'g'},
+  {label: Unit.ml, value: 'ml'},
+  {label: Unit.portion, value: 'portion'},
 ];
