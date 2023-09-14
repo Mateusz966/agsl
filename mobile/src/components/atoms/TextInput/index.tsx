@@ -7,8 +7,7 @@ const TextInput = ({...props}: TextInputProps) => (
   <Input
     style={styles.input}
     selectionColor={colors.primary}
-    underlineColor={colors.primary}
-    mode="flat"
+    mode="outlined"
     {...props}
   />
 );
