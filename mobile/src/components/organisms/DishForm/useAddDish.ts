@@ -3,6 +3,7 @@ import {useForm} from 'react-hook-form';
 import {AddDish, addDishSchema} from './validation';
 import {useMutation} from '@tanstack/react-query';
 import {DishRequest, Unit} from '../../../api/dish/types';
+import {addDish} from '../../../api/dish';
 
 export const useAddDish = () => {
   const form = useForm<AddDish>({
@@ -22,6 +23,9 @@ export const useAddDish = () => {
   });
 
   const mutation = useMutation<void, void, DishRequest>({
+    mutationFn: payload => {
+      return addDish(payload);
+    },
     onSuccess: () => {
       form.reset();
     },
@@ -34,5 +38,9 @@ export const useAddDish = () => {
     mutation.mutate(payload);
   };
 
-  return {form, mutation, onSubmit};
+  const onCancel = () => {
+    form.reset();
+  };
+
+  return {form, mutation, onSubmit, onCancel};
 };
