@@ -1,7 +1,7 @@
 import React from 'react';
 import {Controller, FieldPath, FieldValues} from 'react-hook-form';
-import Select from '../Select';
 import {ControlledSelectProps} from './types';
+import Select from '../../atoms/Select';
 
 const ControlledSelect = <
   TFieldValues extends FieldValues,
@@ -11,8 +11,6 @@ const ControlledSelect = <
   rules,
   name,
   options,
-  handlePress,
-  expanded,
   title,
 }: ControlledSelectProps<TFieldValues, TName>) => {
   return (
@@ -22,12 +20,10 @@ const ControlledSelect = <
       rules={rules}
       render={({field: {onChange, value}}) => (
         <Select
+          title={title}
+          value={value}
           onChange={onChange}
           options={options}
-          value={value}
-          handlePress={handlePress}
-          expanded={expanded}
-          title={title}
         />
       )}
     />
