@@ -26,7 +26,7 @@ const Tabs = ({index, setIndex}: TabProps) => {
       renderTabBar={props => (
         <TabBar
           indicatorStyle={styles.indicatorStyle}
-          activeColor={colors.tabActive}
+          activeColor={colors.white}
           indicatorContainerStyle={styles.indicatorContainerStyle}
           {...props}
         />

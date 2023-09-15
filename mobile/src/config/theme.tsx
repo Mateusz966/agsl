@@ -7,7 +7,7 @@ export const colors = {
   error: '#f13a59',
   primaryButton: '#6152BE',
   sceneContainerBackground: '#ededed',
-  tabActive: '#FFFFFF',
+  white: '#ffffff',
 };
 export const typography = {
   small: {
@@ -20,16 +20,21 @@ export const typography = {
     fontSize: 20,
     lineHeight: 22,
   },
+  large: {
+    fontFamily: 'roboto',
+    fontSize: 24,
+    lineHeight: 26,
+  },
 };
 
 export const components = {
   button: {
     primary: {
       backgroundColor: colors.primaryButton,
-      color: colors.tabActive,
+      color: colors.white,
     },
     secondary: {
-      backgroundColor: colors.tabActive,
+      backgroundColor: colors.white,
       color: colors.primary,
     },
   },

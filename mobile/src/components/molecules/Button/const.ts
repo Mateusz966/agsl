@@ -7,7 +7,7 @@ export const ButtonStyleDictionary: ButtonTypeDictionary<
 > = {
   [ButtonType.Primary]: {
     style: components.button.primary,
-    textColor: colors.tabActive,
+    textColor: colors.white,
   },
   [ButtonType.Secondary]: {
     style: components.button.secondary,
