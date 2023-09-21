@@ -1,27 +1,39 @@
 import React from 'react';
 import {Controller, FieldPath, FieldValues} from 'react-hook-form';
 
-import TextInput from '../../atoms/TextInput';
+import TextInput from '../../../atoms/TextInput';
 import {ControlledTextInputProps} from './types';
 
-const ControlledPhotoInput = <
+const ControlledTextInput = <
   TFieldValues extends FieldValues,
   TName extends FieldPath<TFieldValues>,
 >({
+  isPassword = false,
   control,
   rules,
   name,
+  error,
+  placeholder,
   displayName,
 }: ControlledTextInputProps<TFieldValues, TName>) => {
   return (
     <Controller
-      name={name}
       control={control}
+      name={name}
+      rules={rules}
       render={({field: {onChange, onBlur, value}}) => (
-        <input type="file" onBlur={onBlur} onChange={onChange} value={value} />
+        <TextInput
+          error={!!error}
+          secureTextEntry={isPassword}
+          label={displayName || name}
+          placeholder={placeholder}
+          onChangeText={onChange}
+          onBlur={onBlur}
+          value={value}
+        />
       )}
     />
   );
 };
 
-export default ControlledPhotoInput;
+export default ControlledTextInput;

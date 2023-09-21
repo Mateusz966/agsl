@@ -1,7 +1,7 @@
 import React from 'react';
 import {Controller, FieldPath, FieldValues} from 'react-hook-form';
 import {ControlledSelectProps} from './types';
-import Select from '../../atoms/Select';
+import Select from '../../../atoms/Select';
 
 const ControlledSelect = <
   TFieldValues extends FieldValues,

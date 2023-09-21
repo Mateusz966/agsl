@@ -1,5 +1,5 @@
 import {FieldPath, FieldValues, UseControllerProps} from 'react-hook-form';
-import {Option} from '../../atoms/Select/types';
+import {Option} from '../../../atoms/Select/types';
 
 export interface ControlledSelectProps<
   TFieldValues extends FieldValues,
