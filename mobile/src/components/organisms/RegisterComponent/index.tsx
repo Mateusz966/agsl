@@ -1,6 +1,6 @@
 import React from 'react';
 import Button from '../../molecules/Button';
-import ControlledTextInput from '../../molecules/ControlledTextInput';
+import ControlledTextInput from '../../molecules/ControlledInputs/ControlledTextInput';
 import {ErrorMessage} from '../../atoms/ErrorMessage';
 import useRegister from './useRegister';
 import SnackbarMessage from '../../atoms/SnackbarMessage';
