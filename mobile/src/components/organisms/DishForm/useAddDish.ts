@@ -29,12 +29,11 @@ export const useAddDish = () => {
     onSuccess: () => {
       form.reset();
     },
-    onError: error => {
-      console.log(error);
-    },
+    onError: error => {},
   });
 
   const onSubmit = (payload: DishRequest) => {
+    console.log(payload, 'payload');
     mutation.mutate(payload);
   };
 
