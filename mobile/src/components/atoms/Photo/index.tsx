@@ -1,7 +1,10 @@
 import * as React from 'react';
 import {Card} from 'react-native-paper';
 import {PhotoProps} from './types';
+import {memo} from 'react';
 
-const Photo = ({source}: PhotoProps) => <Card.Cover source={{uri: source}} />;
+const Photo = ({source, style}: PhotoProps) => (
+  <Card.Cover style={style} source={{uri: source}} />
+);
 
-export default Photo;
+export default memo(Photo);
