@@ -1,16 +1,17 @@
 export enum Unit {
   g = 'g',
   ml = 'ml',
-  portion = 'portion',
+  kg = 'kg',
+  l = 'l',
 }
 
 export interface Ingredient {
   name: string;
-  quantity: number;
+  amount: number;
   unit: Unit;
 }
 export interface DishRequest {
-  title: string;
-  ingredients: Ingredient[];
+  name: string;
   photo?: Blob;
+  ingredients: Ingredient[];
 }
