@@ -6,8 +6,9 @@ export enum ButtonType {
   Secondary = 'secondary',
 }
 
-export interface StyledButtonProps extends ButtonProps {
+export interface StyledButtonProps extends Omit<ButtonProps, 'children'> {
   type?: ButtonType;
+  children?: React.ReactNode;
 }
 
 export interface ButtonTypeStyle {

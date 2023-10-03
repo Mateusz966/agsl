@@ -8,5 +8,6 @@ export default StyleSheet.create({
     borderTopColor: 'black',
     height: 100,
     alignItems: 'center',
+    marginLeft: 10,
   },
 });

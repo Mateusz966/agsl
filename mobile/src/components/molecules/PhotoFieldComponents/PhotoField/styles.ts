@@ -1,12 +1,13 @@
 import {StyleSheet} from 'react-native';
 
 export const styles = StyleSheet.create({
-  container: {
-    zIndex: 10,
-    position: 'absolute',
-  },
+  container: {width: '100%', height: '30%', marginVertical: 20},
   image: {
-    position: 'relative',
+    position: 'absolute',
     zIndex: -1,
+    width: '100%',
+    height: 150,
+    aspectRatio: 1,
+    overflow: 'hidden',
   },
 });
