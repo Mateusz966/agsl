@@ -8,6 +8,7 @@ export const colors = {
   primaryButton: '#6152BE',
   sceneContainerBackground: '#ededed',
   white: '#ffffff',
+  primaryTextColor: '#4D4952',
 };
 export const typography = {
   small: {
@@ -24,6 +25,10 @@ export const typography = {
     fontFamily: 'roboto',
     fontSize: 24,
     lineHeight: 26,
+  },
+  form: {
+    fontFamily: 'roboto',
+    fontSize: 16,
   },
 };
 
