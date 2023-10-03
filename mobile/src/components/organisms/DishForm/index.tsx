@@ -1,7 +1,7 @@
 import React, {useState} from 'react';
 import ControlledTextInput from '../../molecules/ControlledInputs/ControlledTextInput';
 import {useAddDish} from './useAddDish';
-import {ScrollView} from 'react-native';
+import {View} from 'react-native';
 import {useModalVisibility} from '../../molecules/Modal/useModalVisibility';
 import Modal from '../../molecules/Modal';
 import PhotoField from '../../molecules/PhotoFieldComponents/PhotoField';
@@ -9,7 +9,7 @@ import {Asset} from 'react-native-image-picker';
 import {handleSetPhoto, handleTakePhoto} from '../Camera/helpers';
 import IngredientsFieldsArray from '../IngredientsFieldsArray';
 import ActionButtonsContainer from '../../molecules/ActionButtonsContainer';
-import styles from './styles';
+import {Layout} from '../../atoms/Layout';
 
 const DishForm = () => {
   const {handleOnDissmiss, setVisible, visible} = useModalVisibility();
@@ -29,9 +29,9 @@ const DishForm = () => {
 
   return (
     <>
-      <ScrollView>
+      <Layout>
         <ControlledTextInput
-          name={`title`}
+          name={`name`}
           control={control}
           displayName="Name of your meal"
         />
@@ -55,16 +55,16 @@ const DishForm = () => {
           handleChange={() => setVisible(true)}
           handleOnPress={() => setVisible(true)}
           source={img?.uri}></PhotoField>
-        <IngredientsFieldsArray />
-      </ScrollView>
-      <ActionButtonsContainer
-        primaryButtonText={'Save'}
-        primaryButtonHandler={handleSubmit(onSubmit)}
-        secondaryButtonText="Cancel"
-        secondaryButtonHandler={onCancel}
-        primaryButtonStyle={styles.saveButton}
-        secondaryButtonStyle={styles.cancelButton}
-      />
+        <IngredientsFieldsArray control={control} />
+      </Layout>
+      <View>
+        <ActionButtonsContainer
+          primaryButtonText="Save"
+          primaryButtonHandler={handleSubmit(onSubmit)}
+          secondaryButtonText="Cancel"
+          secondaryButtonHandler={onCancel}
+        />
+      </View>
     </>
   );
 };

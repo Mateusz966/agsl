@@ -3,14 +3,14 @@ import {PressableTextBoxProps} from './types';
 import {FC, memo} from 'react';
 import TextBox from '../../../atoms/TextBox';
 import {Pressable} from 'react-native';
+import {styles} from './styles';
 
 const PressableTextBox: FC<PressableTextBoxProps> = ({
   onPressHandler,
   text,
-  style,
 }) => (
-  <Pressable onPress={onPressHandler}>
-    <TextBox text={text} style={style} />
+  <Pressable style={styles.outline} onPress={onPressHandler}>
+    <TextBox text={text} />
   </Pressable>
 );
 
