@@ -10,12 +10,12 @@ export const useAddDish = () => {
     resolver: zodResolver(addDishSchema),
     mode: 'onChange',
     defaultValues: {
-      title: '',
+      name: '',
       photo: '',
       ingredients: [
         {
           name: '',
-          quantity: 0,
+          amount: 0,
           unit: Unit.g,
         },
       ],
@@ -29,7 +29,9 @@ export const useAddDish = () => {
     onSuccess: () => {
       form.reset();
     },
-    onError: error => {},
+    onError: error => {
+      console.log(error);
+    },
   });
 
   const onSubmit = (payload: DishRequest) => {
