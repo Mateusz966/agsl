@@ -13,6 +13,8 @@ import {
 import IngredientsFieldsArray from '../IngredientsFieldsArray';
 import ActionButtonsContainer from '../../molecules/ActionButtonsContainer';
 import {Layout} from '../../atoms/Layout';
+import styles from './styles';
+import Message from '../../atoms/Message';
 
 const DishForm = () => {
   const {handleOnDissmiss, setVisible, visible} = useModalVisibility();
@@ -23,6 +25,7 @@ const DishForm = () => {
   const handleImageSelection = (selectedImg: Asset | null) => {
     setImg(selectedImg);
     form.setValue('photo', selectedImg);
+    handleOnDissmiss();
   };
 
   const handleImageDelete = () => {
@@ -39,6 +42,11 @@ const DishForm = () => {
           displayName="Name of your meal"
         />
         <Modal onDismiss={handleOnDissmiss} visible={visible}>
+          <Message message="Add photo" style={styles.modalTitle} />
+          <Message
+            message="You can select your dish photo from gallery or take the photo directly"
+            style={styles.modalBody}
+          />
           <ActionButtonsContainer
             primaryButtonText="Gallery"
             primaryButtonHandler={() =>
@@ -51,7 +59,9 @@ const DishForm = () => {
               handleTakePhoto().then(res =>
                 res ? handleImageSelection(res) : setImg(null),
               )
-            }></ActionButtonsContainer>
+            }
+            containerStyle={styles.modalButtonsContainer}
+          />
         </Modal>
         <PhotoField
           handleDelete={handleImageDelete}
@@ -66,6 +76,7 @@ const DishForm = () => {
           primaryButtonHandler={handleSubmit(onSubmit)}
           secondaryButtonText="Cancel"
           secondaryButtonHandler={onCancel}
+          containerStyle={styles.actionButtonsContainer}
         />
       </View>
     </>

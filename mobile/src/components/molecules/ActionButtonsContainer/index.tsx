@@ -16,7 +16,7 @@ const ActionButtonsContainer: FC<ActionButtonsContainerProps> = ({
   secondaryButtonStyle,
   containerStyle,
 }) => (
-  <View style={containerStyle}>
+  <View style={containerStyle ?? styles.actionButtonsContainer}>
     <Button
       type={ButtonType.Primary}
       onPress={primaryButtonHandler}
