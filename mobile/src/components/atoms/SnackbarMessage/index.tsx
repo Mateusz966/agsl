@@ -1,9 +1,9 @@
-import React from 'react';
+import React, {FC, memo} from 'react';
 import {Snackbar, SnackbarProps} from 'react-native-paper';
 import {DEFAULT_DURATION} from './const';
 import {styles} from './styles';
 
-const SnackbarMessage = ({visible, children, onDismiss}: SnackbarProps) => (
+const SnackbarMessage: FC<SnackbarProps> = ({visible, children, onDismiss}) => (
   <Snackbar
     visible={visible}
     wrapperStyle={styles.container}
@@ -17,4 +17,4 @@ const SnackbarMessage = ({visible, children, onDismiss}: SnackbarProps) => (
   </Snackbar>
 );
 
-export default SnackbarMessage;
+export default memo(SnackbarMessage);

@@ -2,11 +2,12 @@ import * as React from 'react';
 import {SelectProps} from './types';
 import DropDown from 'react-native-paper-dropdown';
 import {useSelectVisibility} from './useSelectVisibilty';
-import {memo} from 'react';
+import {FC, memo} from 'react';
 
-const Select = ({options, title, value, onChange}: SelectProps) => {
+const Select: FC<SelectProps> = ({options, title, value, onChange}) => {
   const {handleSelectOnDissmiss, setSelectVisible, selectVisible} =
     useSelectVisibility();
+
   return (
     <DropDown
       label={title}

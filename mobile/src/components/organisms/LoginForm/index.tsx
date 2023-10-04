@@ -1,12 +1,12 @@
-import React from 'react';
-import Button from '../../molecules/Button';
-import ErrorMessage from '../../atoms/ErrorMessage';
+import React, {memo} from 'react';
+import Button from '../../atoms/Button';
+import ErrorMessage from '../../molecules/ErrorMessage';
 import ControlledTextInput from '../../molecules/ControlledInputs/ControlledTextInput';
 import {useLogin} from './useLogin';
 import SnackbarMessage from '../../atoms/SnackbarMessage';
 import {Layout} from '../../atoms/Layout';
 
-const LoginComponent = () => {
+const LoginForm = () => {
   const {form, mutation, text, onSubmit, visible, handleOnDissmiss} =
     useLogin();
 
@@ -41,4 +41,4 @@ const LoginComponent = () => {
   );
 };
 
-export default LoginComponent;
+export default memo(LoginForm);

@@ -1,11 +1,8 @@
 import * as React from 'react';
-import {Card, Text} from 'react-native-paper';
-import {PhotoActionWrapperProps} from './types';
+import {Card} from 'react-native-paper';
 import {FC, PropsWithChildren, memo} from 'react';
-import Button from '../../Button';
-import {ButtonType} from '../../Button/types';
-import ActionButtonsContainer from '../../ActionButtonsContainer';
-import {ActionButtonsContainerProps} from '../../ActionButtonsContainer/types';
+import ActionButtonsContainer from '../ActionButtonsContainer';
+import {ActionButtonsContainerProps} from '../ActionButtonsContainer/types';
 
 const PhotoActionWrapper: FC<
   PropsWithChildren<ActionButtonsContainerProps>

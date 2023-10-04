@@ -1,11 +1,11 @@
-import React, {FC} from 'react';
-import Button from '../../molecules/Button';
+import React, {FC, memo} from 'react';
+import Button from '../../atoms/Button';
 import ControlledTextInput from '../../molecules/ControlledInputs/ControlledTextInput';
 import {useFieldArray} from 'react-hook-form';
 import {ScrollView, View} from 'react-native';
 import ControlledSelect from '../../molecules/ControlledInputs/ControlledSelect';
 import {Unit} from '../../../api/dish/types';
-import {ButtonType} from '../../molecules/Button/types';
+import {ButtonType} from '../../atoms/Button/types';
 
 import styles from './styles';
 import {DISH_UNITS, IngredientsFieldsArrayProps} from './types';
@@ -53,4 +53,4 @@ const IngredientsFieldsArray: FC<IngredientsFieldsArrayProps> = ({control}) => {
     </ScrollView>
   );
 };
-export default IngredientsFieldsArray;
+export default memo(IngredientsFieldsArray);

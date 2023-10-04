@@ -4,9 +4,12 @@ import {useAddDish} from './useAddDish';
 import {View} from 'react-native';
 import {useModalVisibility} from '../../molecules/Modal/useModalVisibility';
 import Modal from '../../molecules/Modal';
-import PhotoField from '../../molecules/PhotoFieldComponents/PhotoField';
+import PhotoField from '../PhotoField';
 import {Asset} from 'react-native-image-picker';
-import {handleSetPhoto, handleTakePhoto} from '../Camera/helpers';
+import {
+  handleSetPhoto,
+  handleTakePhoto,
+} from '../../../utils/CameraSettings/helpers';
 import IngredientsFieldsArray from '../IngredientsFieldsArray';
 import ActionButtonsContainer from '../../molecules/ActionButtonsContainer';
 import {Layout} from '../../atoms/Layout';

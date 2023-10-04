@@ -3,10 +3,11 @@ import {Card, Text} from 'react-native-paper';
 import {TextBoxProps} from './types';
 import {FC, memo} from 'react';
 import {styles} from './styles';
+import Message from '../../atoms/Message';
 
 const TextBox: FC<TextBoxProps> = ({text}) => (
   <Card.Content style={styles.container}>
-    <Text style={styles.textStyle}>{text}</Text>
+    <Message style={styles.textStyle} message={text} />
   </Card.Content>
 );
 

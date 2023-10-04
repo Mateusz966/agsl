@@ -4,8 +4,8 @@ import {FC, memo} from 'react';
 
 import {View} from 'react-native';
 import styles from './styles';
-import {ButtonType} from '../Button/types';
-import Button from '../Button';
+import Button from '../../atoms/Button';
+import {ButtonType} from '../../atoms/Button/types';
 
 const ActionButtonsContainer: FC<ActionButtonsContainerProps> = ({
   primaryButtonText,
@@ -16,7 +16,7 @@ const ActionButtonsContainer: FC<ActionButtonsContainerProps> = ({
   secondaryButtonStyle,
   containerStyle,
 }) => (
-  <View style={[styles.actionButtonsContainer, containerStyle]}>
+  <View style={containerStyle}>
     <Button
       type={ButtonType.Primary}
       onPress={primaryButtonHandler}

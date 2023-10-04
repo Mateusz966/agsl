@@ -1,7 +1,7 @@
 import * as React from 'react';
 import {PressableTextBoxProps} from './types';
 import {FC, memo} from 'react';
-import TextBox from '../../../atoms/TextBox';
+import TextBox from '../TextBox';
 import {Pressable} from 'react-native';
 import {styles} from './styles';
 

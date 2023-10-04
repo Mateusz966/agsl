@@ -1,12 +1,12 @@
-import React from 'react';
-import Button from '../../molecules/Button';
+import React, {memo} from 'react';
+import Button from '../../atoms/Button';
 import ControlledTextInput from '../../molecules/ControlledInputs/ControlledTextInput';
-import {ErrorMessage} from '../../atoms/ErrorMessage';
+import {ErrorMessage} from '../../molecules/ErrorMessage';
 import useRegister from './useRegister';
 import SnackbarMessage from '../../atoms/SnackbarMessage';
 import {Layout} from '../../atoms/Layout';
 
-const RegisterComponent = () => {
+const RegisterForm = () => {
   const {form, mutation, text, onSubmit, visible, handleOnDissmiss} =
     useRegister();
 
@@ -46,4 +46,4 @@ const RegisterComponent = () => {
     </Layout>
   );
 };
-export default RegisterComponent;
+export default memo(RegisterForm);

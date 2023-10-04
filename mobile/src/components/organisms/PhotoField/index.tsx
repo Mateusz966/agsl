@@ -1,8 +1,8 @@
 import * as React from 'react';
 import {PhotoFieldProps} from './types';
-import Photo from '../../../atoms/Photo';
-import PhotoActionWrapper from '../PhotoActionWrapper';
-import PressableTextBox from '../PressableTextBox';
+import Photo from '../../atoms/Photo';
+import PhotoActionWrapper from '../../molecules/PhotoActionWrapper';
+import PressableTextBox from '../../molecules/PressableTextBox';
 import {memo} from 'react';
 import {styles} from './styles';
 

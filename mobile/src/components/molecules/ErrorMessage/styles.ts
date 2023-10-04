@@ -6,7 +6,6 @@ export const styles = StyleSheet.create({
     marginTop: 10,
     marginBottom: 10,
   },
-
   error: {
     ...typography.small,
     color: colors.error,
