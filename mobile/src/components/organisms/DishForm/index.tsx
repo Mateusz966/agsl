@@ -22,9 +22,10 @@ const DishForm = () => {
   const {control, handleSubmit} = form;
   const [img, setImg] = useState<Asset | null>(null);
 
-  const handleImageSelection = (selectedImg: Asset | null) => {
+  const handleImageSelection = async (selectedImg: Asset | null) => {
     setImg(selectedImg);
-    form.setValue('photo', selectedImg);
+    const response = new Blob([selectedImg?.uri ?? '']);
+    form.setValue('photo', response);
     handleOnDissmiss();
   };
 
@@ -49,17 +50,15 @@ const DishForm = () => {
           />
           <ActionButtonsContainer
             primaryButtonText="Gallery"
-            primaryButtonHandler={() =>
-              handleSetPhoto().then(res =>
-                res ? handleImageSelection(res) : setImg(null),
-              )
-            }
+            primaryButtonHandler={async () => {
+              const res = await handleSetPhoto();
+              res ? handleImageSelection(res) : setImg(null);
+            }}
             secondaryButtonText="Camera"
-            secondaryButtonHandler={() =>
-              handleTakePhoto().then(res =>
-                res ? handleImageSelection(res) : setImg(null),
-              )
-            }
+            secondaryButtonHandler={async () => {
+              const res = await handleTakePhoto();
+              res ? handleImageSelection(res) : setImg(null);
+            }}
             containerStyle={styles.modalButtonsContainer}
           />
         </Modal>
