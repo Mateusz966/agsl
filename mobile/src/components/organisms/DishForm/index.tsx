@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React from 'react';
 import ControlledTextInput from '../../molecules/ControlledInputs/ControlledTextInput';
 import {useAddDish} from './useAddDish';
 import {View} from 'react-native';
@@ -18,14 +18,11 @@ import Message from '../../atoms/Message';
 
 const DishForm = () => {
   const {handleOnDissmiss, setVisible, visible} = useModalVisibility();
-  const {form, onSubmit, onCancel} = useAddDish();
+  const {form, onSubmit, onCancel, setImg, img} = useAddDish();
   const {control, handleSubmit} = form;
-  const [img, setImg] = useState<Asset | null>(null);
 
   const handleImageSelection = async (selectedImg: Asset | null) => {
     setImg(selectedImg);
-    const response = new Blob([selectedImg?.uri ?? '']);
-    form.setValue('photo', response);
     handleOnDissmiss();
   };
 
@@ -38,7 +35,7 @@ const DishForm = () => {
     <>
       <Layout>
         <ControlledTextInput
-          name={`name`}
+          name={'name'}
           control={control}
           displayName="Name of your meal"
         />
@@ -66,7 +63,8 @@ const DishForm = () => {
           handleDelete={handleImageDelete}
           handleChange={() => setVisible(true)}
           handleOnPress={() => setVisible(true)}
-          source={img?.uri}></PhotoField>
+          source={img?.uri}
+        />
         <IngredientsFieldsArray control={control} />
       </Layout>
       <View>

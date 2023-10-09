@@ -4,8 +4,12 @@ import {AddDish, addDishSchema} from './validation';
 import {useMutation} from '@tanstack/react-query';
 import {DishRequest, Unit} from '../../../api/dish/types';
 import {addDish} from '../../../api/dish';
+import {useState} from 'react';
+import {Asset} from 'react-native-image-picker';
 
 export const useAddDish = () => {
+  const [img, setImg] = useState<Asset | null>(null);
+
   const form = useForm<AddDish>({
     resolver: zodResolver(addDishSchema),
     mode: 'onChange',
@@ -22,7 +26,7 @@ export const useAddDish = () => {
     },
   });
 
-  const mutation = useMutation<void, void, DishRequest>({
+  const mutation = useMutation<void, void, FormData>({
     mutationFn: payload => {
       return addDish(payload);
     },
@@ -35,13 +39,26 @@ export const useAddDish = () => {
   });
 
   const onSubmit = (payload: DishRequest) => {
-    console.log(payload, 'payload');
-    mutation.mutate(payload);
+    console.log('pn', payload.name);
+    console.log('pi', payload.ingredients);
+    const photo = {
+      uri: img?.uri,
+      name: img?.fileName,
+      type: img?.type,
+    };
+    const fd = new FormData();
+
+    console.log(photo);
+
+    fd.append('photo', photo);
+    fd.append('ingredients', JSON.stringify(payload.ingredients));
+    fd.append('name', payload.name);
+    mutation.mutate(fd);
   };
 
   const onCancel = () => {
     form.reset();
   };
 
-  return {form, mutation, onSubmit, onCancel};
+  return {form, mutation, onSubmit, onCancel, img, setImg};
 };
