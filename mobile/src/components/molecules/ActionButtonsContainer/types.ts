@@ -5,7 +5,5 @@ export interface ActionButtonsContainerProps {
   secondaryButtonText: string;
   primaryButtonHandler: () => void;
   secondaryButtonHandler: () => void;
-  primaryButtonStyle?: ViewStyle;
-  secondaryButtonStyle?: ViewStyle;
   containerStyle?: ViewStyle;
 }
