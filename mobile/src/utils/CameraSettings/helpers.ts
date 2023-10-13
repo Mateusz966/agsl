@@ -1,8 +1,4 @@
-import {
-  Asset,
-  launchCamera,
-  launchImageLibrary,
-} from 'react-native-image-picker';
+import {launchCamera, launchImageLibrary} from 'react-native-image-picker';
 import {CAMERA_OPTIONS} from './const';
 import requestCameraPermission from './permissions';
 
@@ -22,20 +18,20 @@ export const handleLaunchImageLibrary = () =>
     }
   });
 
-export const handleTakePhoto = async () =>
-  handleLaunchCamera().then(res => {
-    if (res.assets) {
-      return res.assets[0];
-    } else {
-      return null;
-    }
-  });
+export const handleTakePhoto = async () => {
+  const response = await handleLaunchCamera();
+  if (response.assets) {
+    return response.assets[0];
+  } else {
+    return null;
+  }
+};
 
-export const handleSetPhoto = async () =>
-  handleLaunchImageLibrary().then(res => {
-    if (res.assets) {
-      return res.assets[0];
-    } else {
-      return null;
-    }
-  });
+export const handleSetPhoto = async () => {
+  const response = await handleLaunchImageLibrary();
+  if (response.assets) {
+    return response.assets[0];
+  } else {
+    return null;
+  }
+};
