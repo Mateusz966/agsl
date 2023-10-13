@@ -3,6 +3,7 @@ import {Controller, FieldPath, FieldValues} from 'react-hook-form';
 
 import TextInput from '../../../atoms/TextInput';
 import {ControlledTextInputProps} from './types';
+import ErrorMessage from '../../ErrorMessage';
 
 const ControlledTextInput = <
   TFieldValues extends FieldValues,
@@ -15,24 +16,29 @@ const ControlledTextInput = <
   error,
   placeholder,
   displayName,
+  keyboardType,
 }: ControlledTextInputProps<TFieldValues, TName>) => {
   return (
-    <Controller
-      control={control}
-      name={name}
-      rules={rules}
-      render={({field: {onChange, onBlur, value}}) => (
-        <TextInput
-          error={!!error}
-          secureTextEntry={isPassword}
-          label={displayName || name}
-          placeholder={placeholder}
-          onChangeText={onChange}
-          onBlur={onBlur}
-          value={value}
-        />
-      )}
-    />
+    <>
+      <Controller
+        control={control}
+        name={name}
+        rules={rules}
+        render={({field: {onChange, onBlur, value}}) => (
+          <TextInput
+            error={!!error}
+            secureTextEntry={isPassword}
+            label={displayName || name}
+            placeholder={placeholder}
+            onChangeText={onChange}
+            onBlur={onBlur}
+            value={value?.toString()}
+            keyboardType={keyboardType}
+          />
+        )}
+      />
+      <ErrorMessage error={error} />
+    </>
   );
 };
 

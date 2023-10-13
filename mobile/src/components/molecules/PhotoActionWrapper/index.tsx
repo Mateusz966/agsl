@@ -12,8 +12,6 @@ const PhotoActionWrapper: FC<
   secondaryButtonText,
   primaryButtonHandler,
   secondaryButtonHandler,
-  primaryButtonStyle,
-  secondaryButtonStyle,
   containerStyle,
 }) => (
   <Card style={containerStyle}>
@@ -22,8 +20,6 @@ const PhotoActionWrapper: FC<
       secondaryButtonText={secondaryButtonText}
       primaryButtonHandler={primaryButtonHandler}
       secondaryButtonHandler={secondaryButtonHandler}
-      primaryButtonStyle={primaryButtonStyle}
-      secondaryButtonStyle={secondaryButtonStyle}
     />
     {children}
   </Card>
