@@ -34,13 +34,13 @@ export const typography = {
 
 export const components = {
   button: {
-    primary: {
-      backgroundColor: colors.primaryButton,
-      color: colors.white,
+    style: {
+      primary: {backgroundColor: colors.primaryButton},
+      secondary: {backgroundColor: colors.white},
     },
-    secondary: {
-      backgroundColor: colors.white,
-      color: colors.primary,
+    textColor: {
+      primary: colors.white,
+      secondary: colors.primary,
     },
   },
 };
