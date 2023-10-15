@@ -6,9 +6,8 @@ export const httpClient = axios.create(AXIOS_CONFIGURATION);
 
 httpClient.interceptors.request.use(
   async config => {
-    console.log(config);
     if (config.url === API_ROUTES.v1.register) {
-      delete config.headers.Authorization;
+      config.headers.Authorization = undefined;
     } else {
       if (!config.headers.Authorization) {
         const credentials = await Keychain.getGenericPassword();
