@@ -1,14 +1,17 @@
 import {zodResolver} from '@hookform/resolvers/zod';
 import {useForm} from 'react-hook-form';
-import {AddDish, addDishSchema} from './validation';
+import {AddDish, addDishSchema} from '../validation';
 import {useMutation} from '@tanstack/react-query';
-import {DishRequest, Unit} from '../../../api/dish/types';
-import {addDish} from '../../../api/dish';
+import {DishRequest, Unit} from '../../../../api/dish/types';
+import {addDish} from '../../../../api/dish';
 import {useState} from 'react';
-import {Asset} from 'react-native-image-picker';
+import {useSnackbarVisibility} from '../../../atoms/SnackbarMessage/useSnackbarVisibility';
+import {UseAddDishProps} from './types';
 
-export const useAddDish = () => {
-  const [img, setImg] = useState<Asset | null>(null);
+export const useAddDish = ({img}: UseAddDishProps) => {
+  const {visible, setVisible, handleOnDissmiss} = useSnackbarVisibility();
+  const [text, setText] = useState('');
+  console.log(img, 'image');
 
   const form = useForm<AddDish>({
     resolver: zodResolver(addDishSchema),
@@ -31,25 +34,25 @@ export const useAddDish = () => {
       return addDish(payload);
     },
     onSuccess: () => {
+      setVisible(true);
+      setText('Your dish was added sucessfully');
       form.reset();
     },
     onError: error => {
+      setVisible(true);
       console.log(error);
+      setText(`${error}`);
     },
   });
 
   const onSubmit = (payload: DishRequest) => {
-    console.log('pn', payload.name);
-    console.log('pi', payload.ingredients);
+    console.log(payload);
     const photo = {
       uri: img?.uri,
       name: img?.fileName,
       type: img?.type,
     };
     const fd = new FormData();
-
-    console.log(photo);
-
     fd.append('photo', photo);
     fd.append('ingredients', JSON.stringify(payload.ingredients));
     fd.append('name', payload.name);
@@ -60,5 +63,13 @@ export const useAddDish = () => {
     form.reset();
   };
 
-  return {form, mutation, onSubmit, onCancel, img, setImg};
+  return {
+    text,
+    form,
+    mutation,
+    onSubmit,
+    onCancel,
+    visible,
+    handleOnDissmiss,
+  };
 };

@@ -1,5 +1,5 @@
 import * as React from 'react';
-import {Card, Text} from 'react-native-paper';
+import {Card} from 'react-native-paper';
 import {TextBoxProps} from './types';
 import {FC, memo} from 'react';
 import {styles} from './styles';

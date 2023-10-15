@@ -19,12 +19,10 @@ const PhotoField = ({
       primaryButtonText="Edit"
       secondaryButtonText="Delete"
       containerStyle={styles.container}>
-      <Photo source={source} style={styles.image}></Photo>
+      <Photo source={source} style={styles.image} />
     </PhotoActionWrapper>
   ) : (
-    <PressableTextBox
-      onPressHandler={handleOnPress}
-      text="Add photo"></PressableTextBox>
+    <PressableTextBox onPressHandler={handleOnPress} text="Add photo" />
   );
 
 export default memo(PhotoField);

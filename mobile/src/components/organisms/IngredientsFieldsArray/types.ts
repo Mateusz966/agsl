@@ -1,14 +1,14 @@
-import {Control} from 'react-hook-form';
+import {UseFormReturn} from 'react-hook-form';
 import {Unit} from '../../../api/dish/types';
 import {AddDish} from '../DishForm/validation';
 
 export const DISH_UNITS = [
-  {label: Unit.g, value: 'g'},
-  {label: Unit.ml, value: 'ml'},
-  {label: Unit.kg, value: 'kg'},
-  {label: Unit.l, value: 'l'},
+  {label: Unit.g, value: Unit.g},
+  {label: Unit.ml, value: Unit.ml},
+  {label: Unit.kg, value: Unit.kg},
+  {label: Unit.l, value: Unit.l},
 ];
 
 export interface IngredientsFieldsArrayProps {
-  control: Control<AddDish>;
+  form: UseFormReturn<AddDish>;
 }

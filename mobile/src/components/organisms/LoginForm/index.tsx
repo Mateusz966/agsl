@@ -1,6 +1,5 @@
 import React, {memo} from 'react';
 import Button from '../../atoms/Button';
-import ErrorMessage from '../../molecules/ErrorMessage';
 import ControlledTextInput from '../../molecules/ControlledInputs/ControlledTextInput';
 import {useLogin} from './useLogin';
 import SnackbarMessage from '../../atoms/SnackbarMessage';
@@ -23,14 +22,12 @@ const LoginForm = () => {
         control={control}
         name="email"
       />
-      <ErrorMessage error={errors.email?.message} />
       <ControlledTextInput
         error={errors.password?.message}
         control={control}
         isPassword
         name="password"
       />
-      <ErrorMessage error={errors.password?.message} />
       <Button loading={mutation.isLoading} onPress={handleSubmit(onSubmit)}>
         Sign in
       </Button>

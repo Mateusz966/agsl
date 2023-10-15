@@ -14,6 +14,7 @@ import {AddDishNavigationProps} from '../../../navigators/types';
 export const useLogin = () => {
   const navigation = useNavigation<AddDishNavigationProps>();
   const {visible, setVisible, handleOnDissmiss} = useSnackbarVisibility();
+  //TODO refactor snackbarComponent
   const [text, setText] = useState('');
 
   const form = useForm<UserLogin>({

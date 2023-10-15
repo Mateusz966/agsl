@@ -26,7 +26,7 @@ const useRegister = () => {
       setVisible(true);
       setText("You're registered");
       form.reset({nick: '', email: '', password: ''});
-      navigation.navigate(Scenes.AddDish);
+      navigation.navigate(Scenes.Login);
     },
     onError: error => {
       setVisible(true);
