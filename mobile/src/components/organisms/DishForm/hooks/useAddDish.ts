@@ -11,7 +11,6 @@ import {UseAddDishProps} from './types';
 export const useAddDish = ({img}: UseAddDishProps) => {
   const {visible, setVisible, handleOnDissmiss} = useSnackbarVisibility();
   const [text, setText] = useState('');
-  console.log(img, 'image');
 
   const form = useForm<AddDish>({
     resolver: zodResolver(addDishSchema),
@@ -40,13 +39,11 @@ export const useAddDish = ({img}: UseAddDishProps) => {
     },
     onError: error => {
       setVisible(true);
-      console.log(error);
       setText(`${error}`);
     },
   });
 
   const onSubmit = (payload: DishRequest) => {
-    console.log(payload);
     const photo = {
       uri: img?.uri,
       name: img?.fileName,
