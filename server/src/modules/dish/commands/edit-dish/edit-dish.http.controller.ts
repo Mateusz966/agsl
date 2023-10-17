@@ -4,6 +4,7 @@ import {
   Controller,
   HttpStatus,
   Param,
+  ParseFilePipe,
   Patch,
   UploadedFile,
   UseGuards,
@@ -47,17 +48,14 @@ export class EditDishHttpController {
   @UseGuards(JwtAuthGuard)
   @UseInterceptors(FileFastifyInterceptor('photo'))
   async edit(
-    @UploadedFile('photo') newPhoto: Express.Multer.File,
+    @UploadedFile(new ParseFilePipe()) newPhoto: Express.Multer.File,
     @Body()
-    {
-      name = '',
-      ingredients = '',
-      photo = null,
-    }: { name: string; ingredients: string; photo: null | string },
+    { name = '', ingredients = '' }: { name: string; ingredients: string },
     @User() user: JWTUser,
     @Param() { id }: { id: string },
   ): Promise<IdResponse> {
-    console.log('id', id)
+    console.log('id', id);
+    console.log('newPhoto', newPhoto);
     try {
       const parsedIngredients = new Ingredients(
         JSON.parse(ingredients),
@@ -67,7 +65,7 @@ export class EditDishHttpController {
         id,
         name,
         ingredients: parsedIngredients,
-        photo: photo === null || photo ? photo : newPhoto,
+        photo: newPhoto ? newPhoto : null,
         userId: user.id,
       });
 

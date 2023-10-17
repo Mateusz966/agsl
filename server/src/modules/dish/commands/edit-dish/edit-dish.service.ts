@@ -78,7 +78,7 @@ export class EditDishService implements ICommandHandler {
 
       await Promise.all(
         ingredients.unpack().map(async (ingredient) => {
-          console.log('ingredient', ingredient)
+          console.log('ingredient', ingredient);
           await queryRunner.manager.getRepository(IngredientsModel).upsert(
             {
               id: ingredient?.id ?? v4(),

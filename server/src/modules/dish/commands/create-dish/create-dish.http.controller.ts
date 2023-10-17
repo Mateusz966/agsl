@@ -3,6 +3,7 @@ import {
   ConflictException as ConflictHttpException,
   Controller,
   HttpStatus,
+  ParseFilePipe,
   Post,
   UploadedFile,
   UseGuards,
@@ -46,7 +47,7 @@ export class CreateDishHttpController {
   @UseGuards(JwtAuthGuard)
   @UseInterceptors(FileFastifyInterceptor('photo'))
   async create(
-    @UploadedFile() photo: Express.Multer.File,
+    @UploadedFile(new ParseFilePipe()) photo: Express.Multer.File,
     @Body() { name, ingredients }: { name: string; ingredients: string },
     @User() user: JWTUser,
   ): Promise<IdResponse> {
