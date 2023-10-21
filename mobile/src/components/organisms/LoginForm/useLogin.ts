@@ -34,7 +34,7 @@ export const useLogin = () => {
       setVisible(true);
       setText("You're logged in");
       form.reset({email: '', password: ''});
-      navigation.navigate(Scenes.AddDish);
+      navigation.navigate(Scenes.DishList);
     },
     onError: error => {
       setVisible(true);

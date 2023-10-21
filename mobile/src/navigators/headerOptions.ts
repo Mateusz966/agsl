@@ -23,3 +23,7 @@ export const loginPageHeaderOptions: NativeStackNavigationOptions = {
 export const addDishHeaderOptions: NativeStackNavigationOptions = {
   title: 'Add meal',
 };
+
+export const dishListHeaderOptions: NativeStackNavigationOptions = {
+  title: 'Dish list',
+};

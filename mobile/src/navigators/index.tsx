@@ -6,9 +6,11 @@ import {Scenes} from './const';
 import {RootStackParamList} from './types';
 import {
   addDishHeaderOptions,
+  dishListHeaderOptions,
   loginPageHeaderOptions,
   mainHeaderOptions,
 } from './headerOptions';
+import DishList from '../components/organisms/DishList';
 
 const Stack = createNativeStackNavigator<RootStackParamList>();
 
@@ -23,6 +25,11 @@ const Navigation = () => (
       name={Scenes.AddDish}
       component={AddDish}
       options={addDishHeaderOptions}
+    />
+    <Stack.Screen
+      name={Scenes.DishList}
+      component={DishList}
+      options={dishListHeaderOptions}
     />
   </Stack.Navigator>
 );
