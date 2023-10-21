@@ -1,11 +1,11 @@
-export interface Option {
+export interface Option<T> {
   label: string;
-  value: string;
+  value: T;
 }
 
 export interface SelectProps {
-  options: Option[];
+  options: Option<string>[];
   title: string;
   onChange: () => void;
-  value: Option;
+  value: Option<string>;
 }

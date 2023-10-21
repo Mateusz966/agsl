@@ -5,6 +5,7 @@ export interface ControlledSelectProps<
   TFieldValues extends FieldValues,
   TName extends FieldPath<TFieldValues>,
 > extends UseControllerProps<TFieldValues, TName> {
-  options: Option[];
+  options: Option<string>[];
   title: string;
+  error?: string;
 }
