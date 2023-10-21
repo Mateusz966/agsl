@@ -4,15 +4,17 @@ export default StyleSheet.create({
   addIngredientContainer: {
     marginTop: 5,
     flexDirection: 'row',
-    alignItems: 'center',
+    alignItems: 'flex-start',
     justifyContent: 'space-between',
-    marginBottom: 5,
   },
   addButton: {
     marginTop: 10,
     width: '60%',
   },
-  deleteButton: {width: 20},
+  deleteButton: {
+    marginTop: 10,
+    width: 20,
+  },
   scrollContainer: {
     marginTop: 10,
     width: '100%',

@@ -4,6 +4,8 @@ import {Controller, FieldPath, FieldValues} from 'react-hook-form';
 import TextInput from '../../../atoms/TextInput';
 import {ControlledTextInputProps} from './types';
 import ErrorMessage from '../../ErrorMessage';
+import {View} from 'react-native';
+import styles from '../styles';
 
 const ControlledTextInput = <
   TFieldValues extends FieldValues,
@@ -19,7 +21,7 @@ const ControlledTextInput = <
   keyboardType,
 }: ControlledTextInputProps<TFieldValues, TName>) => {
   return (
-    <>
+    <View style={styles.controlledInputContainer}>
       <Controller
         control={control}
         name={name}
@@ -38,7 +40,7 @@ const ControlledTextInput = <
         )}
       />
       <ErrorMessage error={error} />
-    </>
+    </View>
   );
 };
 
