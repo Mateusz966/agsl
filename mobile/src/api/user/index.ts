@@ -14,8 +14,8 @@ export const loginUser = async (user: SignInRequest) => {
     API_ROUTES.v1.login,
     user,
   );
-  const {accessToken} = response.data;
-  await Keychain.setGenericPassword('password', accessToken);
+  const {accessToken, id} = response.data;
+  await Keychain.setGenericPassword(id, accessToken);
 
   return response.data;
 };
