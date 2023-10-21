@@ -27,19 +27,19 @@ const IngredientsFieldsArray: FC<IngredientsFieldsArrayProps> = ({form}) => {
           <ControlledTextInput
             name={`ingredients.${index}.name`}
             control={control}
-            displayName="Nazwa"
+            displayName="Name"
             error={errors?.ingredients?.[index]?.name?.message}
           />
           <ControlledTextInput
             name={`ingredients.${index}.amount`}
             control={control}
-            displayName="Ilość"
+            displayName="Amount"
             keyboardType="numeric"
             error={errors?.ingredients?.[index]?.amount?.message}
           />
           <ControlledSelect
             control={control}
-            title="unit"
+            title="Unit"
             options={DISH_UNITS}
             name={`ingredients.${index}.unit`}
           />
