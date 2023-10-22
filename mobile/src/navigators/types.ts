@@ -1,9 +1,10 @@
 import {NativeStackNavigationProp} from '@react-navigation/native-stack';
 import {Scenes} from './const';
+import {DishRequest} from '../api/dish/types';
 
 export type RootStackParamList = {
   Login: undefined;
-  AddDish: undefined;
+  AddDish: DishRequest | undefined;
   DishList: undefined;
 };
 

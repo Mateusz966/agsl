@@ -3,17 +3,12 @@ import {colors} from '../config/theme';
 
 export const mainHeaderOptions: NativeStackNavigationOptions = {
   headerStyle: {
-    backgroundColor: colors.white,
-  },
-  headerLargeTitleStyle: {
-    fontFamily: 'Roboto',
-    fontSize: 24,
-    fontWeight: 'light',
-    color: 'gray',
+    backgroundColor: colors.primary,
   },
   contentStyle: {
-    backgroundColor: colors.white,
+    backgroundColor: colors.surface,
   },
+  headerTintColor: 'white',
 };
 
 export const loginPageHeaderOptions: NativeStackNavigationOptions = {
