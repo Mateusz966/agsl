@@ -4,7 +4,7 @@ import { IngredientsProps } from '@modules/dish/domain/value-objects/ingredients
 export class EditDishCommand extends Command {
   readonly id: string;
   readonly name: string;
-  readonly photo?: Express.Multer.File | string | null;
+  readonly photo?: Express.Multer.File | null | undefined;
   readonly ingredients: IngredientsProps[];
   readonly userId: string;
 

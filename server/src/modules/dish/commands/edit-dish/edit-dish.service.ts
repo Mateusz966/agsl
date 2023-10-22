@@ -23,25 +23,24 @@ export class EditDishService implements ICommandHandler {
 
   async execute(command: EditDishCommand): Promise<any> {
     try {
-      console.log('command', command);
-      if (command.photo == null) {
-        // remove photo
-      }
+      let fileKey: string | undefined;
 
-      let fileKey = command.photo;
-
-      if (typeof command.photo !== 'string') {
+      if (command?.photo) {
+        console.log('dupa');
         fileKey = await this.fileService.uploadFile(
           command.photo,
           'dish-photo',
         );
       }
 
+      console.log('filekey', fileKey);
+      console.log('command?.photo', command?.photo);
+
       const dish = DishEntity.update({
         id: command.id,
         ingredients: new Ingredients(command.ingredients),
         name: command.name,
-        photo: fileKey as string,
+        photo: fileKey,
       });
 
       await this.saveDish(dish, command.userId);
@@ -51,11 +50,9 @@ export class EditDishService implements ICommandHandler {
     }
   }
 
-  private async saveDish(
-    dishEntity: DishEntity,
-    userId: string,
-    photoKey?: string | null,
-  ) {
+  private async saveDish(dishEntity: DishEntity, userId: string) {
+    const photoKey = dishEntity.getPropsCopy().photo;
+    console.log('log: photokey', photoKey);
     const { common, dish, ingredients } = this.mapper.toPersistence(dishEntity);
     const queryRunner = this.dataSource.createQueryRunner();
 
@@ -67,14 +64,20 @@ export class EditDishService implements ICommandHandler {
         .getRepository(DishModel)
         .upsert({ ...dish, ...common, user: { id: userId } }, ['id']);
 
-      await queryRunner.manager.getRepository(DishPhotoModel).upsert(
-        {
-          id: photoKey ?? v4(),
-          dish: { id: dish.id },
-          user: { id: userId },
-        },
-        ['id'],
-      );
+      if (photoKey === null) {
+        await queryRunner.manager
+          .getRepository(DishPhotoModel)
+          .delete({ dish: { id: dish.id }, user: { id: userId } });
+      } else if (photoKey === undefined) {
+        await queryRunner.manager.getRepository(DishPhotoModel).upsert(
+          {
+            id: v4(),
+            dish: { id: dish.id },
+            user: { id: userId },
+          },
+          ['id'],
+        );
+      }
 
       await Promise.all(
         ingredients.unpack().map(async (ingredient) => {

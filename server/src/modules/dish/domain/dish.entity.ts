@@ -32,12 +32,11 @@ export class DishEntity extends AggregateRoot<DishProps> {
     const { id, ...props } = update;
 
     const dish = new DishEntity({ id, props });
-
     dish.addEvent(
       new DishUpdatedDomainEvent({
         aggregateId: id,
         name: props.name,
-        photo: props.photo ?? null,
+        photo: props.photo,
         ingredients: props.ingredients.unpack(),
       }),
     );
