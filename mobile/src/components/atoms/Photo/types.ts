@@ -1,6 +1,6 @@
 import {ImageStyle} from 'react-native';
 
 export interface PhotoProps {
-  source: string;
+  uri: string;
   style?: ImageStyle;
 }
