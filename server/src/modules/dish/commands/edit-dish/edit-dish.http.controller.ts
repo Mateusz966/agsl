@@ -8,6 +8,7 @@ import {
   UploadedFile,
   UseGuards,
   UseInterceptors,
+  ValidationPipe,
 } from '@nestjs/common';
 import { routesV1 } from '@config/app.routes';
 import { ApiConsumes, ApiOperation, ApiResponse } from '@nestjs/swagger';
@@ -23,6 +24,7 @@ import { User } from '@libs/decorators/User.decorator';
 import { JwtAuthGuard } from '@modules/auth/jwt-auth.guard';
 import { JWTUser } from '@modules/auth/auth.types';
 import { EditDishCommand } from '@modules/dish/commands/edit-dish/edit-dish.command';
+import { EditDishRequestDto } from '@modules/dish/commands/edit-dish/edit-dish.request.dto';
 
 @Controller(routesV1.version)
 export class EditDishHttpController {
@@ -50,24 +52,18 @@ export class EditDishHttpController {
     @UploadedFile()
     newPhoto: Express.Multer.File | undefined,
     @Body()
-    {
-      name = '',
-      ingredients = '',
-      photo,
-    }: { name: string; ingredients: string; photo: 'null' | undefined },
+    { name, ingredients, photo }: EditDishRequestDto,
     @User() user: JWTUser,
     @Param() { id }: { id: string },
   ): Promise<IdResponse> {
     try {
-      const parsedIngredients = new Ingredients(
-        JSON.parse(ingredients),
-      ).unpack();
+      const parsedIngredients = new Ingredients(ingredients).unpack();
 
       const command = new EditDishCommand({
         id,
         name,
         ingredients: parsedIngredients,
-        photo: photo == 'null' && JSON.parse(photo) === null ? null : newPhoto,
+        photo: photo === null ? photo : newPhoto,
         userId: user.id,
       });
 

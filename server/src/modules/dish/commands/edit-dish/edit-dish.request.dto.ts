@@ -1,23 +1,40 @@
-import { ApiProperty } from '@nestjs/swagger';
-import { IsString, MaxLength, MinLength } from 'class-validator';
+import {
+  IsArray,
+  IsOptional,
+  IsString,
+  MaxLength,
+  MinLength,
+} from 'class-validator';
 import { IngredientsProps } from '@modules/dish/domain/value-objects/ingredients.value-object';
-import { Type } from 'class-transformer';
+import { Transform, Type } from 'class-transformer';
+import { ApiProperty } from '@nestjs/swagger';
 
 export class EditDishRequestDto {
-  @ApiProperty({
-    example: 'Butter chicken with rice',
-    description: 'Name od dish',
-  })
+  @ApiProperty()
   @MaxLength(320)
   @MinLength(5)
   @IsString()
   name: string;
-  @ApiProperty({
-    description: 'Optional foto',
-  })
-  @IsString()
-  photo?: string;
 
-  @Type(() => IngredientsProps)
+  @ApiProperty({ type: EditDishRequestDto, required: false })
+  @IsOptional()
+  @Transform(({ value }) => {
+    if (typeof value === 'string') {
+      return JSON.parse(value);
+    } else {
+      return value;
+    }
+  })
+  photo: null | undefined;
+
+  @ApiProperty({ type: EditDishRequestDto })
+  @IsArray()
+  @Transform(({ value }) => {
+    if (typeof value === 'string') {
+      return JSON.parse(value);
+    } else {
+      return value;
+    }
+  })
   ingredients: IngredientsProps[];
 }
