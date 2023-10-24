@@ -25,8 +25,7 @@ export class EditDishService implements ICommandHandler {
     try {
       let fileKey: string | undefined;
 
-      if (command?.photo) {
-        console.log('dupa');
+      if (command.photo) {
         fileKey = await this.fileService.uploadFile(
           command.photo,
           'dish-photo',
@@ -40,7 +39,7 @@ export class EditDishService implements ICommandHandler {
         id: command.id,
         ingredients: new Ingredients(command.ingredients),
         name: command.name,
-        photo: fileKey,
+        photo: command?.photo === null ? null : fileKey,
       });
 
       await this.saveDish(dish, command.userId);
@@ -53,7 +52,7 @@ export class EditDishService implements ICommandHandler {
   private async saveDish(dishEntity: DishEntity, userId: string) {
     const photoKey = dishEntity.getPropsCopy().photo;
     console.log('log: photokey', photoKey);
-    const { common, dish, ingredients } = this.mapper.toPersistence(dishEntity);
+    const { dish, ingredients } = this.mapper.toPersistence(dishEntity);
     const queryRunner = this.dataSource.createQueryRunner();
 
     await queryRunner.connect();
@@ -62,16 +61,16 @@ export class EditDishService implements ICommandHandler {
     try {
       await queryRunner.manager
         .getRepository(DishModel)
-        .upsert({ ...dish, ...common, user: { id: userId } }, ['id']);
+        .save({ ...dish, user: { id: userId } });
 
       if (photoKey === null) {
         await queryRunner.manager
           .getRepository(DishPhotoModel)
           .delete({ dish: { id: dish.id }, user: { id: userId } });
-      } else if (photoKey === undefined) {
+      } else {
         await queryRunner.manager.getRepository(DishPhotoModel).upsert(
           {
-            id: v4(),
+            id: photoKey ?? v4(),
             dish: { id: dish.id },
             user: { id: userId },
           },
@@ -81,7 +80,6 @@ export class EditDishService implements ICommandHandler {
 
       await Promise.all(
         ingredients.unpack().map(async (ingredient) => {
-          console.log('ingredient', ingredient);
           await queryRunner.manager.getRepository(IngredientsModel).upsert(
             {
               id: ingredient?.id ?? v4(),

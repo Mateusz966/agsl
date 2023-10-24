@@ -41,7 +41,7 @@ export class CreateDishService implements ICommandHandler {
   }
 
   private async saveDish(dishEntity: DishEntity, userId: string) {
-    const { common, dish, ingredients } = this.mapper.toPersistence(dishEntity);
+    const { dish, ingredients } = this.mapper.toPersistence(dishEntity);
     const queryRunner = this.dataSource.createQueryRunner();
 
     await queryRunner.connect();
@@ -50,7 +50,7 @@ export class CreateDishService implements ICommandHandler {
     try {
       await queryRunner.manager
         .getRepository(DishModel)
-        .save({ ...dish, ...common, user: { id: userId } });
+        .save({ ...dish, user: { id: userId } });
 
       await queryRunner.manager.getRepository(DishPhotoModel).save({
         id: v4(),
