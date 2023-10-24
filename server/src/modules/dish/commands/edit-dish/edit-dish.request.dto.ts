@@ -6,7 +6,7 @@ import {
   MinLength,
 } from 'class-validator';
 import { IngredientsProps } from '@modules/dish/domain/value-objects/ingredients.value-object';
-import { Transform, Type } from 'class-transformer';
+import { Transform } from 'class-transformer';
 import { ApiProperty } from '@nestjs/swagger';
 
 export class EditDishRequestDto {
