@@ -67,7 +67,10 @@ export class EditDishHttpController {
         id,
         name,
         ingredients: parsedIngredients,
-        photo: JSON.parse(photo) === null ? JSON.parse(photo) : newPhoto,
+        photo:
+          !newPhoto && JSON.parse(photo) === null
+            ? JSON.parse(photo)
+            : newPhoto,
         userId: user.id,
       });
 
