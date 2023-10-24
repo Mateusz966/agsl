@@ -48,7 +48,7 @@ export class CreateDishService implements ICommandHandler {
     const { dish, ingredients, dishPhoto } =
       this.mapper.toPersistence(dishEntity);
     const queryRunner = this.dataSource.createQueryRunner();
-    console.log('dishPhoto', dishPhoto);
+
     await queryRunner.connect();
     await queryRunner.startTransaction();
 
