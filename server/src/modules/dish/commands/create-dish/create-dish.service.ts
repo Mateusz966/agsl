@@ -23,10 +23,14 @@ export class CreateDishService implements ICommandHandler {
 
   async execute(command: CreateDishCommand): Promise<any> {
     try {
-      const fileKey = await this.fileService.uploadFile(
-        command.photo,
-        'dish-photo',
-      );
+      let fileKey: string | undefined;
+
+      if (command?.photo) {
+        fileKey = await this.fileService.uploadFile(
+          command.photo,
+          'dish-photo',
+        );
+      }
       const dish = DishEntity.create({
         ingredients: new Ingredients(command.ingredients),
         name: command.name,
@@ -41,9 +45,10 @@ export class CreateDishService implements ICommandHandler {
   }
 
   private async saveDish(dishEntity: DishEntity, userId: string) {
-    const { dish, ingredients } = this.mapper.toPersistence(dishEntity);
+    const { dish, ingredients, dishPhoto } =
+      this.mapper.toPersistence(dishEntity);
     const queryRunner = this.dataSource.createQueryRunner();
-
+    console.log('dishPhoto', dishPhoto);
     await queryRunner.connect();
     await queryRunner.startTransaction();
 
@@ -52,11 +57,13 @@ export class CreateDishService implements ICommandHandler {
         .getRepository(DishModel)
         .save({ ...dish, user: { id: userId } });
 
-      await queryRunner.manager.getRepository(DishPhotoModel).save({
-        id: v4(),
-        dish: { id: dish.id },
-        user: { id: userId },
-      });
+      if (dishPhoto) {
+        await queryRunner.manager.getRepository(DishPhotoModel).save({
+          id: v4(),
+          dish: { id: dish.id },
+          user: { id: userId },
+        });
+      }
 
       await Promise.all(
         ingredients.unpack().map(async (ingredient) => {
