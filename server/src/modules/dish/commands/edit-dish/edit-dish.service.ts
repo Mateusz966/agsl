@@ -32,9 +32,6 @@ export class EditDishService implements ICommandHandler {
         );
       }
 
-      console.log('filekey', fileKey);
-      console.log('command?.photo', command?.photo);
-
       const dish = DishEntity.update({
         id: command.id,
         ingredients: new Ingredients(command.ingredients),
@@ -51,7 +48,7 @@ export class EditDishService implements ICommandHandler {
 
   private async saveDish(dishEntity: DishEntity, userId: string) {
     const photoKey = dishEntity.getPropsCopy().photo;
-    console.log('log: photokey', photoKey);
+
     const { dish, ingredients } = this.mapper.toPersistence(dishEntity);
     const queryRunner = this.dataSource.createQueryRunner();
 
@@ -67,15 +64,15 @@ export class EditDishService implements ICommandHandler {
         await queryRunner.manager
           .getRepository(DishPhotoModel)
           .delete({ dish: { id: dish.id }, user: { id: userId } });
-      } else {
-        await queryRunner.manager.getRepository(DishPhotoModel).upsert(
-          {
-            id: photoKey ?? v4(),
-            dish: { id: dish.id },
-            user: { id: userId },
-          },
-          ['id'],
-        );
+      } else if (photoKey) {
+        await queryRunner.manager
+          .getRepository(DishPhotoModel)
+          .delete({ dish: { id: dish.id }, user: { id: userId } });
+        await queryRunner.manager.getRepository(DishPhotoModel).insert({
+          id: photoKey,
+          dish: { id: dish.id },
+          user: { id: userId },
+        });
       }
 
       await Promise.all(

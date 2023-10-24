@@ -48,13 +48,13 @@ export class EditDishHttpController {
   @UseInterceptors(FileFastifyInterceptor('photo'))
   async edit(
     @UploadedFile()
-    newPhoto: Express.Multer.File,
+    newPhoto: Express.Multer.File | undefined,
     @Body()
     {
       name = '',
       ingredients = '',
       photo,
-    }: { name: string; ingredients: string; photo?: null },
+    }: { name: string; ingredients: string; photo: 'null' | undefined },
     @User() user: JWTUser,
     @Param() { id }: { id: string },
   ): Promise<IdResponse> {
@@ -67,10 +67,7 @@ export class EditDishHttpController {
         id,
         name,
         ingredients: parsedIngredients,
-        photo:
-          !newPhoto && JSON.parse(photo) === null
-            ? JSON.parse(photo)
-            : newPhoto,
+        photo: photo == 'null' && JSON.parse(photo) === null ? null : newPhoto,
         userId: user.id,
       });
 
