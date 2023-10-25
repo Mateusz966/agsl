@@ -25,7 +25,7 @@ export class EditDishService implements ICommandHandler {
     try {
       let fileKey: string | undefined;
 
-      if (command.photo) {
+      if (command?.photo) {
         fileKey = await this.fileService.uploadFile(
           command.photo,
           'dish-photo',
