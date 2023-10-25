@@ -23,6 +23,7 @@ import { Ingredients } from '@modules/dish/domain/value-objects/ingredients.valu
 import { User } from '@libs/decorators/User.decorator';
 import { JwtAuthGuard } from '@modules/auth/jwt-auth.guard';
 import { JWTUser } from '@modules/auth/auth.types';
+import { CreateDishRequestDto } from '@modules/dish/commands/create-dish/create-dish.request.dto';
 
 @Controller(routesV1.version)
 export class CreateDishHttpController {
@@ -48,13 +49,11 @@ export class CreateDishHttpController {
   @UseInterceptors(FileFastifyInterceptor('photo'))
   async create(
     @UploadedFile() photo: Express.Multer.File,
-    @Body() { name, ingredients }: { name: string; ingredients: string },
+    @Body() { name, ingredients }: CreateDishRequestDto,
     @User() user: JWTUser,
   ): Promise<IdResponse> {
     try {
-      const parsedIngredients = new Ingredients(
-        JSON.parse(ingredients),
-      ).unpack();
+      const parsedIngredients = new Ingredients(ingredients).unpack();
 
       const command = new CreateDishCommand({
         name,
