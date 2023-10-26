@@ -3,11 +3,12 @@ import {
   ConflictException as ConflictHttpException,
   Controller,
   HttpStatus,
-  ParseFilePipe,
-  Post,
+  Param,
+  Patch,
   UploadedFile,
   UseGuards,
   UseInterceptors,
+  ValidationPipe,
 } from '@nestjs/common';
 import { routesV1 } from '@config/app.routes';
 import { ApiConsumes, ApiOperation, ApiResponse } from '@nestjs/swagger';
@@ -17,19 +18,19 @@ import { UserAlreadyExistsError } from '@modules/user/domain/user.errors';
 import { IdResponse } from '@libs/api/id.response.dto';
 import { AggregateID } from '@libs/ddd';
 import { ApiErrorResponse } from '@src/libs/api/api-error.response';
-import { CreateDishCommand } from '@modules/dish/commands/create-dish/create-dish.command';
 import { FileFastifyInterceptor } from 'fastify-file-interceptor';
 import { Ingredients } from '@modules/dish/domain/value-objects/ingredients.value-object';
 import { User } from '@libs/decorators/User.decorator';
 import { JwtAuthGuard } from '@modules/auth/jwt-auth.guard';
 import { JWTUser } from '@modules/auth/auth.types';
-import { CreateDishRequestDto } from '@modules/dish/commands/create-dish/create-dish.request.dto';
+import { EditDishCommand } from '@modules/dish/commands/edit-dish/edit-dish.command';
+import { EditDishRequestDto } from '@modules/dish/commands/edit-dish/edit-dish.request.dto';
 
 @Controller(routesV1.version)
-export class CreateDishHttpController {
+export class EditDishHttpController {
   constructor(private readonly commandBus: CommandBus) {}
 
-  @ApiOperation({ summary: 'Create a dish with list of ingredients' })
+  @ApiOperation({ summary: 'Edit a dish with list of ingredients' })
   @ApiConsumes('multipart/form-data')
   @ApiResponse({
     status: HttpStatus.OK,
@@ -44,21 +45,25 @@ export class CreateDishHttpController {
     status: HttpStatus.BAD_REQUEST,
     type: ApiErrorResponse,
   })
-  @Post(routesV1.dishes.root)
+  @Patch(`${routesV1.dishes.root}/:id`)
   @UseGuards(JwtAuthGuard)
   @UseInterceptors(FileFastifyInterceptor('photo'))
-  async create(
-    @UploadedFile() photo: Express.Multer.File,
-    @Body() { name, ingredients }: CreateDishRequestDto,
+  async edit(
+    @UploadedFile()
+    newPhoto: Express.Multer.File | undefined,
+    @Body()
+    { name, ingredients, photo }: EditDishRequestDto,
     @User() user: JWTUser,
+    @Param() { id }: { id: string },
   ): Promise<IdResponse> {
     try {
       const parsedIngredients = new Ingredients(ingredients).unpack();
 
-      const command = new CreateDishCommand({
+      const command = new EditDishCommand({
+        id,
         name,
         ingredients: parsedIngredients,
-        photo,
+        photo: photo === null ? photo : newPhoto,
         userId: user.id,
       });
 

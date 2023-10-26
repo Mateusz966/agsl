@@ -1,6 +1,6 @@
 import { ApiProperty } from '@nestjs/swagger';
 import { ResponseBase } from '@libs/api/response.base';
-import {IsOptional, IsString} from 'class-validator';
+import { IsOptional, IsString } from 'class-validator';
 import { Type } from 'class-transformer';
 import { IngredientsProps } from '@modules/dish/domain/value-objects/ingredients.value-object';
 

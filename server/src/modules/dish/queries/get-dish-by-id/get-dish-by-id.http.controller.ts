@@ -6,20 +6,20 @@ import {
   Param,
   UseGuards,
 } from '@nestjs/common';
-import {routesV1} from '@config/app.routes';
-import {ApiOperation, ApiResponse} from '@nestjs/swagger';
-import {QueryBus} from '@nestjs/cqrs';
+import { routesV1 } from '@config/app.routes';
+import { ApiOperation, ApiResponse } from '@nestjs/swagger';
+import { QueryBus } from '@nestjs/cqrs';
 
-import {UserAlreadyExistsError} from '@modules/user/domain/user.errors';
-import {IdResponse} from '@libs/api/id.response.dto';
-import {ApiErrorResponse} from '@src/libs/api/api-error.response';
-import {User} from '@libs/decorators/User.decorator';
-import {JwtAuthGuard} from '@modules/auth/jwt-auth.guard';
-import {JWTUser} from '@modules/auth/auth.types';
-import {GetDishByIdQuery} from '@modules/dish/queries/get-dish-by-id/get-dish-by-id.query';
-import {DishEntity} from '@modules/dish/domain/dish.entity';
-import {DishMapper} from '@modules/dish/dish.mapper';
-import {DishResponseDto} from '@modules/dish/dtos/dish.response.dto';
+import { UserAlreadyExistsError } from '@modules/user/domain/user.errors';
+import { IdResponse } from '@libs/api/id.response.dto';
+import { ApiErrorResponse } from '@src/libs/api/api-error.response';
+import { User } from '@libs/decorators/User.decorator';
+import { JwtAuthGuard } from '@modules/auth/jwt-auth.guard';
+import { JWTUser } from '@modules/auth/auth.types';
+import { GetDishByIdQuery } from '@modules/dish/queries/get-dish-by-id/get-dish-by-id.query';
+import { DishEntity } from '@modules/dish/domain/dish.entity';
+import { DishMapper } from '@modules/dish/dish.mapper';
+import { DishResponseDto } from '@modules/dish/dtos/dish.response.dto';
 
 @Controller(routesV1.version)
 export class GetDishByIdHttpController {
