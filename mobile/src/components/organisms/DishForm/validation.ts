@@ -3,7 +3,14 @@ import {Unit} from '../../../api/dish/types';
 
 const Ingredient = z.object({
   name: z.string().min(1, {message: 'Provide name'}),
-  amount: z.number().nonnegative({message: 'Provide quantity'}),
+  amount: z
+    .string()
+    .refine(value => /^\d+$/.test(value), {
+      message: 'Provide amount',
+    })
+    .refine(value => parseInt(value, 10) > 0, {
+      message: 'Proide amount greater than 0',
+    }),
   unit: z.nativeEnum(Unit),
 });
 export const addDishSchema = z.object({
