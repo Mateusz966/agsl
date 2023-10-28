@@ -1,6 +1,5 @@
 import { CommandHandler, ICommandHandler } from '@nestjs/cqrs';
 
-import { CreateDishCommand } from '@modules/dish/commands/create-dish/create-dish.command';
 import { DishEntity } from '@modules/dish/domain/dish.entity';
 import { EventEmitter2 } from '@nestjs/event-emitter';
 import { FileService } from '@modules/file-uploader/file.service';
@@ -11,9 +10,10 @@ import { DataSource } from 'typeorm';
 import { DishModel } from '@modules/dish/database/dish.model';
 import { DishPhotoModel } from '@modules/dish/database/dish-photo.model';
 import { IngredientsModel } from '@modules/dish/database/ingredients.model';
+import { EditDishCommand } from '@modules/dish/commands/edit-dish/edit-dish.command';
 
-@CommandHandler(CreateDishCommand)
-export class CreateDishService implements ICommandHandler {
+@CommandHandler(EditDishCommand)
+export class EditDishService implements ICommandHandler {
   constructor(
     private readonly eventEmitter: EventEmitter2,
     private readonly fileService: FileService,
@@ -21,7 +21,7 @@ export class CreateDishService implements ICommandHandler {
     private dataSource: DataSource,
   ) {}
 
-  async execute(command: CreateDishCommand): Promise<any> {
+  async execute(command: EditDishCommand): Promise<any> {
     try {
       let fileKey: string | undefined;
 
@@ -31,10 +31,12 @@ export class CreateDishService implements ICommandHandler {
           'dish-photo',
         );
       }
-      const dish = DishEntity.create({
+
+      const dish = DishEntity.update({
+        id: command.id,
         ingredients: new Ingredients(command.ingredients),
         name: command.name,
-        photo: fileKey,
+        photo: command?.photo === null ? null : fileKey,
       });
 
       await this.saveDish(dish, command.userId);
@@ -45,8 +47,9 @@ export class CreateDishService implements ICommandHandler {
   }
 
   private async saveDish(dishEntity: DishEntity, userId: string) {
-    const { dish, ingredients, dishPhoto } =
-      this.mapper.toPersistence(dishEntity);
+    const photoKey = dishEntity.getPropsCopy().photo;
+
+    const { dish, ingredients } = this.mapper.toPersistence(dishEntity);
     const queryRunner = this.dataSource.createQueryRunner();
 
     await queryRunner.connect();
@@ -57,9 +60,16 @@ export class CreateDishService implements ICommandHandler {
         .getRepository(DishModel)
         .save({ ...dish, user: { id: userId } });
 
-      if (dishPhoto) {
-        await queryRunner.manager.getRepository(DishPhotoModel).save({
-          id: v4(),
+      if (photoKey === null) {
+        await queryRunner.manager
+          .getRepository(DishPhotoModel)
+          .delete({ dish: { id: dish.id }, user: { id: userId } });
+      } else if (photoKey) {
+        await queryRunner.manager
+          .getRepository(DishPhotoModel)
+          .delete({ dish: { id: dish.id }, user: { id: userId } });
+        await queryRunner.manager.getRepository(DishPhotoModel).insert({
+          id: photoKey,
           dish: { id: dish.id },
           user: { id: userId },
         });
@@ -67,13 +77,16 @@ export class CreateDishService implements ICommandHandler {
 
       await Promise.all(
         ingredients.unpack().map(async (ingredient) => {
-          await queryRunner.manager.getRepository(IngredientsModel).save({
-            id: v4(),
-            dish: { id: dish.id },
-            name: ingredient.name,
-            amount: ingredient.amount,
-            unit: ingredient.unit,
-          });
+          await queryRunner.manager.getRepository(IngredientsModel).upsert(
+            {
+              id: ingredient?.id ?? v4(),
+              dish: { id: dish.id },
+              name: ingredient.name,
+              amount: ingredient.amount,
+              unit: ingredient.unit,
+            },
+            ['id'],
+          );
         }),
       );
 
