@@ -22,11 +22,10 @@ export const useAddDish = ({img}: UseAddDishProps) => {
     mode: 'onChange',
     defaultValues: {
       name: '',
-      photo: '',
       ingredients: [
         {
           name: '',
-          amount: 0,
+          amount: '1',
           unit: Unit.g,
         },
       ],
@@ -48,9 +47,11 @@ export const useAddDish = ({img}: UseAddDishProps) => {
 
   const mutation = useMutation<void, void, FormData>({
     mutationFn: payload => {
+      console.log(payload);
       return addDish(payload);
     },
     onSuccess: () => {
+      console.log('here');
       setVisible(true);
       setText('Your dish was added sucessfully');
       form.reset();
@@ -62,13 +63,16 @@ export const useAddDish = ({img}: UseAddDishProps) => {
   });
 
   const onSubmit = (payload: DishRequest) => {
-    const photo = {
-      uri: img?.uri,
-      name: img?.fileName,
-      type: img?.type,
-    };
     const fd = new FormData();
-    fd.append('photo', photo);
+    if (payload.photo) {
+      const photo = {
+        uri: img?.uri,
+        name: img?.fileName,
+        type: img?.type,
+      };
+      fd.append('photo', photo);
+    }
+
     fd.append('ingredients', JSON.stringify(payload.ingredients));
     fd.append('name', payload.name);
     mutation.mutate(fd);

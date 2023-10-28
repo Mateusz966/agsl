@@ -19,6 +19,7 @@ const ControlledTextInput = <
   placeholder,
   displayName,
   keyboardType,
+  errorStyle,
 }: ControlledTextInputProps<TFieldValues, TName>) => {
   return (
     <View style={styles.controlledInputContainer}>
@@ -39,7 +40,7 @@ const ControlledTextInput = <
           />
         )}
       />
-      <ErrorMessage error={error} />
+      <ErrorMessage error={error} errorStyle={errorStyle} />
     </View>
   );
 };

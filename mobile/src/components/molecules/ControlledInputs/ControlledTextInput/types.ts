@@ -1,4 +1,5 @@
 import {FieldPath, FieldValues, UseControllerProps} from 'react-hook-form';
+import {ViewStyle} from 'react-native';
 
 export type KeyboardType = 'default' | 'numeric';
 export interface ControlledTextInputProps<
@@ -10,4 +11,5 @@ export interface ControlledTextInputProps<
   placeholder?: string;
   displayName?: string;
   keyboardType?: KeyboardType;
+  errorStyle?: ViewStyle;
 }
