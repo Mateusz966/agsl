@@ -7,7 +7,7 @@ export enum Unit {
 
 export interface Ingredient {
   name: string;
-  amount: number;
+  amount: string;
   unit: Unit;
 }
 export interface DishRequest {
