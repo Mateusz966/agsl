@@ -27,13 +27,9 @@ export const useAddDish = ({img}: UseAddDishProps) => {
     },
   });
 
-  const mutation = useMutation<void, void, FormData>({
-    mutationFn: payload => {
-      console.log(payload);
-      return addDish(payload);
-    },
+  const addDishMutation = useMutation<void, void, FormData>({
+    mutationFn: payload => addDish(payload),
     onSuccess: () => {
-      console.log('here');
       setVisible(true);
       setText('Your dish was added sucessfully');
       form.reset();
@@ -57,7 +53,7 @@ export const useAddDish = ({img}: UseAddDishProps) => {
 
     fd.append('ingredients', JSON.stringify(payload.ingredients));
     fd.append('name', payload.name);
-    mutation.mutate(fd);
+    addDishMutation.mutate(fd);
   };
 
   const onCancel = () => {
@@ -67,7 +63,7 @@ export const useAddDish = ({img}: UseAddDishProps) => {
   return {
     text,
     form,
-    mutation,
+    addDishMutation,
     onSubmit,
     onCancel,
     visible,

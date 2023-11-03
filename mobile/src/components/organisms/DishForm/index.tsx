@@ -10,18 +10,20 @@ import {Layout} from '../../atoms/Layout';
 import styles from './styles';
 import {useSelectPhoto} from './hooks/useSelectPhoto';
 import SnackbarMessage from '../../atoms/SnackbarMessage';
-import {Asset} from 'react-native-image-picker';
 import OpenGalleryModal from '../OpenGalleryModal';
 import ControlledSelect from '../../molecules/ControlledInputs/ControlledSelect';
-import Button from '../../atoms/Button';
 import {ICON_PATHS} from '../../../utils/icons';
 import {Unit} from '../../../api/dish/types';
 import {useFieldArray} from 'react-hook-form';
 import {DISH_UNITS} from './types';
+import {DishPhoto} from './hooks/types';
+import IconButton from '../../atoms/Buttons/IconButton';
+import {colors, theme} from '../../../config/theme';
+import TextButton from '../../atoms/Buttons/TextButton';
 
 const DishForm = () => {
   const {handleOnDissmiss, setVisible, visible} = useModalVisibility();
-  const [img, setImg] = useState<Asset | null>(null);
+  const [img, setImg] = useState<DishPhoto>(null);
   const {buttonHandler, handleImageDelete} = useSelectPhoto({
     setImg,
     handleOnDissmiss,
@@ -91,28 +93,28 @@ const DishForm = () => {
                   options={DISH_UNITS}
                   name={`ingredients.${index}.unit`}
                 />
-                <Button
+                <IconButton
                   icon={ICON_PATHS.TRASH_ICON}
                   onPress={() => remove(index)}
-                  style={styles.deleteButton}
+                  size={25}
+                  iconColor={theme.button.style.secondary.backgroundColor}
+                  containerColor={theme.button.style.primary.backgroundColor}
                 />
               </View>
             ))}
-            <Button
+            <TextButton
               icon={ICON_PATHS.ADD_ICON}
               style={styles.addButton}
               onPress={() => append({name: '', amount: '1', unit: Unit.g})}>
               Add another ingredient
-            </Button>
+            </TextButton>
           </View>
         </Layout>
       </ScrollView>
       <View>
         <ActionButtonsContainer
-          primaryButtonText="Save"
-          primaryButtonHandler={handleSubmit(onSubmit)}
-          secondaryButtonText="Cancel"
-          secondaryButtonHandler={onCancel}
+          primaryButtonProps={{onPress: handleSubmit(onSubmit), text: 'Save'}}
+          secondaryButtonProps={{onPress: onCancel, text: 'Cancel'}}
           containerStyle={styles.actionButtonsContainer}
         />
       </View>

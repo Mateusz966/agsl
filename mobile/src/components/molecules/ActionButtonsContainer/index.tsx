@@ -4,28 +4,26 @@ import {FC, memo} from 'react';
 
 import {View} from 'react-native';
 import styles from './styles';
-import Button from '../../atoms/Button';
+import Button from '../../atoms/Buttons/TextButton';
 import {components} from '../../../config/theme';
 
 const ActionButtonsContainer: FC<ActionButtonsContainerProps> = ({
-  primaryButtonText,
-  secondaryButtonText,
-  primaryButtonHandler,
-  secondaryButtonHandler,
+  primaryButtonProps,
+  secondaryButtonProps,
   containerStyle,
 }) => (
   <View style={containerStyle ?? styles.actionButtonsContainer}>
     <Button
-      onPress={primaryButtonHandler}
+      onPress={primaryButtonProps.onPress}
       style={components.button.style.primary}
       textColor={components.button.textColor.primary}>
-      {primaryButtonText}
+      {primaryButtonProps.text}
     </Button>
     <Button
-      onPress={secondaryButtonHandler}
+      onPress={secondaryButtonProps.onPress}
       style={components.button.style.secondary}
       textColor={components.button.textColor.secondary}>
-      {secondaryButtonText}
+      {secondaryButtonProps.text}
     </Button>
   </View>
 );

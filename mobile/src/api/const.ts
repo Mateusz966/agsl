@@ -2,7 +2,7 @@ export const API_ROUTES = {
   v1: {
     register: '/v1/users',
     login: '/v1/auth/mobile/sign-in',
-    addDish: '/v1/dishes',
+    dish: {add: '/v1/dishes'},
   },
 };
 
