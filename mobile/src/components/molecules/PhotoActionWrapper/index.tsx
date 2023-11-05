@@ -6,20 +6,11 @@ import {ActionButtonsContainerProps} from '../ActionButtonsContainer/types';
 
 const PhotoActionWrapper: FC<
   PropsWithChildren<ActionButtonsContainerProps>
-> = ({
-  children,
-  primaryButtonText,
-  secondaryButtonText,
-  primaryButtonHandler,
-  secondaryButtonHandler,
-  containerStyle,
-}) => (
+> = ({children, primaryButtonProps, secondaryButtonProps, containerStyle}) => (
   <Card style={containerStyle}>
     <ActionButtonsContainer
-      primaryButtonText={primaryButtonText}
-      secondaryButtonText={secondaryButtonText}
-      primaryButtonHandler={primaryButtonHandler}
-      secondaryButtonHandler={secondaryButtonHandler}
+      primaryButtonProps={primaryButtonProps}
+      secondaryButtonProps={secondaryButtonProps}
     />
     {children}
   </Card>

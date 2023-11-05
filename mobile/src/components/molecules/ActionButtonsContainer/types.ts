@@ -1,9 +1,9 @@
 import {ViewStyle} from 'react-native';
 
+export type ButtonProps = {onPress: () => void; text: string};
+
 export interface ActionButtonsContainerProps {
-  primaryButtonText: string;
-  secondaryButtonText: string;
-  primaryButtonHandler: () => void;
-  secondaryButtonHandler: () => void;
+  primaryButtonProps: ButtonProps;
+  secondaryButtonProps: ButtonProps;
   containerStyle?: ViewStyle;
 }

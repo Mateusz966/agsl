@@ -15,16 +15,13 @@ export default StyleSheet.create({
     marginTop: 5,
     flexDirection: 'row',
     alignItems: 'flex-start',
-    justifyContent: 'space-between',
+    gap: 10,
   },
   addButton: {
     marginTop: 10,
     width: '60%',
   },
-  deleteButton: {
-    marginTop: 10,
-    width: 20,
-  },
+
   scrollContainer: {
     marginTop: 10,
     width: '100%',

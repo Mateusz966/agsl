@@ -31,7 +31,7 @@ const ControlledTextInput = <
           <TextInput
             error={!!error}
             secureTextEntry={isPassword}
-            label={displayName || name}
+            label={displayName ?? name}
             placeholder={placeholder}
             onChangeText={onChange}
             onBlur={onBlur}

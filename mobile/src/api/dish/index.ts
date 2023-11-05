@@ -3,7 +3,7 @@ import {API_ROUTES} from '../const';
 import * as Keychain from 'react-native-keychain';
 
 export const addDish = async (dish: FormData) => {
-  const response = await httpClient.post(API_ROUTES.v1.addDish, dish, {
+  const response = await httpClient.post(API_ROUTES.v1.dish.add, dish, {
     headers: {'Content-Type': 'multipart/form-data'},
     transformRequest: () => dish,
   });

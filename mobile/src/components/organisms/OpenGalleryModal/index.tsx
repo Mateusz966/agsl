@@ -21,10 +21,14 @@ const OpenGalleryModal: FC<OpenGalleryModalProps> = ({
       style={styles.modalBody}
     />
     <ActionButtonsContainer
-      primaryButtonText="Gallery"
-      primaryButtonHandler={() => buttonHandler(handleSetPhoto)}
-      secondaryButtonText="Camera"
-      secondaryButtonHandler={() => buttonHandler(handleTakePhoto)}
+      primaryButtonProps={{
+        onPress: () => buttonHandler(handleSetPhoto),
+        text: 'Gallery',
+      }}
+      secondaryButtonProps={{
+        onPress: () => buttonHandler(handleTakePhoto),
+        text: 'Camera',
+      }}
       containerStyle={styles.modalButtonsContainer}
     />
   </Modal>

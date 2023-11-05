@@ -1,9 +1,7 @@
-import {Asset} from 'react-native-image-picker';
+import {DishPhoto} from '../DishForm/hooks/types';
 
 export interface OpenGalleryModalProps {
-  buttonHandler: (
-    setPhotoHandler: () => Promise<Asset | null>,
-  ) => Promise<void>;
+  buttonHandler: (setPhotoHandler: () => Promise<DishPhoto>) => Promise<void>;
   visible: boolean;
   handleOnDissmiss: () => void;
 }

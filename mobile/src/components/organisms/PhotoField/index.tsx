@@ -14,10 +14,8 @@ const PhotoField = ({
 }: PhotoFieldProps) =>
   source ? (
     <PhotoActionWrapper
-      primaryButtonHandler={handleChange}
-      secondaryButtonHandler={handleDelete}
-      primaryButtonText="Edit"
-      secondaryButtonText="Delete"
+      primaryButtonProps={{onPress: handleChange, text: 'Edit'}}
+      secondaryButtonProps={{onPress: handleDelete, text: 'Delete'}}
       containerStyle={styles.container}>
       <Photo uri={source} style={styles.image} />
     </PhotoActionWrapper>

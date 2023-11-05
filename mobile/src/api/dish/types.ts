@@ -10,8 +10,9 @@ export interface Ingredient {
   amount: string;
   unit: Unit;
 }
+
 export interface DishRequest {
   name: string;
-  photo?: Blob;
   ingredients: Ingredient[];
+  photo?: Blob;
 }

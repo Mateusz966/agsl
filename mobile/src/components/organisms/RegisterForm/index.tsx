@@ -1,5 +1,5 @@
 import React, {memo} from 'react';
-import Button from '../../atoms/Button';
+import Button from '../../atoms/Buttons/TextButton';
 import ControlledTextInput from '../../molecules/ControlledInputs/ControlledTextInput';
 import useRegister from './useRegister';
 import SnackbarMessage from '../../atoms/SnackbarMessage';

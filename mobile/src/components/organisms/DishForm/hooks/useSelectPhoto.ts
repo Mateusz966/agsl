@@ -1,13 +1,12 @@
 import {useCallback} from 'react';
-import {Asset} from 'react-native-image-picker';
-import {UseSelectPhotoProps} from './types';
+import {DishPhoto, UseSelectPhotoProps} from './types';
 
 export const useSelectPhoto = ({
   setImg,
   handleOnDissmiss,
 }: UseSelectPhotoProps) => {
   const buttonHandler = useCallback(
-    async (setPhotoHandler: () => Promise<Asset | null>) => {
+    async (setPhotoHandler: () => Promise<DishPhoto>) => {
       const res = await setPhotoHandler();
       if (res) {
         setImg(res);
