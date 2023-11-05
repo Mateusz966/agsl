@@ -49,6 +49,32 @@ export class DishMapper
     });
   }
 
+  toDomainList(dishes: DishModel[]): DishEntity[] {
+    return dishes.map(({ ingredients, dishPhoto, ...dishProps }) => {
+      return new DishEntity({
+        id: dishProps.id,
+        createdAt: new Date(dishProps.createdAt),
+        updatedAt: new Date(dishProps.updatedAt),
+        props: {
+          name: dishProps.name,
+          photo: dishPhoto.id,
+          ingredients: new Ingredients(ingredients),
+        },
+      });
+    });
+  }
+
+  toResponseList(dishes: DishEntity[]): DishResponseDto[] {
+    return dishes.map((dish) => {
+      const props = dish.getPropsCopy();
+      const res = new DishResponseDto(props);
+      res.name = props.name;
+      res.ingredients = props.ingredients.unpack();
+      res.photo = props.photo;
+      return res;
+    });
+  }
+
   toResponse(entity: DishEntity): DishResponseDto {
     const props = entity.getPropsCopy();
     const res = new DishResponseDto(props);
