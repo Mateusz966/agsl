@@ -3,22 +3,21 @@ import {useMutation} from '@tanstack/react-query';
 import {RegisterRequest} from '../../../api/user/types';
 import {UserRegister, userRegisterSchema} from './validation';
 import {zodResolver} from '@hookform/resolvers/zod';
-import {useState} from 'react';
 import {ERROR_MESSAGES} from '../../../utils/errorDictionary';
 import {signUpUser} from '../../../api/user';
-import {useSnackbarVisibility} from '../../atoms/SnackbarMessage/useSnackbarVisibility';
 import {useNavigation} from '@react-navigation/core';
 import {AddDishNavigationProps} from '../../../navigators/types';
 import {Scenes} from '../../../navigators/const';
+import {useSnackbarContext} from '../../atoms/SnackbarMessage/useSnackbarContext';
 
 const useRegister = () => {
   const form = useForm<UserRegister>({
     resolver: zodResolver(userRegisterSchema),
   });
-  const {visible, setVisible, handleOnDissmiss} = useSnackbarVisibility();
-  const [text, setText] = useState('');
+  const {setVisible, setText} = useSnackbarContext();
   const navigation = useNavigation<AddDishNavigationProps>();
-  const mutation = useMutation<void, void, RegisterRequest>({
+
+  const registerMutation = useMutation<void, void, RegisterRequest>({
     mutationFn: payload => {
       return signUpUser(payload);
     },
@@ -35,10 +34,10 @@ const useRegister = () => {
   });
 
   const onSubmit = (payload: UserRegister) => {
-    mutation.mutate(payload);
+    registerMutation.mutate(payload);
   };
 
-  return {form, mutation, text, visible, onSubmit, handleOnDissmiss};
+  return {form, registerMutation, onSubmit};
 };
 
 export default useRegister;

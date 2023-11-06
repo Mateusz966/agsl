@@ -14,37 +14,29 @@ import OpenGalleryModal from '../OpenGalleryModal';
 import ControlledSelect from '../../molecules/ControlledInputs/ControlledSelect';
 import {ICON_PATHS} from '../../../utils/icons';
 import {Unit} from '../../../api/dish/types';
-import {useFieldArray} from 'react-hook-form';
 import {DISH_UNITS} from './types';
 import {DishPhoto} from './hooks/types';
 import IconButton from '../../atoms/Buttons/IconButton';
-import {colors, theme} from '../../../config/theme';
+import {theme} from '../../../config/theme';
 import TextButton from '../../atoms/Buttons/TextButton';
+import {useSnackbarContext} from '../../atoms/SnackbarMessage/useSnackbarContext';
 
 const DishForm = () => {
   const {handleOnDissmiss, setVisible, visible} = useModalVisibility();
+  const {text, handleOnDismiss} = useSnackbarContext();
   const [img, setImg] = useState<DishPhoto>(null);
   const {buttonHandler, handleImageDelete} = useSelectPhoto({
     setImg,
     handleOnDissmiss,
   });
-  const {
-    form,
-    onSubmit,
-    onCancel,
-    handleOnDissmiss: snackBarDissmiss,
-    text,
-    visible: snackBarVisible,
-  } = useAddDish({img});
+  const {form, onSubmit, onCancel, append, remove, fields} = useAddDish({
+    img,
+  });
   const {
     control,
     handleSubmit,
     formState: {errors},
   } = form;
-  const {fields, append, remove} = useFieldArray({
-    control,
-    name: 'ingredients',
-  });
 
   return (
     <>
@@ -118,7 +110,7 @@ const DishForm = () => {
           containerStyle={styles.actionButtonsContainer}
         />
       </View>
-      <SnackbarMessage visible={snackBarVisible} onDismiss={snackBarDissmiss}>
+      <SnackbarMessage visible={visible} onDismiss={handleOnDismiss}>
         {text}
       </SnackbarMessage>
     </>

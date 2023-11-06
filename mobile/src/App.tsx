@@ -14,14 +14,17 @@ import {Provider} from 'react-native-paper';
 import Navigation from './navigators';
 import {theme} from './config/theme';
 import {QueryClient, QueryClientProvider} from '@tanstack/react-query';
+import {SnackbarProvider} from './components/atoms/SnackbarMessage/SnackbarProvider';
 
 const queryClient = new QueryClient();
 
 const Content = () => {
   return (
-    <NavigationContainer>
-      <Navigation />
-    </NavigationContainer>
+    <SnackbarProvider>
+      <NavigationContainer>
+        <Navigation />
+      </NavigationContainer>
+    </SnackbarProvider>
   );
 };
 
