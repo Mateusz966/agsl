@@ -1,6 +1,6 @@
 import React, {useState} from 'react';
 import ControlledTextInput from '../../molecules/ControlledInputs/ControlledTextInput';
-import {useAddDish} from './hooks/useAddDish';
+import {useMutateDish} from './hooks/useMutateDish';
 import {ScrollView, View} from 'react-native';
 import {useModalVisibility} from '../../molecules/Modal/useModalVisibility';
 import PhotoField from '../PhotoField';
@@ -29,7 +29,7 @@ const DishForm = () => {
     setImg,
     handleOnDissmiss,
   });
-  const {form, onSubmit, onCancel, append, remove, fields} = useAddDish({
+  const {form, onSubmit, onCancel, append, remove, fields} = useMutateDish({
     img,
   });
   const {
