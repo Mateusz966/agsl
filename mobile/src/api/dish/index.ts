@@ -1,9 +1,8 @@
 import {httpClient} from '../client';
 import {API_ROUTES} from '../const';
-import * as Keychain from 'react-native-keychain';
 
 export const addDish = async (dish: FormData) => {
-  const response = await httpClient.post(API_ROUTES.v1.dish.add, dish, {
+  const response = await httpClient.post(API_ROUTES.v1.dish, dish, {
     headers: {'Content-Type': 'multipart/form-data'},
     transformRequest: () => dish,
   });
@@ -11,8 +10,14 @@ export const addDish = async (dish: FormData) => {
 };
 
 export const getDishList = async () => {
-  const userData = await Keychain.getGenericPassword();
-  const id = userData ? userData.username : '';
-  const response = await httpClient.get(`${API_ROUTES.v1.addDish}${id}`);
+  const response = await httpClient.get(`${API_ROUTES.v1.dish}`);
+  return response.data;
+};
+
+export const editDish = async (id: string, dish: FormData) => {
+  const response = await httpClient.patch(`${API_ROUTES.v1.dish}/${id}`, dish, {
+    headers: {'Content-Type': 'multipart/form-data'},
+    transformRequest: () => dish,
+  });
   return response.data;
 };
