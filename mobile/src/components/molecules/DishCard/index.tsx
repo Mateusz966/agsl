@@ -17,7 +17,13 @@ const DishCard: FC<DishCardProps> = ({
       style={styles.cardBackgroundStyle}
       elevation={5}
       contentStyle={styles.cardContentStyle}>
-      <Photo uri={photoSource ?? ''} style={styles.photoStyle} />
+      <Photo
+        uri={
+          photoSource ??
+          'C:/Users/victo/OneDrive/Pulpit/mine-projects/agsl/mobile/src/assets/icons/add.png'
+        }
+        style={styles.photoStyle}
+      />
       <View style={styles.dishNameContainer}>
         <Message style={styles.textStyle} message={dishName} />
       </View>
