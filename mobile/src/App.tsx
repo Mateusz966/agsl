@@ -15,16 +15,19 @@ import Navigation from './navigators';
 import {theme} from './config/theme';
 import {QueryClient, QueryClientProvider} from '@tanstack/react-query';
 import {SnackbarProvider} from './components/atoms/SnackbarMessage/SnackbarProvider';
+import {DishProvider} from './components/organisms/DishForm/hooks/DishContext/DishProvider';
 
 const queryClient = new QueryClient();
 
 const Content = () => {
   return (
-    <SnackbarProvider>
-      <NavigationContainer>
-        <Navigation />
-      </NavigationContainer>
-    </SnackbarProvider>
+    <DishProvider>
+      <SnackbarProvider>
+        <NavigationContainer>
+          <Navigation />
+        </NavigationContainer>
+      </SnackbarProvider>
+    </DishProvider>
   );
 };
 

@@ -12,6 +12,7 @@ export interface Ingredient {
 }
 
 export interface DishRequest {
+  id?: string;
   name: string;
   ingredients: Ingredient[];
   photo?: Blob;
