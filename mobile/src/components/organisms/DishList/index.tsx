@@ -3,19 +3,24 @@ import {ScrollView} from 'react-native';
 import DishCard from '../../molecules/DishCard';
 
 import useDishList from './useDishList';
+import {ActivityIndicator} from 'react-native-paper';
 
 const DishList = () => {
-  const {response, navigateToDishForm} = useDishList();
+  const {response, navigateToDishForm, isLoading} = useDishList();
 
   return (
     <ScrollView>
-      {response.map(res => (
-        <DishCard
-          key={res.id}
-          dishName={res.name}
-          onPressHandler={() => navigateToDishForm(res)}
-        />
-      ))}
+      {isLoading ? (
+        <ActivityIndicator animating size={'large'} />
+      ) : (
+        response.map(res => (
+          <DishCard
+            key={res.id}
+            dishName={res.name}
+            onPressHandler={() => navigateToDishForm(res)}
+          />
+        ))
+      )}
     </ScrollView>
   );
 };
