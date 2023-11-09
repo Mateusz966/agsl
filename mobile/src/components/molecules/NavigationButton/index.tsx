@@ -5,6 +5,7 @@ import IconButton from '../../atoms/Buttons/IconButton';
 import {useNavigation} from '@react-navigation/native';
 import {RootStackParamList} from '../../../navigators/types';
 import {NativeStackNavigationProp} from '@react-navigation/native-stack';
+import {colors} from '../../../config/theme';
 
 const NavigationButton: FC<NavigationButtonProps> = ({
   sceneName,
@@ -20,6 +21,7 @@ const NavigationButton: FC<NavigationButtonProps> = ({
     <IconButton
       icon={iconSource}
       onPress={() => navigation.navigate(sceneName)}
+      iconColor={colors.white}
     />
   );
 };
