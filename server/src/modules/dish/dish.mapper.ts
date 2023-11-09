@@ -35,7 +35,6 @@ export class DishMapper
   }
 
   toDomain({ ingredients, dishPhoto, photoUrl, ...dishProps }: DishModel & { photoUrl?: string }): DishEntity {
-    console.log('photoUrl', photoUrl)
     return new DishEntity({
       id: dishProps.id,
       createdAt: new Date(dishProps.createdAt),
