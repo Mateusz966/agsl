@@ -22,12 +22,13 @@ import TextButton from '../../atoms/Buttons/TextButton';
 import {useSnackbarContext} from '../../atoms/SnackbarMessage/useSnackbarContext';
 
 const DishForm = () => {
-  const {handleOnDissmiss, setVisible, visible} = useModalVisibility();
-  const {text, handleOnDismiss} = useSnackbarContext();
+  const {handleOnModalDissmiss, modalVisible, setModalVisible} =
+    useModalVisibility();
+  const {text, handleOnDismiss, visible} = useSnackbarContext();
   const [img, setImg] = useState<DishPhoto>(null);
   const {buttonHandler, handleImageDelete} = useSelectPhoto({
     setImg,
-    handleOnDissmiss,
+    handleOnModalDissmiss,
   });
   const {form, onSubmit, onCancel, append, remove, fields} = useMutateDish({
     img,
@@ -40,7 +41,7 @@ const DishForm = () => {
 
   return (
     <>
-      <ScrollView>
+      <ScrollView style={styles.scrollContainer}>
         <Layout>
           <ControlledTextInput
             name={'name'}
@@ -49,19 +50,19 @@ const DishForm = () => {
             displayName="Name of your meal"
           />
           <OpenGalleryModal
-            visible={visible}
-            handleOnDissmiss={handleOnDissmiss}
+            visible={modalVisible}
+            handleOnDissmiss={handleOnModalDissmiss}
             buttonHandler={buttonHandler}
           />
           <PhotoField
             handleDelete={() =>
               handleImageDelete(() => form.resetField('photo'))
             }
-            handleChange={() => setVisible(true)}
-            handleOnPress={() => setVisible(true)}
+            handleChange={() => setModalVisible(true)}
+            handleOnPress={() => setModalVisible(true)}
             source={img?.uri}
           />
-          <View style={styles.scrollContainer}>
+          <View style={styles.ingredientFields}>
             {fields.map((_, index) => (
               <View style={styles.addIngredientContainer} key={index}>
                 <ControlledTextInput

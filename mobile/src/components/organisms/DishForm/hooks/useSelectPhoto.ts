@@ -3,19 +3,19 @@ import {DishPhoto, UseSelectPhotoProps} from './types';
 
 export const useSelectPhoto = ({
   setImg,
-  handleOnDissmiss,
+  handleOnModalDissmiss,
 }: UseSelectPhotoProps) => {
   const buttonHandler = useCallback(
     async (setPhotoHandler: () => Promise<DishPhoto>) => {
       const res = await setPhotoHandler();
       if (res) {
         setImg(res);
-        handleOnDissmiss();
+        handleOnModalDissmiss();
       } else {
         setImg(null);
       }
     },
-    [handleOnDissmiss, setImg],
+    [handleOnModalDissmiss, setImg],
   );
 
   const handleImageDelete = useCallback(

@@ -9,7 +9,7 @@ export interface UseMutateDishProps {
 
 export interface UseSelectPhotoProps {
   setImg: Dispatch<SetStateAction<DishPhoto>>;
-  handleOnDissmiss: () => void;
+  handleOnModalDissmiss: () => void;
 }
 
 export interface EditDishRequest {

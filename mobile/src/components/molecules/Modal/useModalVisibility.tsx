@@ -1,12 +1,12 @@
 import {useCallback, useState} from 'react';
 
 export const useModalVisibility = () => {
-  const [visible, setVisible] = useState(false);
+  const [modalVisible, setModalVisible] = useState(false);
 
-  const handleOnDissmiss = useCallback(
-    () => setVisible(!visible),
-    [setVisible, visible],
+  const handleOnModalDissmiss = useCallback(
+    () => setModalVisible(!modalVisible),
+    [modalVisible],
   );
 
-  return {setVisible, handleOnDissmiss, visible};
+  return {modalVisible, setModalVisible, handleOnModalDissmiss};
 };

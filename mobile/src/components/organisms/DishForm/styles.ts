@@ -12,24 +12,23 @@ export default StyleSheet.create({
     borderTopColor: 'black',
   },
   addIngredientContainer: {
-    marginTop: 5,
     flexDirection: 'row',
     alignItems: 'flex-start',
     gap: 10,
   },
   addButton: {
-    marginTop: 10,
     width: '60%',
   },
-
   scrollContainer: {
-    marginTop: 10,
+    marginTop: 15,
     width: '100%',
     height: '100%',
     alignContent: 'center',
-    marginBottom: 50,
   },
   ingredientsErrorStyle: {
     maxWidth: 100,
+  },
+  ingredientFields: {
+    marginTop: 15,
   },
 });
