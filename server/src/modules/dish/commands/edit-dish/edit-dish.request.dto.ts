@@ -37,4 +37,9 @@ export class EditDishRequestDto {
     }
   })
   ingredients: IngredientsProps[];
+
+  @ApiProperty({ type: EditDishRequestDto, required: false })
+  @IsArray()
+  @IsOptional()
+  ingredientsIdsToDelete: string[] | undefined;
 }

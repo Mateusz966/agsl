@@ -7,8 +7,7 @@ import {
   Patch,
   UploadedFile,
   UseGuards,
-  UseInterceptors,
-  ValidationPipe,
+  UseInterceptors
 } from '@nestjs/common';
 import { routesV1 } from '@config/app.routes';
 import { ApiConsumes, ApiOperation, ApiResponse } from '@nestjs/swagger';
@@ -52,7 +51,7 @@ export class EditDishHttpController {
     @UploadedFile()
     newPhoto: Express.Multer.File | undefined,
     @Body()
-    { name, ingredients, photo }: EditDishRequestDto,
+    { name, ingredients, photo, ingredientsIdsToDelete }: EditDishRequestDto,
     @User() user: JWTUser,
     @Param() { id }: { id: string },
   ): Promise<IdResponse> {
@@ -65,6 +64,7 @@ export class EditDishHttpController {
         ingredients: parsedIngredients,
         photo: photo === null ? photo : newPhoto,
         userId: user.id,
+        ingredientsIdsToDelete,
       });
 
       const res: AggregateID = await this.commandBus.execute(command);
