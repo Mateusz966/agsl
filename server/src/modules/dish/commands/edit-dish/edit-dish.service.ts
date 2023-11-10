@@ -77,7 +77,7 @@ export class EditDishService implements ICommandHandler {
 
       await Promise.all(
         ingredients.unpack().map(async (ingredient) => {
-          await queryRunner.manager.getRepository(IngredientsModel).upsert(
+          await queryRunner.manager.getRepository(IngredientsModel).save(
             {
               id: ingredient?.id ?? v4(),
               dish: { id: dish.id },
@@ -85,7 +85,6 @@ export class EditDishService implements ICommandHandler {
               amount: ingredient.amount,
               unit: ingredient.unit,
             },
-            ['id'],
           );
         }),
       );
