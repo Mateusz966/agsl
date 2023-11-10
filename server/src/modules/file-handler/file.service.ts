@@ -35,7 +35,7 @@ export class FileService implements OnModuleInit {
       Bucket: fileUploaderConfig.BUCKET_NAME,
       Key: encodeURIComponent(fileId),
     };
-    return getSignedUrl(this.s3, new GetObjectCommand(params), { expiresIn: 3600});
+    return getSignedUrl(this.s3, new GetObjectCommand(params));
   }
 
 }
