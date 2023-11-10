@@ -2,7 +2,7 @@ import { CommandHandler, ICommandHandler } from '@nestjs/cqrs';
 
 import { DishEntity } from '@modules/dish/domain/dish.entity';
 import { EventEmitter2 } from '@nestjs/event-emitter';
-import { FileService } from '@modules/file-uploader/file.service';
+import { FileService } from '@modules/file-handler/file.service';
 import { Ingredients } from '@modules/dish/domain/value-objects/ingredients.value-object';
 import { DishMapper } from '@modules/dish/dish.mapper';
 import { v4 } from 'uuid';

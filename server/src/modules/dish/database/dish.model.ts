@@ -20,5 +20,5 @@ export class DishModel extends ModelBase {
   @OneToMany(() => DishPhotoModel, (dishPhoto) => dishPhoto.dish, {
     eager: true,
   })
-  dishPhoto: DishPhotoModel;
+  dishPhoto: DishPhotoModel[];
 }

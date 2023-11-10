@@ -3,7 +3,6 @@ import {
   Controller,
   Get,
   HttpStatus,
-  Param,
   UseGuards,
 } from '@nestjs/common';
 import { routesV1 } from '@config/app.routes';
@@ -45,9 +44,7 @@ export class GetUserDishesTsHttpController {
   })
   @Get(routesV1.dishes.all)
   @UseGuards(JwtAuthGuard)
-  async getUserDishes(
-    @User() user: JWTUser,
-  ): Promise<DishResponseDto[]> {
+  async getUserDishes(@User() user: JWTUser): Promise<DishResponseDto[]> {
     try {
       const query = new GetUserDishesQuery(user.id);
       const dishes: DishEntity[] = await this.queryBus.execute(query);
