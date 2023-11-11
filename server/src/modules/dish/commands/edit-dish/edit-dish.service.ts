@@ -6,7 +6,7 @@ import { FileService } from '@modules/file-handler/file.service';
 import { Ingredients } from '@modules/dish/domain/value-objects/ingredients.value-object';
 import { DishMapper } from '@modules/dish/dish.mapper';
 import { v4 } from 'uuid';
-import { DataSource } from 'typeorm';
+import {DataSource, In} from 'typeorm';
 import { DishModel } from '@modules/dish/database/dish.model';
 import { DishPhotoModel } from '@modules/dish/database/dish-photo.model';
 import { IngredientsModel } from '@modules/dish/database/ingredients.model';
@@ -39,14 +39,17 @@ export class EditDishService implements ICommandHandler {
         photo: command?.photo === null ? null : fileKey,
       });
 
-      await this.saveDish(dish, command.userId);
+      await this.updateDish(dish, command.userId, command?.ingredientsIdsToDelete);
       await dish.publishEvents(this.eventEmitter);
     } catch (error) {
       throw error;
     }
   }
-
-  private async saveDish(dishEntity: DishEntity, userId: string) {
+  private async updateDish(
+    dishEntity: DishEntity,
+    userId: string,
+    ingredientsIdsToDelete?: string[],
+  ) {
     const photoKey = dishEntity.getPropsCopy().photo;
 
     const { dish, ingredients } = this.mapper.toPersistence(dishEntity);
@@ -56,6 +59,8 @@ export class EditDishService implements ICommandHandler {
     await queryRunner.startTransaction();
 
     try {
+      const deleteCriteria = { dish: { id: dish.id }, user: { id: userId } };
+
       await queryRunner.manager
         .getRepository(DishModel)
         .save({ ...dish, user: { id: userId } });
@@ -63,11 +68,11 @@ export class EditDishService implements ICommandHandler {
       if (photoKey === null) {
         await queryRunner.manager
           .getRepository(DishPhotoModel)
-          .delete({ dish: { id: dish.id }, user: { id: userId } });
+          .delete(deleteCriteria);
       } else if (photoKey) {
         await queryRunner.manager
           .getRepository(DishPhotoModel)
-          .delete({ dish: { id: dish.id }, user: { id: userId } });
+          .delete(deleteCriteria);
         await queryRunner.manager.getRepository(DishPhotoModel).insert({
           id: photoKey,
           dish: { id: dish.id },
@@ -75,18 +80,17 @@ export class EditDishService implements ICommandHandler {
         });
       }
 
+      await queryRunner.manager.getRepository(IngredientsModel).delete({ id: In(ingredientsIdsToDelete) })
+
       await Promise.all(
         ingredients.unpack().map(async (ingredient) => {
-          await queryRunner.manager.getRepository(IngredientsModel).upsert(
-            {
-              id: ingredient?.id ?? v4(),
-              dish: { id: dish.id },
-              name: ingredient.name,
-              amount: ingredient.amount,
-              unit: ingredient.unit,
-            },
-            ['id'],
-          );
+          await queryRunner.manager.getRepository(IngredientsModel).save({
+            id: ingredient?.id ?? v4(),
+            dish: { id: dish.id },
+            name: ingredient.name,
+            amount: ingredient.amount,
+            unit: ingredient.unit,
+          });
         }),
       );
 
