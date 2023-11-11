@@ -7,7 +7,8 @@ export const colors = {
   error: '#f13a59',
   primaryButton: '#6152BE',
   sceneContainerBackground: '#ededed',
-  tabActive: '#FFFFFF',
+  white: '#ffffff',
+  primaryTextColor: '#4D4952',
 };
 export const typography = {
   small: {
@@ -20,13 +21,26 @@ export const typography = {
     fontSize: 20,
     lineHeight: 22,
   },
+  large: {
+    fontFamily: 'roboto',
+    fontSize: 24,
+    lineHeight: 26,
+  },
+  form: {
+    fontFamily: 'roboto',
+    fontSize: 16,
+  },
 };
 
 export const components = {
   button: {
-    primary: {
-      width: '100%',
-      backgroundColor: colors.primaryButton,
+    style: {
+      primary: {backgroundColor: colors.primaryButton},
+      secondary: {backgroundColor: colors.white},
+    },
+    textColor: {
+      primary: colors.white,
+      secondary: colors.primary,
     },
   },
 };

@@ -2,7 +2,8 @@ import {StyleSheet} from 'react-native';
 
 export const styles = StyleSheet.create({
   container: {
-    paddingHorizontal: 40,
-    paddingVertical: 80,
+    paddingHorizontal: '2%',
+    paddingVertical: '2%',
+    height: '100%',
   },
 });

@@ -4,6 +4,7 @@ import {colors} from '../../../config/theme';
 export const styles = StyleSheet.create({
   input: {
     backgroundColor: colors.surface,
+    minWidth: 100,
   },
   error: {
     fontSize: 14,
