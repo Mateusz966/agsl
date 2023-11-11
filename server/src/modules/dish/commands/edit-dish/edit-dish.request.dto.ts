@@ -41,5 +41,12 @@ export class EditDishRequestDto {
   @ApiProperty({ type: EditDishRequestDto, required: false })
   @IsArray()
   @IsOptional()
+  @Transform(({ value }) => {
+    if (typeof value === 'string') {
+      return JSON.parse(value);
+    } else {
+      return value;
+    }
+  })
   ingredientsIdsToDelete: string[] | undefined;
 }
