@@ -2,10 +2,8 @@ import { Mapper } from '@libs/ddd';
 
 import { Injectable } from '@nestjs/common';
 import { DishEntity } from '@modules/dish/domain/dish.entity';
-import { DishEntityPersistent } from '@modules/dish/domain/dish.types';
+import {DishEntityPersistent, DishModelWithPhoto} from '@modules/dish/domain/dish.types';
 import { DishModel } from '@modules/dish/database/dish.model';
-import { DishPhotoModel } from '@modules/dish/database/dish-photo.model';
-import { IngredientsModel } from '@modules/dish/database/ingredients.model';
 import { Ingredients } from '@modules/dish/domain/value-objects/ingredients.value-object';
 import { DishResponseDto } from '@modules/dish/dtos/dish.response.dto';
 
@@ -36,28 +34,30 @@ export class DishMapper
     };
   }
 
-  toDomain({ ingredients, dishPhoto, ...dishProps }: DishModel): DishEntity {
+  toDomain({ ingredients, dishPhoto, ...dishProps }: DishModel | DishModelWithPhoto): DishEntity {
+
     return new DishEntity({
       id: dishProps.id,
       createdAt: new Date(dishProps.createdAt),
       updatedAt: new Date(dishProps.updatedAt),
       props: {
         name: dishProps.name,
-        photo: dishPhoto.id,
+        photo: ('photo' in dishProps) ? dishProps?.photo : undefined,
         ingredients: new Ingredients(ingredients),
       },
     });
   }
 
-  toDomainList(dishes: DishModel[]): DishEntity[] {
+  toDomainList(dishes: (DishModel | DishModelWithPhoto)[]): DishEntity[] {
     return dishes.map(({ ingredients, dishPhoto, ...dishProps }) => {
+
       return new DishEntity({
         id: dishProps.id,
         createdAt: new Date(dishProps.createdAt),
         updatedAt: new Date(dishProps.updatedAt),
         props: {
           name: dishProps.name,
-          photo: dishPhoto.id,
+          photo: ('photo' in dishProps) ? dishProps?.photo : undefined,
           ingredients: new Ingredients(ingredients),
         },
       });
@@ -78,6 +78,7 @@ export class DishMapper
   toResponse(entity: DishEntity): DishResponseDto {
     const props = entity.getPropsCopy();
     const res = new DishResponseDto(props);
+
     res.name = props.name;
     res.ingredients = props.ingredients.unpack();
     res.photo = props.photo;

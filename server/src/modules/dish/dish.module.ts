@@ -5,7 +5,7 @@ import { CreateDishHttpController } from '@modules/dish/commands/create-dish/cre
 import { DishModel } from '@modules/dish/database/dish.model';
 import { CreateDishService } from '@modules/dish/commands/create-dish/create-dish.service';
 import { IngredientsModel } from '@modules/dish/database/ingredients.model';
-import { FileModule } from '@modules/file-uploader/file.module';
+import { FileModule } from '@modules/file-handler/file.module';
 import { DishPhotoModel } from '@modules/dish/database/dish-photo.model';
 import { DishModelRepository } from '@modules/dish/database/dish-model.repository';
 import { DishMapper } from '@modules/dish/dish.mapper';
