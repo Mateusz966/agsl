@@ -8,14 +8,14 @@
  * @format
  */
 
-import {NavigationContainer} from '@react-navigation/native';
 import React from 'react';
 import {Provider} from 'react-native-paper';
-import Navigation from './navigators';
 import {theme} from './config/theme';
 import {QueryClient, QueryClientProvider} from '@tanstack/react-query';
 import {SnackbarProvider} from './components/atoms/SnackbarMessage/SnackbarProvider';
 import {DishProvider} from './components/organisms/DishForm/hooks/DishContext/DishProvider';
+import {NavigationContainer} from '@react-navigation/native';
+import DefaultNavigation from './navigators/DefaultNavigation';
 
 const queryClient = new QueryClient();
 
@@ -24,7 +24,7 @@ const Content = () => {
     <DishProvider>
       <SnackbarProvider>
         <NavigationContainer>
-          <Navigation />
+          <DefaultNavigation />
         </NavigationContainer>
       </SnackbarProvider>
     </DishProvider>

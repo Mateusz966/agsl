@@ -1,9 +1,10 @@
 import {NativeStackNavigationOptions} from '@react-navigation/native-stack';
-import {colors} from '../config/theme';
-import NavigationButton from '../components/molecules/NavigationButton';
+import {colors} from '../../config/theme';
+import NavigationButton from '../../components/molecules/NavigationButton';
 import React from 'react';
 import {Scenes} from './const';
-import {ICON_PATHS} from '../utils/icons';
+import {ICON_PATHS} from '../../utils/icons';
+import HomeHeader from '../../components/molecules/HomeHeader';
 
 export const mainHeaderOptions: NativeStackNavigationOptions = {
   headerStyle: {
@@ -31,4 +32,9 @@ export const dishListHeaderOptions: NativeStackNavigationOptions = {
       iconSource={ICON_PATHS.ADD_ICON}
     />
   ),
+};
+
+export const homeHeaderOptions: NativeStackNavigationOptions = {
+  title: 'Hello, Vix',
+  header: () => <HomeHeader />,
 };

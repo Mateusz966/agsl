@@ -1,20 +1,22 @@
 import React from 'react';
 import {createNativeStackNavigator} from '@react-navigation/native-stack';
-import LoginPage from '../components/pages/LoginPage';
-import AddDish from '../components/pages/AddDish';
+import LoginPage from '../../components/pages/LoginPage';
+import AddDish from '../../components/pages/AddDish';
 import {Scenes} from './const';
 import {RootStackParamList} from './types';
 import {
   addDishHeaderOptions,
   dishListHeaderOptions,
+  homeHeaderOptions,
   loginPageHeaderOptions,
   mainHeaderOptions,
 } from './headerOptions';
-import DishList from '../components/organisms/DishList';
+import DishList from '../../components/organisms/DishList';
+import Home from '../../components/pages/Home';
 
 const Stack = createNativeStackNavigator<RootStackParamList>();
 
-const Navigation = () => (
+const DefaultNavigation = () => (
   <Stack.Navigator screenOptions={mainHeaderOptions}>
     <Stack.Screen
       name={Scenes.Login}
@@ -31,6 +33,11 @@ const Navigation = () => (
       component={DishList}
       options={dishListHeaderOptions}
     />
+    <Stack.Screen
+      name={Scenes.Home}
+      component={Home}
+      options={homeHeaderOptions}
+    />
   </Stack.Navigator>
 );
-export default Navigation;
+export default DefaultNavigation;
