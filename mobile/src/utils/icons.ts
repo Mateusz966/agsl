@@ -3,4 +3,7 @@ export const ICON_PATHS = {
   ADD_ICON: require('mobile/src/assets/icons/add.png'),
   CAMERA: require('mobile/src/assets/icons/camera.png'),
   EDIT: require('mobile/src/assets/icons/edit.png'),
+  USER: require('mobile/src/assets/icons/user.png'),
+  LOGOUT: require('mobile/src/assets/icons/logout.png'),
+  LIST: require('mobile/src/assets/icons/list.png'),
 };
