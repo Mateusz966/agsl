@@ -5,13 +5,13 @@ import {UserLogin, userLoginSchema} from './validation';
 import {zodResolver} from '@hookform/resolvers/zod';
 import {ERROR_MESSAGES} from '../../../utils/errorDictionary';
 import {loginUser} from '../../../api/user';
-import {useNavigation} from '@react-navigation/native';
-import {Scenes} from '../../../navigators/const';
-import {AddDishNavigationProps} from '../../../navigators/types';
+import {useNavigation, useNavigationState} from '@react-navigation/native';
+import {Scenes} from '../../../navigators/DefaultNavigation/const';
+import {HomeNavigationProps} from '../../../navigators/DefaultNavigation/types';
 import {useSnackbarContext} from '../../atoms/SnackbarMessage/useSnackbarContext';
 
 export const useLogin = () => {
-  const navigation = useNavigation<AddDishNavigationProps>();
+  const navigation = useNavigation<HomeNavigationProps>();
   const {setVisible, setText} = useSnackbarContext();
 
   const form = useForm<UserLogin>({
@@ -31,7 +31,7 @@ export const useLogin = () => {
       setVisible(true);
       setText("You're logged in");
       form.reset({email: '', password: ''});
-      navigation.navigate(Scenes.DishList);
+      navigation.navigate(Scenes.Home);
     },
     onError: error => {
       setVisible(true);

@@ -2,8 +2,8 @@ import {useQuery} from '@tanstack/react-query';
 import {getDishList} from '../../../api/dish';
 import {DishListResponse} from './types';
 import {useNavigation} from '@react-navigation/native';
-import {AddDishNavigationProps} from '../../../navigators/types';
-import {Scenes} from '../../../navigators/const';
+import {AddDishNavigationProps} from '../../../navigators/DefaultNavigation/types';
+import {Scenes} from '../../../navigators/DefaultNavigation/const';
 import {useCallback} from 'react';
 import {useDishContext} from '../DishForm/hooks/DishContext/useDishContext';
 

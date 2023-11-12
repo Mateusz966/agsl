@@ -6,8 +6,8 @@ import {zodResolver} from '@hookform/resolvers/zod';
 import {ERROR_MESSAGES} from '../../../utils/errorDictionary';
 import {signUpUser} from '../../../api/user';
 import {useNavigation} from '@react-navigation/core';
-import {AddDishNavigationProps} from '../../../navigators/types';
-import {Scenes} from '../../../navigators/const';
+import {AddDishNavigationProps} from '../../../navigators/DefaultNavigation/types';
+import {Scenes} from '../../../navigators/DefaultNavigation/const';
 import {useSnackbarContext} from '../../atoms/SnackbarMessage/useSnackbarContext';
 
 const useRegister = () => {
