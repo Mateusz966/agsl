@@ -2,27 +2,26 @@ import React, {memo, useState} from 'react';
 import {useWindowDimensions} from 'react-native';
 import {SceneMap, TabBar, TabView} from 'react-native-tab-view';
 import {colors} from '../../../config/theme';
-import LoginComponent from '../../organisms/LoginForm';
-import RegisterComponent from '../../organisms/RegisterForm';
 import {styles} from './styles';
 import {TabProps} from './types';
 
-const Tabs = ({index, setIndex}: TabProps) => {
+const Tabs = ({
+  index,
+  setIndex,
+  scenesToRender,
+  routesToDisplay,
+  displayType,
+}: TabProps) => {
   const layout = useWindowDimensions();
+  const renderScene = SceneMap(scenesToRender);
+  const [routes] = useState(routesToDisplay);
 
-  const renderScene = SceneMap({
-    login: LoginComponent,
-    register: RegisterComponent,
-  });
-  const [routes] = useState([
-    {key: 'login', title: 'Sign in'},
-    {key: 'register', title: 'Sign up'},
-  ]);
   return (
     <TabView
       navigationState={{index, routes}}
       sceneContainerStyle={styles.container}
       renderScene={renderScene}
+      tabBarPosition={displayType}
       renderTabBar={props => (
         <TabBar
           indicatorStyle={styles.indicatorStyle}
