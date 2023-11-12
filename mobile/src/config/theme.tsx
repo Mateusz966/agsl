@@ -1,4 +1,4 @@
-import {DefaultTheme} from 'react-native-paper';
+import {DefaultTheme, configureFonts} from 'react-native-paper';
 
 export const colors = {
   ...DefaultTheme.colors,
@@ -10,25 +10,26 @@ export const colors = {
   white: '#ffffff',
   primaryTextColor: '#4D4952',
 };
+
 export const typography = {
   small: {
-    fontFamily: 'roboto',
     fontSize: 14,
     lineHeight: 16,
   },
+  form: {
+    fontSize: 16,
+  },
   medium: {
-    fontFamily: 'roboto',
     fontSize: 20,
     lineHeight: 22,
   },
   large: {
-    fontFamily: 'roboto',
     fontSize: 24,
     lineHeight: 26,
   },
-  form: {
-    fontFamily: 'roboto',
-    fontSize: 16,
+  h1: {
+    fontSize: 34,
+    lineHeight: 34,
   },
 };
 
@@ -44,10 +45,15 @@ export const components = {
     },
   },
 };
+const fontConfig = {
+  fontFamily: 'sans-serif',
+  letterSpacing: 1.5,
+};
 
 export const theme = {
   ...DefaultTheme,
   ...colors,
   ...typography,
   ...components,
+  fonts: configureFonts({config: fontConfig}),
 };
