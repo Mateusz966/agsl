@@ -5,5 +5,5 @@ export interface DishListResponse {
   createdAt: Date;
   ingredients: Ingredient[];
   name: string;
-  photo?: Blob;
+  photo?: string;
 }

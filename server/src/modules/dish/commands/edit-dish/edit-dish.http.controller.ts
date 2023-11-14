@@ -7,7 +7,7 @@ import {
   Patch,
   UploadedFile,
   UseGuards,
-  UseInterceptors
+  UseInterceptors,
 } from '@nestjs/common';
 import { routesV1 } from '@config/app.routes';
 import { ApiConsumes, ApiOperation, ApiResponse } from '@nestjs/swagger';
@@ -55,6 +55,7 @@ export class EditDishHttpController {
     @User() user: JWTUser,
     @Param() { id }: { id: string },
   ): Promise<IdResponse> {
+    console.log('here23232');
     try {
       const parsedIngredients = new Ingredients(ingredients).unpack();
 
@@ -73,6 +74,7 @@ export class EditDishHttpController {
     } catch (error) {
       if (error instanceof UserAlreadyExistsError)
         throw new ConflictHttpException(error.message);
+      console.log(error);
       throw error;
     }
   }

@@ -6,6 +6,7 @@ export enum Unit {
 }
 
 export interface Ingredient {
+  ingredientId?: string;
   name: string;
   amount: string;
   unit: Unit;
@@ -16,4 +17,16 @@ export interface DishRequest {
   name: string;
   ingredients: Ingredient[];
   photo?: Blob;
+}
+
+export interface DishResponse {
+  id?: string;
+  name: string;
+  ingredients: Ingredient[];
+  photo?: string;
+}
+
+export interface EditDishRequest {
+  id: string;
+  dish: FormData;
 }

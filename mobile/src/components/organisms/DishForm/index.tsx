@@ -22,23 +22,29 @@ import TextButton from '../../atoms/Buttons/TextButton';
 import {useSnackbarContext} from '../../atoms/SnackbarMessage/useSnackbarContext';
 
 const DishForm = () => {
+  const [img, setImg] = useState<DishPhoto>(null);
+  const [idsToDelete, setIdsToDelete] = useState<string[]>([]);
+
   const {handleOnModalDissmiss, modalVisible, setModalVisible} =
     useModalVisibility();
   const {text, handleOnDismiss, visible} = useSnackbarContext();
-  const [img, setImg] = useState<DishPhoto>(null);
   const {buttonHandler, handleImageDelete} = useSelectPhoto({
     setImg,
     handleOnModalDissmiss,
   });
-  const {form, onSubmit, onCancel, append, remove, fields} = useMutateDish({
-    img,
-  });
+  const {form, onSubmit, onCancel, append, remove, fields, params} =
+    useMutateDish({
+      img,
+      idsToDelete,
+      setIdsToDelete,
+    });
   const {
     control,
     handleSubmit,
     formState: {errors},
   } = form;
 
+  console.log(fields);
   return (
     <>
       <ScrollView style={styles.scrollContainer}>
@@ -60,11 +66,19 @@ const DishForm = () => {
             }
             handleChange={() => setModalVisible(true)}
             handleOnPress={() => setModalVisible(true)}
-            source={img?.uri}
+            source={img ? img.uri : params?.photo}
           />
           <View style={styles.ingredientFields}>
-            {fields.map((_, index) => (
-              <View style={styles.addIngredientContainer} key={index}>
+            {fields.map((ingr, index) => (
+              <View style={styles.addIngredientContainer} key={ingr.id}>
+                <ControlledTextInput
+                  name={`ingredients.${index}.ingredientId`}
+                  control={control}
+                  displayName="id"
+                  error={errors?.ingredients?.[index]?.name?.message}
+                  errorStyle={styles.ingredientsErrorStyle}
+                  style={styles.hiddenInput}
+                />
                 <ControlledTextInput
                   name={`ingredients.${index}.name`}
                   control={control}
@@ -88,7 +102,14 @@ const DishForm = () => {
                 />
                 <IconButton
                   icon={ICON_PATHS.TRASH_ICON}
-                  onPress={() => remove(index)}
+                  onPress={() => {
+                    console.log(ingr);
+                    setIdsToDelete(prevState => [
+                      ingr?.ingredientId,
+                      ...prevState,
+                    ]);
+                    remove(index);
+                  }}
                   size={25}
                   iconColor={theme.button.style.secondary.backgroundColor}
                   containerColor={theme.button.style.primary.backgroundColor}

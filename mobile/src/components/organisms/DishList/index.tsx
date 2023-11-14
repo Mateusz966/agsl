@@ -17,6 +17,7 @@ const DishList = () => {
           <DishCard
             key={res.id}
             dishName={res.name}
+            photoSource={res.photo}
             onPressHandler={() => navigateToDishForm(res)}
           />
         ))

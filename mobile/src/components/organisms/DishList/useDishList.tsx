@@ -15,6 +15,10 @@ const useDishList = () => {
     queryKey: ['dishList', dishId],
     queryFn: getDishList,
   });
+  console.log(
+    data?.find(d => d.id === '4a6d1955-855e-45fa-94d0-a77c4b878754')
+      ?.ingredients,
+  );
 
   const navigateToDishForm = useCallback(
     (dish?: DishListResponse) => {
@@ -23,6 +27,7 @@ const useDishList = () => {
           id: dish.id,
           name: dish.name,
           ingredients: dish.ingredients.map(ingredient => ({
+            ingredientId: ingredient.ingredientId,
             name: ingredient.name,
             amount: ingredient.amount,
             unit: ingredient.unit,

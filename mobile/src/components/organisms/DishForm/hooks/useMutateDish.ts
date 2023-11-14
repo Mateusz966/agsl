@@ -12,8 +12,13 @@ import {useSnackbarContext} from '../../../atoms/SnackbarMessage/useSnackbarCont
 import {EditDishRequest, UseMutateDishProps} from './types';
 import {DEFAULT_DISH_FORM_VALUE} from './const';
 import {useDishContext} from './DishContext/useDishContext';
+import {AxiosError} from 'axios';
 
-export const useMutateDish = ({img}: UseMutateDishProps) => {
+export const useMutateDish = ({
+  img,
+  idsToDelete,
+  setIdsToDelete,
+}: UseMutateDishProps) => {
   const {params} = useRoute<RouteProp<RootStackParamList, Scenes.AddDish>>();
   const {setText, setVisible} = useSnackbarContext();
   const {setDishId} = useDishContext();
@@ -54,14 +59,16 @@ export const useMutateDish = ({img}: UseMutateDishProps) => {
     },
   });
 
-  const editDishMutation = useMutation<void, void, EditDishRequest>({
-    mutationFn: payload => editDish(payload.id, payload.dishData),
+  const editDishMutation = useMutation<void, AxiosError, EditDishRequest>({
+    mutationFn: payload => editDish(payload),
     onSuccess: async () => {
       setDishId(params?.id ?? '');
+      setIdsToDelete([]);
       setVisible(true);
       setText('Your dish was edited sucessfully');
     },
     onError: error => {
+      console.log(error.response, 'error');
       setVisible(true);
       setText(`${error}`);
     },
@@ -80,14 +87,18 @@ export const useMutateDish = ({img}: UseMutateDishProps) => {
       }
       fd.append('ingredients', JSON.stringify(payload.ingredients));
       fd.append('name', payload.name);
+      fd.append('ingredientsIdsToDelete', JSON.stringify(idsToDelete));
 
       if (params?.id) {
-        editDishMutation.mutate({id: params.id, dishData: fd});
+        editDishMutation.mutate({
+          id: params.id,
+          dish: fd,
+        });
       } else {
         addDishMutation.mutate(fd);
       }
     },
-    [addDishMutation, editDishMutation, img, params?.id],
+    [addDishMutation, editDishMutation, idsToDelete, img, params?.id],
   );
 
   const onCancel = () => {
@@ -103,5 +114,6 @@ export const useMutateDish = ({img}: UseMutateDishProps) => {
     onCancel,
     addDishMutation,
     editDishMutation,
+    params,
   };
 };

@@ -49,6 +49,7 @@ export class GetDishByIdHttpController {
     @Param() { id }: { id: string },
   ): Promise<DishResponseDto> {
     try {
+      console.log('jsndsjdsjk');
       const query = new GetDishByIdQuery(id);
       const dish: DishEntity = await this.queryBus.execute(query);
 

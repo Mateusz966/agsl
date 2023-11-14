@@ -20,6 +20,7 @@ const ControlledTextInput = <
   displayName,
   keyboardType,
   errorStyle,
+  style,
 }: ControlledTextInputProps<TFieldValues, TName>) => {
   return (
     <View style={styles.controlledInputContainer}>
@@ -37,6 +38,7 @@ const ControlledTextInput = <
             onBlur={onBlur}
             value={value?.toString()}
             keyboardType={keyboardType}
+            style={style}
           />
         )}
       />

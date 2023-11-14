@@ -5,6 +5,8 @@ export type DishPhoto = Asset | null;
 
 export interface UseMutateDishProps {
   img: DishPhoto;
+  idsToDelete?: string[];
+  setIdsToDelete: Dispatch<SetStateAction<string[]>>;
 }
 
 export interface UseSelectPhotoProps {
@@ -14,5 +16,5 @@ export interface UseSelectPhotoProps {
 
 export interface EditDishRequest {
   id: string;
-  dishData: FormData;
+  dish: FormData;
 }

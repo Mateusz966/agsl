@@ -31,4 +31,8 @@ export default StyleSheet.create({
   ingredientFields: {
     marginTop: 15,
   },
+  hiddenInput: {
+    opacity: 0,
+    position: 'absolute',
+  },
 });
