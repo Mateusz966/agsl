@@ -2,7 +2,7 @@ import {zodResolver} from '@hookform/resolvers/zod';
 import {useFieldArray, useForm} from 'react-hook-form';
 import {AddDish, addDishSchema} from '../validation';
 import {useMutation} from '@tanstack/react-query';
-import {DishRequest} from '../../../../api/dish/types';
+import {EditDishForm} from '../../../../api/dish/types';
 import {addDish, editDish} from '../../../../api/dish';
 import {useCallback, useMemo} from 'react';
 import {RouteProp, useRoute} from '@react-navigation/native';
@@ -75,7 +75,7 @@ export const useMutateDish = ({
   });
 
   const onSubmit = useCallback(
-    (payload: DishRequest) => {
+    (payload: EditDishForm) => {
       const fd = new FormData();
       if (img) {
         const photo = {
@@ -85,7 +85,10 @@ export const useMutateDish = ({
         };
         fd.append('photo', photo);
       }
-      fd.append('ingredients', JSON.stringify(payload.ingredients));
+      fd.append('ingredients', JSON.stringify(payload.ingredients?.map(({ingredientId, ...props}) => ({
+        ...props,
+        id: ingredientId,
+      }))));
       fd.append('name', payload.name);
       fd.append('ingredientsIdsToDelete', JSON.stringify(idsToDelete));
 

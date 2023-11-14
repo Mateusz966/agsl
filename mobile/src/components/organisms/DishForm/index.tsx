@@ -44,7 +44,6 @@ const DishForm = () => {
     formState: {errors},
   } = form;
 
-  console.log(fields);
   return (
     <>
       <ScrollView style={styles.scrollContainer}>
@@ -69,8 +68,8 @@ const DishForm = () => {
             source={img ? img.uri : params?.photo}
           />
           <View style={styles.ingredientFields}>
-            {fields.map((ingr, index) => (
-              <View style={styles.addIngredientContainer} key={ingr.id}>
+            {fields.map(({id, ingredientId}, index) => (
+              <View style={styles.addIngredientContainer} key={id}>
                 <ControlledTextInput
                   name={`ingredients.${index}.ingredientId`}
                   control={control}
@@ -103,11 +102,9 @@ const DishForm = () => {
                 <IconButton
                   icon={ICON_PATHS.TRASH_ICON}
                   onPress={() => {
-                    console.log(ingr);
-                    setIdsToDelete(prevState => [
-                      ingr?.ingredientId,
-                      ...prevState,
-                    ]);
+                    if (ingredientId) {
+                      setIdsToDelete(prevState => [ingredientId, ...prevState]);
+                    }
                     remove(index);
                   }}
                   size={25}
