@@ -3,6 +3,7 @@ import {Scenes} from './const';
 import {DishResponse} from '../api/dish/types';
 
 export type RootStackParamList = {
+  Entry: undefined;
   Login: undefined;
   AddDish: DishResponse | undefined;
   DishList: undefined;

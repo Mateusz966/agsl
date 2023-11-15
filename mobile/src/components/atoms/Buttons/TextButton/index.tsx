@@ -4,9 +4,9 @@ import {components} from '../../../../config/theme';
 
 const TextButton = ({style, children, textColor, ...props}: ButtonProps) => (
   <PaperButton
-    style={[components.button.style.primary, style]}
+    style={[ components.button.style.primary, style]}
     textColor={textColor ?? components.button.textColor.primary}
-    mode="outlined"
+    mode="contained"
     {...props}>
     {children}
   </PaperButton>

@@ -35,7 +35,11 @@ export const typography = {
 export const components = {
   button: {
     style: {
-      primary: {backgroundColor: colors.primaryButton},
+      primary: {
+        backgroundColor: colors.primaryButton,
+        paddingVertical: 5,
+        borderRadius: 50,
+      },
       secondary: {backgroundColor: colors.white},
     },
     textColor: {

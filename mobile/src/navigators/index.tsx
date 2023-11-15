@@ -11,11 +11,17 @@ import {
   mainHeaderOptions,
 } from './headerOptions';
 import DishList from '../components/organisms/DishList';
+import Entry from '../components/pages/Entry';
 
 const Stack = createNativeStackNavigator<RootStackParamList>();
 
 const Navigation = () => (
   <Stack.Navigator screenOptions={mainHeaderOptions}>
+    <Stack.Screen
+      name={Scenes.Entry}
+      component={Entry}
+      options={loginPageHeaderOptions}
+    />
     <Stack.Screen
       name={Scenes.Login}
       component={LoginPage}
