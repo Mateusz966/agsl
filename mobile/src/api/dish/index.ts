@@ -16,7 +16,6 @@ export const getDishList = async () => {
 };
 
 export const editDish = async (editRequest: EditDishRequest) => {
-  console.log(editRequest);
   const response = await httpClient.patch(
     `${API_ROUTES.v1.dish}/${editRequest.id}`,
     editRequest.dish,

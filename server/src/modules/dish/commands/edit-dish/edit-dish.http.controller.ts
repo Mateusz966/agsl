@@ -55,7 +55,6 @@ export class EditDishHttpController {
     @User() user: JWTUser,
     @Param() { id }: { id: string },
   ): Promise<IdResponse> {
-    console.log('here23232');
     try {
       const parsedIngredients = new Ingredients(ingredients).unpack();
 

@@ -4,7 +4,7 @@ import {AddDish, addDishSchema} from '../validation';
 import {useMutation} from '@tanstack/react-query';
 import {EditDishForm} from '../../../../api/dish/types';
 import {addDish, editDish} from '../../../../api/dish';
-import {useCallback, useMemo} from 'react';
+import {useCallback, useMemo, useState} from 'react';
 import {RouteProp, useRoute} from '@react-navigation/native';
 import {RootStackParamList} from '../../../../navigators/types';
 import {Scenes} from '../../../../navigators/const';
@@ -16,12 +16,11 @@ import {AxiosError} from 'axios';
 
 export const useMutateDish = ({
   img,
-  idsToDelete,
-  setIdsToDelete,
 }: UseMutateDishProps) => {
   const {params} = useRoute<RouteProp<RootStackParamList, Scenes.AddDish>>();
   const {setText, setVisible} = useSnackbarContext();
   const {setDishId} = useDishContext();
+  const [idsToDelete, setIdsToDelete] = useState<string[]>([]);
 
   const paramsDishValue = useMemo(
     () =>
@@ -58,6 +57,13 @@ export const useMutateDish = ({
       setText(`${error}`);
     },
   });
+
+  const removeIngredient = (ingredientId: string | undefined, index: number) => {
+    if (ingredientId) {
+      setIdsToDelete(prevState => [ingredientId, ...prevState]);
+    }
+    remove(index);
+  }
 
   const editDishMutation = useMutation<void, AxiosError, EditDishRequest>({
     mutationFn: payload => editDish(payload),
@@ -118,5 +124,6 @@ export const useMutateDish = ({
     addDishMutation,
     editDishMutation,
     params,
+    removeIngredient,
   };
 };

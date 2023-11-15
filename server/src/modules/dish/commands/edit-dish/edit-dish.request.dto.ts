@@ -42,7 +42,6 @@ export class EditDishRequestDto {
   @IsArray()
   @IsOptional()
   @Transform(({ value }) => {
-    console.log(value);
     if (typeof value === 'string') {
       return JSON.parse(value);
     } else {
