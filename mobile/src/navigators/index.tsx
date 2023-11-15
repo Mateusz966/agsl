@@ -1,6 +1,5 @@
 import React from 'react';
 import {createNativeStackNavigator} from '@react-navigation/native-stack';
-import LoginPage from '../components/pages/LoginPage';
 import AddDish from '../components/pages/AddDish';
 import {Scenes} from './const';
 import {RootStackParamList} from './types';
@@ -12,6 +11,8 @@ import {
 } from './headerOptions';
 import DishList from '../components/organisms/DishList';
 import Entry from '../components/pages/Entry';
+import Login from '../components/pages/Login';
+import Register from '../components/pages/Register';
 
 const Stack = createNativeStackNavigator<RootStackParamList>();
 
@@ -24,7 +25,12 @@ const Navigation = () => (
     />
     <Stack.Screen
       name={Scenes.Login}
-      component={LoginPage}
+      component={Login}
+      options={loginPageHeaderOptions}
+    />
+    <Stack.Screen
+      name={Scenes.Register}
+      component={Register}
       options={loginPageHeaderOptions}
     />
     <Stack.Screen

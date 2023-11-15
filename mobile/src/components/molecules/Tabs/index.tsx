@@ -2,16 +2,16 @@ import React, {memo, useState} from 'react';
 import {useWindowDimensions} from 'react-native';
 import {SceneMap, TabBar, TabView} from 'react-native-tab-view';
 import {colors} from '../../../config/theme';
-import LoginComponent from '../../organisms/LoginForm';
 import RegisterComponent from '../../organisms/RegisterForm';
 import {styles} from './styles';
 import {TabProps} from './types';
+import LoginForm from "../../organisms/LoginForm";
 
 const Tabs = ({index, setIndex}: TabProps) => {
   const layout = useWindowDimensions();
 
   const renderScene = SceneMap({
-    login: LoginComponent,
+    login: LoginForm,
     register: RegisterComponent,
   });
   const [routes] = useState([

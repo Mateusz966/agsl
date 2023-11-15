@@ -3,7 +3,6 @@ import Button from '../../atoms/Buttons/TextButton';
 import ControlledTextInput from '../../molecules/ControlledInputs/ControlledTextInput';
 import {useLogin} from './useLogin';
 import SnackbarMessage from '../../atoms/SnackbarMessage';
-import {Layout} from '../../atoms/Layout';
 import {useSnackbarContext} from '../../atoms/SnackbarMessage/useSnackbarContext';
 
 const LoginForm = () => {
@@ -17,17 +16,21 @@ const LoginForm = () => {
   } = form;
 
   return (
-    <Layout>
+    <>
       <ControlledTextInput
         error={errors.email?.message}
         control={control}
         name="email"
+        displayName="E-mail"
+        placeholder="example@email.com"
       />
       <ControlledTextInput
         error={errors.password?.message}
         control={control}
         isPassword
         name="password"
+        displayName="Password"
+        placeholder="********"
       />
       <Button
         loading={loginMutation.isLoading}
@@ -37,7 +40,7 @@ const LoginForm = () => {
       <SnackbarMessage visible={visible} onDismiss={handleOnDismiss}>
         {text}
       </SnackbarMessage>
-    </Layout>
+    </>
   );
 };
 

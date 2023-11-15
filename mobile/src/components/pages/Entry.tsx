@@ -1,32 +1,34 @@
-import React, {memo} from 'react';
-import {Text} from 'react-native-paper';
-import {ScrollView, View} from 'react-native';
-import EntryScreenPhoto from '../../assets/EntryScreenPhoto';
-import {Button} from '../atoms';
+import React, {memo, useCallback} from 'react';
+import {ScrollView} from 'react-native';
+import EntryPageContent from '../templates/EntryPageContent';
+import Keychain from 'react-native-keychain';
+import {
+  NavigationProp,
+  useFocusEffect,
+  useNavigation,
+} from '@react-navigation/native';
+import {RootStackParamList} from '../../navigators/types';
+import {Scenes} from '../../navigators/const';
 
 const Entry = () => {
+  const {navigate} = useNavigation<NavigationProp<RootStackParamList>>();
+  const isLogged = async () => {
+    const credentials = await Keychain.getGenericPassword();
+
+    if (credentials) {
+      navigate(Scenes.DishList);
+    }
+  };
+
+  useFocusEffect(
+    useCallback(() => {
+      void isLogged();
+    }, []),
+  );
+
   return (
     <ScrollView style={{paddingHorizontal: 20}}>
-      <View
-        style={{width: '100%', height: 200, marginTop: 100, marginBottom: 30}}>
-        <EntryScreenPhoto />
-      </View>
-      <Text variant="headlineMedium" style={{marginBottom: 10}}>
-        AGSL
-      </Text>
-      <Text variant="headlineMedium" style={{marginBottom: 15}}>
-        Everything you need is in one place
-      </Text>
-      <Text variant="bodyMedium">
-        Lorem ipsum dol Lorem ipsum dol Lorem ipsum dol Lorem ipsum dol{' '}
-      </Text>
-      <Button style={{marginVertical: 15}}>Login</Button>
-      <Button
-        style={{backgroundColor: 'white'}}
-        textColor="black"
-        mode="outlined">
-        Register
-      </Button>
+      <EntryPageContent />
     </ScrollView>
   );
 };

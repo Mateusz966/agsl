@@ -39,6 +39,7 @@ const ControlledTextInput = <
             value={value?.toString()}
             keyboardType={keyboardType}
             style={style}
+            mode="outlined"
           />
         )}
       />
