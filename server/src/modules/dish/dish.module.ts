@@ -14,14 +14,18 @@ import { GetDishByIdHttpController } from '@modules/dish/queries/get-dish-by-id/
 import { GetDishByIdQueryHandler } from '@modules/dish/queries/get-dish-by-id/get-dish-by-id.query-handler';
 import { EditDishHttpController } from '@modules/dish/commands/edit-dish/edit-dish.http.controller';
 import { EditDishService } from '@modules/dish/commands/edit-dish/edit-dish.service';
-import { GetUserDishesTsHttpController } from '@modules/dish/queries/get-user-dishes/get-user-dishes.ts.http.controller';
+import { GetUserDishesHttpController } from '@modules/dish/queries/get-user-dishes/get-user-dishes.http.controller';
 import { GetUserDishesQueryHandler } from '@modules/dish/queries/get-user-dishes/get-user-dishes.query-handler';
+import {
+  GenerateShoppingListHttpController
+} from "@modules/dish/queries/generate-shopping-list/generate-shopping-list.http.controller";
 
 const httpControllers = [
   CreateDishHttpController,
   GetDishByIdHttpController,
   EditDishHttpController,
-  GetUserDishesTsHttpController,
+  GetUserDishesHttpController,
+  GenerateShoppingListHttpController,
 ];
 
 const commandHandlers: Provider[] = [CreateDishService, EditDishService];

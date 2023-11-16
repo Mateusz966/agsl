@@ -25,5 +25,6 @@ export const routesV1 = {
     root: dishesRoot,
     get: `${dishesRoot}/:id`,
     all: dishesRoot,
+    ['shopping-list']: `/${dishesRoot}/shopping-list`,
   },
 };

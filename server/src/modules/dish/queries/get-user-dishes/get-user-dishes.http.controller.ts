@@ -22,7 +22,7 @@ import { DishResponseDto } from '@modules/dish/dtos/dish.response.dto';
 import { GetUserDishesQuery } from '@modules/dish/queries/get-user-dishes/get-user-dishes.query';
 
 @Controller(routesV1.version)
-export class GetUserDishesTsHttpController {
+export class GetUserDishesHttpController {
   constructor(
     private readonly queryBus: QueryBus,
     private readonly dishMapper: DishMapper,
