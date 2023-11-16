@@ -8,6 +8,7 @@ export type RootStackParamList = {
   Register: undefined;
   AddDish: DishResponse | undefined;
   DishList: undefined;
+  EditDish: undefined;
 };
 
 export type AddDishNavigationProps = NativeStackNavigationProp<
@@ -18,4 +19,9 @@ export type AddDishNavigationProps = NativeStackNavigationProp<
 export type DishListNavigationProps = NativeStackNavigationProp<
   RootStackParamList,
   Scenes.DishList
+>;
+
+export type EditDishNavigationProps = NativeStackNavigationProp<
+  RootStackParamList,
+  Scenes.EditDish
 >;

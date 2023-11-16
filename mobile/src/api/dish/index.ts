@@ -29,3 +29,8 @@ export const editDish = async (editRequest: EditDishRequest) => {
   console.log(response, 'res');
   return response.data;
 };
+
+export const getDish = async (dishId: string) => {
+  const response = await httpClient.get(`${API_ROUTES.v1.dish}/${dishId}`);
+  return response.data;
+};

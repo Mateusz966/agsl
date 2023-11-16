@@ -23,7 +23,6 @@ import {useSnackbarContext} from '../../atoms/SnackbarMessage/useSnackbarContext
 
 const DishForm = () => {
   const [img, setImg] = useState<DishPhoto>(null);
-
   const {handleOnModalDissmiss, modalVisible, setModalVisible} =
     useModalVisibility();
   const {text, handleOnDismiss, visible} = useSnackbarContext();
@@ -31,7 +30,7 @@ const DishForm = () => {
     setImg,
     handleOnModalDissmiss,
   });
-  const {form, onSubmit, onCancel, append, fields, params, removeIngredient,} =
+  const {form, onSubmit, onCancel, append, fields, response, removeIngredient} =
     useMutateDish({
       img,
     });
@@ -62,7 +61,7 @@ const DishForm = () => {
             }
             handleChange={() => setModalVisible(true)}
             handleOnPress={() => setModalVisible(true)}
-            source={img ? img.uri : params?.photo}
+            source={img ? img.uri : response?.photo}
           />
           <View style={styles.ingredientFields}>
             {fields.map(({id, ingredientId}, index) => (
@@ -99,7 +98,7 @@ const DishForm = () => {
                 <IconButton
                   icon={ICON_PATHS.TRASH_ICON}
                   onPress={() => {
-                      removeIngredient(ingredientId, index)
+                    removeIngredient(ingredientId, index);
                   }}
                   size={25}
                   iconColor={theme.button.style.secondary.backgroundColor}

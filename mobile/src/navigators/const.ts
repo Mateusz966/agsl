@@ -3,5 +3,6 @@ export enum Scenes {
   AddDish = 'AddDish',
   DishList = 'DishList',
   Entry = 'Entry',
-  Register = 'Register'
+  Register = 'Register',
+  EditDish = 'EditDish',
 }

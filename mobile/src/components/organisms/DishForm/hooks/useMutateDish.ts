@@ -11,33 +11,31 @@ import {Scenes} from '../../../../navigators/const';
 import {useSnackbarContext} from '../../../atoms/SnackbarMessage/useSnackbarContext';
 import {EditDishRequest, UseMutateDishProps} from './types';
 import {DEFAULT_DISH_FORM_VALUE} from './const';
-import {useDishContext} from './DishContext/useDishContext';
 import {AxiosError} from 'axios';
+import useDish from './useDish';
 
-export const useMutateDish = ({
-  img,
-}: UseMutateDishProps) => {
-  const {params} = useRoute<RouteProp<RootStackParamList, Scenes.AddDish>>();
+export const useMutateDish = ({img}: UseMutateDishProps) => {
   const {setText, setVisible} = useSnackbarContext();
-  const {setDishId} = useDishContext();
+  const {response} = useDish();
   const [idsToDelete, setIdsToDelete] = useState<string[]>([]);
-
-  const paramsDishValue = useMemo(
+  const responseDishValue = useMemo(
     () =>
-      params
+      response
         ? {
-            name: params.name,
-            ingredients: params.ingredients,
-            photo: params.photo,
+            name: response.name,
+            ingredients: response.ingredients,
+            photo: response.photo,
           }
         : DEFAULT_DISH_FORM_VALUE,
-    [params],
+    [response],
   );
+
+  console.log(response?.ingredients, 'dishVal');
 
   const form = useForm<AddDish>({
     resolver: zodResolver(addDishSchema),
     mode: 'onChange',
-    defaultValues: paramsDishValue,
+    defaultValues: responseDishValue,
   });
 
   const {append, fields, remove} = useFieldArray({
@@ -58,17 +56,19 @@ export const useMutateDish = ({
     },
   });
 
-  const removeIngredient = (ingredientId: string | undefined, index: number) => {
+  const removeIngredient = (
+    ingredientId: string | undefined,
+    index: number,
+  ) => {
     if (ingredientId) {
       setIdsToDelete(prevState => [ingredientId, ...prevState]);
     }
     remove(index);
-  }
+  };
 
   const editDishMutation = useMutation<void, AxiosError, EditDishRequest>({
     mutationFn: payload => editDish(payload),
     onSuccess: async () => {
-      setDishId(params?.id ?? '');
       setIdsToDelete([]);
       setVisible(true);
       setText('Your dish was edited sucessfully');
@@ -91,23 +91,28 @@ export const useMutateDish = ({
         };
         fd.append('photo', photo);
       }
-      fd.append('ingredients', JSON.stringify(payload.ingredients?.map(({ingredientId, ...props}) => ({
-        ...props,
-        id: ingredientId,
-      }))));
+      fd.append(
+        'ingredients',
+        JSON.stringify(
+          payload.ingredients?.map(({ingredientId, ...props}) => ({
+            ...props,
+            id: ingredientId,
+          })),
+        ),
+      );
       fd.append('name', payload.name);
       fd.append('ingredientsIdsToDelete', JSON.stringify(idsToDelete));
 
-      if (params?.id) {
+      if (response?.id) {
         editDishMutation.mutate({
-          id: params.id,
+          id: response.id,
           dish: fd,
         });
       } else {
         addDishMutation.mutate(fd);
       }
     },
-    [addDishMutation, editDishMutation, idsToDelete, img, params?.id],
+    [addDishMutation, editDishMutation, idsToDelete, img, response?.id],
   );
 
   const onCancel = () => {
@@ -123,7 +128,7 @@ export const useMutateDish = ({
     onCancel,
     addDishMutation,
     editDishMutation,
-    params,
+    response,
     removeIngredient,
   };
 };

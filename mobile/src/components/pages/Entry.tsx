@@ -1,35 +1,12 @@
-import React, {memo, useCallback} from 'react';
-import {ScrollView} from 'react-native';
+import React, {memo} from 'react';
 import EntryPageContent from '../templates/EntryPageContent';
-import Keychain from 'react-native-keychain';
-import {
-  NavigationProp,
-  useFocusEffect,
-  useNavigation,
-} from '@react-navigation/native';
-import {RootStackParamList} from '../../navigators/types';
+import {} from '@react-navigation/native';
 import {Scenes} from '../../navigators/const';
+import useNavigateLoggedUser from '../../navigators/useNavigateLoggedUser';
 
 const Entry = () => {
-  const {navigate} = useNavigation<NavigationProp<RootStackParamList>>();
-  const isLogged = async () => {
-    const credentials = await Keychain.getGenericPassword();
+  useNavigateLoggedUser(Scenes.DishList);
 
-    if (credentials) {
-      navigate(Scenes.DishList);
-    }
-  };
-
-  useFocusEffect(
-    useCallback(() => {
-      void isLogged();
-    }, []),
-  );
-
-  return (
-    <ScrollView style={{paddingHorizontal: 20}}>
-      <EntryPageContent />
-    </ScrollView>
-  );
+  return <EntryPageContent />;
 };
 export default memo(Entry);

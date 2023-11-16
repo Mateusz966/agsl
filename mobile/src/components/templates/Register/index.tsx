@@ -1,28 +1,26 @@
 import React, {memo} from 'react';
 import {Text} from 'react-native-paper';
-import {View} from 'react-native';
+import {ScrollView, View} from 'react-native';
 import LoginPhoto from '../../../assets/LoginPhoto';
-import RegisterForm from "../../organisms/RegisterForm";
+import RegisterForm from '../../organisms/RegisterForm';
+import {styles} from './styles';
 
-const RegisterTemplate = () => {
-  return (
-    <>
-      <View
-        style={{width: '100%', height: 200, marginTop: 100, marginBottom: 20}}>
-        <LoginPhoto />
-      </View>
-      <Text variant="headlineMedium" style={{marginBottom: 15}}>
-        Register
-      </Text>
-      <Text variant="bodyMedium" style={{marginBottom: 15}}>
-        Register to start using the app
-      </Text>
-      <RegisterForm />
-      <View>
-        <Text variant="bodySmall">Have an account?</Text>
-      </View>
-    </>
-  );
-};
+const RegisterTemplate = () => (
+  <ScrollView style={styles.scrollView}>
+    <View style={styles.photoWrapper}>
+      <LoginPhoto />
+    </View>
+    <Text variant="headlineMedium" style={styles.title}>
+      Register
+    </Text>
+    <Text variant="bodyMedium" style={styles.subtitle}>
+      Register to start using the app
+    </Text>
+    <RegisterForm />
+    <View>
+      <Text variant="bodySmall">Have an account?</Text>
+    </View>
+  </ScrollView>
+);
 
 export default memo(RegisterTemplate);

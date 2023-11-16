@@ -12,7 +12,6 @@ export interface Ingredient {
   unit: Unit;
 }
 
-
 export interface FormIngredient {
   ingredientId?: string;
   name: string;

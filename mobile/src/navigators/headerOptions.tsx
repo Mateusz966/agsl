@@ -23,6 +23,10 @@ export const addDishHeaderOptions: NativeStackNavigationOptions = {
   title: 'Add meal',
 };
 
+export const editDishHeaderOptions: NativeStackNavigationOptions = {
+  title: 'Edit meal',
+};
+
 export const dishListHeaderOptions: NativeStackNavigationOptions = {
   title: 'Dish list',
   headerRight: () => (
