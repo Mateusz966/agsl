@@ -13,6 +13,7 @@ import { DishModule } from '@modules/dish/dish.module';
 import { IngredientsModel } from '@modules/dish/database/ingredients.model';
 import { DishModel } from '@modules/dish/database/dish.model';
 import { DishPhotoModel } from '@modules/dish/database/dish-photo.model';
+import {ShoppingListModel} from "@modules/dish/database/shopping-list.model";
 
 @Module({
   imports: [
@@ -21,7 +22,7 @@ import { DishPhotoModel } from '@modules/dish/database/dish-photo.model';
       ...databaseConfig,
       synchronize: true,
       logger: 'advanced-console',
-      entities: [UserModel, DishModel, IngredientsModel, DishPhotoModel],
+      entities: [UserModel, DishModel, IngredientsModel, DishPhotoModel, ShoppingListModel],
     }),
     EventEmitterModule.forRoot(),
     UserModule,

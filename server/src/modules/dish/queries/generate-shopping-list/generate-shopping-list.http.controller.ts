@@ -17,6 +17,7 @@ import { JwtAuthGuard } from '@modules/auth/jwt-auth.guard';
 import { JWTUser } from '@modules/auth/auth.types';
 import { DishMapper } from '@modules/dish/dish.mapper';
 import { GenerateShoppingListDto } from '@modules/dish/queries/generate-shopping-list/generate-shopping-list.dto';
+import {GenerateShoppingListQuery} from "@modules/dish/queries/generate-shopping-list/generate-shopping-list.query";
 @Controller(routesV1.version)
 export class GenerateShoppingListHttpController {
   constructor(
@@ -35,10 +36,12 @@ export class GenerateShoppingListHttpController {
   @UseGuards(JwtAuthGuard)
   async createShoppingList(
     @User() user: JWTUser,
-    @Body() dishes: GenerateShoppingListDto,
+    @Body() {dishesId}: GenerateShoppingListDto,
   ): Promise<any> {
     try {
-      console.log('dishesIds', dishes);
+      const query = new GenerateShoppingListQuery(user.id, dishesId)
+      const shoppingList = await this.queryBus.execute(query);
+      return shoppingList
       // const query = new GetUserDishesQuery(user.id);
       // const dishes: DishEntity[] = await this.queryBus.execute(query);
       // return this.dishMapper.toResponseList(dishes);

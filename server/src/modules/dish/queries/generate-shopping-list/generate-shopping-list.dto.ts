@@ -15,5 +15,5 @@ export class GenerateShoppingListDto {
   @IsArray()
   @ValidateNested({ each: true })
   @Type(() => ShoppingListElement)
-  dishesIds: ShoppingListElement[];
+  dishesId: ShoppingListElement[];
 }
