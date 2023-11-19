@@ -16,13 +16,11 @@ export class GenerateShoppingListQueryHandler implements IQueryHandler {
   ) {}
 
   async execute({ userId, dishes }: GenerateShoppingListQuery) {
-    const shoppingList = await Promise.all(
+    const list = await Promise.all(
       dishes.map(async ({ id, quantity }) => {
         const ingredients = await this.ingredientsRepo.find({
           where: { dish: { id } },
         });
-
-        console.log('ingrediets', ingredients);
 
         return ingredients.map((ingredient) => ({
           ...ingredient,
@@ -33,10 +31,13 @@ export class GenerateShoppingListQueryHandler implements IQueryHandler {
 
     const shoppingListRepo = this.dataSource.getRepository(ShoppingListModel);
 
-    await shoppingListRepo.save({
+    const shoppingList = await shoppingListRepo.save({
       id: v4(),
-      generatedShoppingList: shoppingList?.flat(),
+      generatedShoppingList: list?.flat(),
       isDraft: true,
+      user: { id: userId },
     });
+
+    return shoppingList;
   }
 }
