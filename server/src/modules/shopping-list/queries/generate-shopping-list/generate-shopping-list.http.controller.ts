@@ -38,10 +38,15 @@ export class GenerateShoppingListHttpController {
   ): Promise<any> {
     try {
       const ingredientsQuery = new GetDishIngredientsQuery(dishesId);
-      const list = await this.queryBus.execute<
-        GetDishIngredientsQuery,
-        IngredientsModel[]
-      >(ingredientsQuery);
+      const list = (
+        await this.queryBus.execute<
+          GetDishIngredientsQuery,
+          IngredientsModel[]
+        >(ingredientsQuery)
+      ).map((ingredient) => ({
+        ...ingredient,
+        isBought: false,
+      }));
 
       const shoppingListQuery = new GenerateShoppingListQuery(user.id, list);
       const shoppingList = await this.queryBus.execute<
