@@ -1,6 +1,6 @@
 import {
   ShoppingListElement
-} from '@modules/dish/queries/generate-shopping-list/generate-shopping-list.dto';
+} from '@modules/shopping-list/queries/generate-shopping-list/generate-shopping-list.dto';
 
 export class GenerateShoppingListQuery {
   userId: string;

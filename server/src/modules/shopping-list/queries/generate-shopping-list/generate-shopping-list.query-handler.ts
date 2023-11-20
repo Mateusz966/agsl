@@ -1,6 +1,6 @@
 import { DishMapper } from '@modules/dish/dish.mapper';
 import { IQueryHandler, QueryHandler } from '@nestjs/cqrs';
-import { GenerateShoppingListQuery } from '@modules/dish/queries/generate-shopping-list/generate-shopping-list.query';
+import { GenerateShoppingListQuery } from '@modules/shopping-list/queries/generate-shopping-list/generate-shopping-list.query';
 import { IngredientsModelRepository } from '@modules/dish/database/ingredients-model.repository';
 import { DataSource } from 'typeorm';
 import { ShoppingListModel } from '@modules/dish/database/shopping-list.model';
