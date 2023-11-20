@@ -2,6 +2,7 @@
 const usersRoot = 'users';
 const authRoot = 'auth';
 const dishesRoot = 'dishes';
+const shoppingListRoot = 'shopping-list'
 
 // Api Versions
 const v1 = 'v1';
@@ -25,6 +26,8 @@ export const routesV1 = {
     root: dishesRoot,
     get: `${dishesRoot}/:id`,
     all: dishesRoot,
-    ['shopping-list']: `/${dishesRoot}/shopping-list`,
   },
+  shoppingList: {
+    root: shoppingListRoot,
+  }
 };

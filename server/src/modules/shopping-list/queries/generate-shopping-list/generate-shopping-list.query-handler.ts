@@ -1,43 +1,23 @@
-import { DishMapper } from '@modules/dish/dish.mapper';
-import { IQueryHandler, QueryHandler } from '@nestjs/cqrs';
-import { GenerateShoppingListQuery } from '@modules/shopping-list/queries/generate-shopping-list/generate-shopping-list.query';
-import { IngredientsModelRepository } from '@modules/dish/database/ingredients-model.repository';
-import { DataSource } from 'typeorm';
-import { ShoppingListModel } from '@modules/dish/database/shopping-list.model';
-import { v4 } from 'uuid';
+import {IQueryHandler, QueryHandler} from '@nestjs/cqrs';
+import {
+  GenerateShoppingListQuery
+} from '@modules/shopping-list/queries/generate-shopping-list/generate-shopping-list.query';
+import {DataSource} from 'typeorm';
+import {ShoppingListModel} from '@modules/shopping-list/database/shopping-list.model';
+import {v4} from 'uuid';
 
 @QueryHandler(GenerateShoppingListQuery)
 export class GenerateShoppingListQueryHandler implements IQueryHandler {
-  constructor(
-    private readonly ingredientsRepo: IngredientsModelRepository,
-    private dataSource: DataSource,
+  constructor(private dataSource: DataSource) {}
 
-    private readonly dishMapper: DishMapper,
-  ) {}
-
-  async execute({ userId, dishes }: GenerateShoppingListQuery) {
-    const list = await Promise.all(
-      dishes.map(async ({ id, quantity }) => {
-        const ingredients = await this.ingredientsRepo.find({
-          where: { dish: { id } },
-        });
-
-        return ingredients.map((ingredient) => ({
-          ...ingredient,
-          amount: ingredient.amount * quantity,
-        }));
-      }),
-    );
-
+  async execute({ userId, ingredients }: GenerateShoppingListQuery) {
     const shoppingListRepo = this.dataSource.getRepository(ShoppingListModel);
 
-    const shoppingList = await shoppingListRepo.save({
+    return await shoppingListRepo.save({
       id: v4(),
-      generatedShoppingList: list?.flat(),
+      generatedShoppingList: ingredients,
       isDraft: true,
-      user: { id: userId },
+      user: {id: userId},
     });
-
-    return shoppingList;
   }
 }

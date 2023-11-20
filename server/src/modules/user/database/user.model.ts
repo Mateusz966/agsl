@@ -3,7 +3,7 @@ import { UserRoles } from '@modules/user/domain/user.types';
 import { Column, Entity, OneToMany } from 'typeorm';
 import { DishModel } from '@modules/dish/database/dish.model';
 import { DishPhotoModel } from '@modules/dish/database/dish-photo.model';
-import { ShoppingListModel } from '@modules/dish/database/shopping-list.model';
+import { ShoppingListModel } from '@modules/shopping-list/database/shopping-list.model';
 
 @Entity({ name: 'user' })
 export class UserModel extends ModelBase {

@@ -15,15 +15,13 @@ import { ApiErrorResponse } from '@libs/api/api-error.response';
 import { User } from '@libs/decorators/User.decorator';
 import { JwtAuthGuard } from '@modules/auth/jwt-auth.guard';
 import { JWTUser } from '@modules/auth/auth.types';
-import { DishMapper } from '@modules/dish/dish.mapper';
 import { GenerateShoppingListDto } from '@modules/shopping-list/queries/generate-shopping-list/generate-shopping-list.dto';
 import { GenerateShoppingListQuery } from '@modules/shopping-list/queries/generate-shopping-list/generate-shopping-list.query';
+import { GetDishIngredientsQuery } from '@modules/dish/queries/get-dish-ingredients/get-dish-ingredients.query';
+import { IngredientsModel } from '@modules/dish/database/ingredients.model';
 @Controller(routesV1.version)
 export class GenerateShoppingListHttpController {
-  constructor(
-    private readonly queryBus: QueryBus,
-    private readonly dishMapper: DishMapper,
-  ) {}
+  constructor(private readonly queryBus: QueryBus) {}
   @ApiOperation({ summary: 'Create a shopping list' })
   @ApiResponse({ status: HttpStatus.OK, type: IdResponse })
   @ApiResponse({
@@ -32,19 +30,25 @@ export class GenerateShoppingListHttpController {
     type: ApiErrorResponse,
   })
   @ApiResponse({ status: HttpStatus.BAD_REQUEST, type: ApiErrorResponse })
-  @Post(routesV1.dishes['shopping-list'])
+  @Post(routesV1.shoppingList.root)
   @UseGuards(JwtAuthGuard)
   async createShoppingList(
     @User() user: JWTUser,
     @Body() { dishesId }: GenerateShoppingListDto,
   ): Promise<any> {
     try {
-      const query = new GenerateShoppingListQuery(user.id, dishesId);
-      const shoppingList = await this.queryBus.execute(query);
+      const ingredientsQuery = new GetDishIngredientsQuery(dishesId);
+      const list = await this.queryBus.execute<
+        GetDishIngredientsQuery,
+        IngredientsModel[]
+      >(ingredientsQuery);
+
+      const shoppingListQuery = new GenerateShoppingListQuery(user.id, list);
+      const shoppingList = await this.queryBus.execute<
+        GenerateShoppingListQuery,
+        any
+      >(shoppingListQuery);
       return shoppingList;
-      // const query = new GetUserDishesQuery(user.id);
-      // const dishes: DishEntity[] = await this.queryBus.execute(query);
-      // return this.dishMapper.toResponseList(dishes);
     } catch (error) {
       if (error instanceof UserAlreadyExistsError)
         throw new ConflictHttpException(error.message);

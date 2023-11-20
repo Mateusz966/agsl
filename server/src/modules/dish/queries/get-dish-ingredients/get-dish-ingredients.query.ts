@@ -1,7 +1,9 @@
-export class GetDishIngredientsQuery {
-  dishesId: string[];
+import { ShoppingListElement } from '@modules/shopping-list/queries/generate-shopping-list/generate-shopping-list.dto';
 
-  constructor(dishesId: string[]) {
-    this.dishesId = dishesId;
+export class GetDishIngredientsQuery {
+  dishes: ShoppingListElement[];
+
+  constructor(dishes: ShoppingListElement[]) {
+    this.dishes = dishes;
   }
 }

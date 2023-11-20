@@ -1,13 +1,11 @@
-import {
-  ShoppingListElement
-} from '@modules/shopping-list/queries/generate-shopping-list/generate-shopping-list.dto';
+import { IngredientsModel } from '@modules/dish/database/ingredients.model';
 
 export class GenerateShoppingListQuery {
   userId: string;
-  dishes: ShoppingListElement[];
+  ingredients: IngredientsModel[];
 
-  constructor(userId: string, dishes: ShoppingListElement[]) {
+  constructor(userId: string, ingredients: IngredientsModel[]) {
     this.userId = userId;
-    this.dishes = dishes;
+    this.ingredients = ingredients;
   }
 }
