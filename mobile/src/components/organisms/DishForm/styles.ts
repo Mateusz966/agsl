@@ -13,7 +13,7 @@ export default StyleSheet.create({
   },
   addIngredientContainer: {
     flexDirection: 'row',
-    alignItems: 'flex-start',
+    alignItems: 'stretch',
     gap: 10,
   },
   addButton: {
@@ -34,5 +34,19 @@ export default StyleSheet.create({
   hiddenInput: {
     opacity: 0,
     position: 'absolute',
+  },
+  nameInput: {
+    minWidth: 40,
+  },
+  amountInput: {
+    minWidth: 40,
+  },
+  selectInput: {
+    width: 80,
+  },
+  loader: {
+    justifyContent: 'center',
+    width: '100%',
+    height: '80%',
   },
 });

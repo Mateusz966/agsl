@@ -16,9 +16,10 @@ const ControlledSelect = <
   options,
   title,
   error,
+  style,
 }: ControlledSelectProps<TFieldValues, TName>) => {
   return (
-    <View style={styles.controlledInputContainer}>
+    <View style={[styles.controlledInputContainer, style]}>
       <Controller
         control={control}
         name={name}
