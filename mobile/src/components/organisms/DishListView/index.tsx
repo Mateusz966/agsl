@@ -9,16 +9,16 @@ import {useDishContext} from '../DishForm/hooks/DishContext/useDishContext';
 import {Scenes} from '../../../navigators/const';
 
 const DishListView = () => {
-  const {response, isLoading, refetch} = useDishList();
   const {setDishId} = useDishContext();
+  const {dishListResponse, isDishListLoading, refetchDishList} = useDishList();
   const {navigate} = useNavigation<NavigationProp<RootStackParamList>>();
 
   return (
     <View>
       <FlatList
-        data={response}
-        onRefresh={refetch}
-        refreshing={isLoading}
+        data={dishListResponse}
+        onRefresh={refetchDishList}
+        refreshing={isDishListLoading}
         renderItem={({item}) => (
           <DishCard
             key={item.id}

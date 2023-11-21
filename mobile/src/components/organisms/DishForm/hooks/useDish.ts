@@ -2,20 +2,23 @@ import {useQuery} from '@tanstack/react-query';
 import {DishResponse, Ingredient} from '../../../../api/dish/types';
 import {getDish} from '../../../../api/dish';
 import {useDishContext} from './DishContext/useDishContext';
+import {useMemo} from 'react';
 
 const useDish = () => {
   const {dishId} = useDishContext();
   const {data, isLoading, refetch} = useQuery<DishResponse>({
-    queryKey: ['dish'],
+    queryKey: ['dish', dishId],
     queryFn: () => getDish(dishId),
   });
 
-  const mappedIngredients = data?.ingredients.map(ingredient => ({
-    id: ingredient.id,
-    name: ingredient.name,
-    amount: ingredient.amount,
-    unit: ingredient.unit,
-  })) as Ingredient[];
+  const mappedIngredients = useMemo(() => {
+    return data?.ingredients.map(ingredient => ({
+      ingredientId: ingredient.id,
+      name: ingredient.name,
+      amount: ingredient.amount,
+      unit: ingredient.unit,
+    })) as Ingredient[];
+  }, [data?.ingredients]);
 
   const dish = {
     id: data?.id,
@@ -23,10 +26,11 @@ const useDish = () => {
     ingredients: mappedIngredients,
     photo: data?.photo,
   };
+
   return {
-    response: dish,
-    isLoading,
-    refetch,
+    dishResponse: dish,
+    isDishLoading: isLoading,
+    refetchDish: refetch,
   };
 };
 

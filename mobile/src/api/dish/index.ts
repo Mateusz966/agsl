@@ -26,7 +26,6 @@ export const editDish = async (editRequest: EditDishRequest) => {
       transformRequest: () => editRequest.dish,
     },
   );
-  console.log(response, 'res');
   return response.data;
 };
 

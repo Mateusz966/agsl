@@ -1,17 +1,19 @@
 import {useQuery} from '@tanstack/react-query';
 import {getDishList} from '../../../api/dish';
 import {DishListResponse} from './types';
+import {useDishContext} from '../DishForm/hooks/DishContext/useDishContext';
 
 const useDishList = () => {
+  const {dishId} = useDishContext();
   const {data, isLoading, refetch} = useQuery<DishListResponse[]>({
-    queryKey: ['dishList'],
+    queryKey: ['dishList', dishId],
     queryFn: getDishList,
   });
 
   return {
-    response: data ?? [],
-    isLoading,
-    refetch,
+    dishListResponse: data ?? [],
+    isDishListLoading: isLoading,
+    refetchDishList: refetch,
   };
 };
 

@@ -73,7 +73,6 @@ export class EditDishHttpController {
     } catch (error) {
       if (error instanceof UserAlreadyExistsError)
         throw new ConflictHttpException(error.message);
-      console.log(error);
       throw error;
     }
   }

@@ -20,27 +20,40 @@ import IconButton from '../../atoms/Buttons/IconButton';
 import {theme} from '../../../config/theme';
 import TextButton from '../../atoms/Buttons/TextButton';
 import {useSnackbarContext} from '../../atoms/SnackbarMessage/useSnackbarContext';
+import {ActivityIndicator} from 'react-native-paper';
 
 const DishForm = () => {
   const [img, setImg] = useState<DishPhoto>(null);
   const {handleOnModalDissmiss, modalVisible, setModalVisible} =
     useModalVisibility();
   const {text, handleOnDismiss, visible} = useSnackbarContext();
+  const {
+    form,
+    onSubmit,
+    onCancel,
+    append,
+    fields,
+    removeIngredient,
+    isFormLoading,
+  } = useMutateDish({
+    img,
+  });
   const {buttonHandler, handleImageDelete} = useSelectPhoto({
     setImg,
     handleOnModalDissmiss,
   });
-  const {form, onSubmit, onCancel, append, fields, response, removeIngredient} =
-    useMutateDish({
-      img,
-    });
+
   const {
     control,
     handleSubmit,
     formState: {errors},
   } = form;
 
-  return (
+  return isFormLoading ? (
+    <View style={styles.loader}>
+      <ActivityIndicator size={50} />
+    </View>
+  ) : (
     <>
       <ScrollView style={styles.scrollContainer}>
         <Layout>
@@ -56,12 +69,13 @@ const DishForm = () => {
             buttonHandler={buttonHandler}
           />
           <PhotoField
-            handleDelete={() =>
-              handleImageDelete(() => form.resetField('photo'))
-            }
+            handleDelete={() => {
+              handleImageDelete(() => form.setValue('photo', null));
+              setImg(null);
+            }}
             handleChange={() => setModalVisible(true)}
             handleOnPress={() => setModalVisible(true)}
-            source={img ? img.uri : response?.photo}
+            source={img ? img.uri : undefined}
           />
           <View style={styles.ingredientFields}>
             {fields.map(({id, ingredientId}, index) => (
@@ -80,6 +94,7 @@ const DishForm = () => {
                   displayName="Name"
                   error={errors?.ingredients?.[index]?.name?.message}
                   errorStyle={styles.ingredientsErrorStyle}
+                  style={styles.nameInput}
                 />
                 <ControlledTextInput
                   name={`ingredients.${index}.amount`}
@@ -88,12 +103,14 @@ const DishForm = () => {
                   keyboardType="numeric"
                   error={errors?.ingredients?.[index]?.amount?.message}
                   errorStyle={styles.ingredientsErrorStyle}
+                  style={styles.amountInput}
                 />
                 <ControlledSelect
                   control={control}
                   title="Unit"
                   options={DISH_UNITS}
                   name={`ingredients.${index}.unit`}
+                  style={styles.selectInput}
                 />
                 <IconButton
                   icon={ICON_PATHS.TRASH_ICON}
@@ -128,4 +145,5 @@ const DishForm = () => {
     </>
   );
 };
+
 export default DishForm;
