@@ -19,6 +19,7 @@ import { GenerateShoppingListDto } from '@modules/shopping-list/queries/generate
 import { GenerateShoppingListQuery } from '@modules/shopping-list/queries/generate-shopping-list/generate-shopping-list.query';
 import { GetDishIngredientsQuery } from '@modules/dish/queries/get-dish-ingredients/get-dish-ingredients.query';
 import { IngredientsModel } from '@modules/dish/database/ingredients.model';
+import {ShoppingListResponseDto} from "@modules/shopping-list/dtos/shopping-list.response.dto";
 @Controller(routesV1.version)
 export class GenerateShoppingListHttpController {
   constructor(private readonly queryBus: QueryBus) {}
@@ -53,7 +54,15 @@ export class GenerateShoppingListHttpController {
         GenerateShoppingListQuery,
         any
       >(shoppingListQuery);
-      return shoppingList;
+
+      const res = new ShoppingListResponseDto()
+      res.createdAt = shoppingList.createdAt;
+      res.updatedAt = shoppingList.updatedAt;
+      res.id = shoppingList.id;
+      res.generatedShoppingList = shoppingList.generatedShoppingList;
+
+
+      return res;
     } catch (error) {
       if (error instanceof UserAlreadyExistsError)
         throw new ConflictHttpException(error.message);
