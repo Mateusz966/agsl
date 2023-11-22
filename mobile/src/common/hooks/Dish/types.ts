@@ -4,10 +4,10 @@ import {Asset} from 'react-native-image-picker';
 export type DishPhoto = Asset | null;
 
 export interface UseMutateDishProps {
-  img: DishPhoto;
+  setIngredientIdsToDelete: Dispatch<SetStateAction<string[]>>;
 }
 
-export interface UseSelectPhotoProps {
+export interface UseSelectDishPhotoProps {
   setImg: Dispatch<SetStateAction<DishPhoto>>;
   handleOnModalDissmiss: () => void;
 }
@@ -15,4 +15,8 @@ export interface UseSelectPhotoProps {
 export interface EditDishRequest {
   id: string;
   dish: FormData;
+}
+
+export interface UseDishFormProps {
+  img: DishPhoto;
 }

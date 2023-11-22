@@ -1,7 +1,7 @@
 import {useQuery} from '@tanstack/react-query';
 import {getDishList} from '../../../api/dish';
 import {DishListResponse} from './types';
-import {useDishContext} from '../DishForm/hooks/DishContext/useDishContext';
+import {useDishContext} from '../../../common/contexts/DishContext/useDishContext';
 
 const useDishList = () => {
   const {dishId} = useDishContext();

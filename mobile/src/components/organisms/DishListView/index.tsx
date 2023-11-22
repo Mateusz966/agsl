@@ -5,7 +5,7 @@ import DishCard from '../../molecules/DishCard';
 import useDishList from './useDishList';
 import {NavigationProp, useNavigation} from '@react-navigation/native';
 import {RootStackParamList} from '../../../navigators/types';
-import {useDishContext} from '../DishForm/hooks/DishContext/useDishContext';
+import {useDishContext} from '../../../common/contexts/DishContext/useDishContext';
 import {Scenes} from '../../../navigators/const';
 
 const DishListView = () => {

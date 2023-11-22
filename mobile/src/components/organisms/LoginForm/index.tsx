@@ -3,7 +3,7 @@ import Button from '../../atoms/Buttons/TextButton';
 import ControlledTextInput from '../../molecules/ControlledInputs/ControlledTextInput';
 import {useLogin} from './useLogin';
 import SnackbarMessage from '../../atoms/SnackbarMessage';
-import {useSnackbarContext} from '../../atoms/SnackbarMessage/useSnackbarContext';
+import {useSnackbarContext} from '../../../common/contexts/SnackbarContext/useSnackbarContext';
 
 const LoginForm = () => {
   const {form, loginMutation, onSubmit} = useLogin();

@@ -8,7 +8,7 @@ import {loginUser} from '../../../api/user';
 import {useNavigation} from '@react-navigation/native';
 import {Scenes} from '../../../navigators/const';
 import {AddDishNavigationProps} from '../../../navigators/types';
-import {useSnackbarContext} from '../../atoms/SnackbarMessage/useSnackbarContext';
+import {useSnackbarContext} from '../../../common/contexts/SnackbarContext/useSnackbarContext';
 import Keychain from 'react-native-keychain';
 
 export const useLogin = () => {
@@ -33,6 +33,7 @@ export const useLogin = () => {
       setVisible(true);
       setText("You're logged in");
       form.reset({email: '', password: ''});
+      setVisible(false);
       navigation.navigate(Scenes.DishList);
     },
     onError: error => {

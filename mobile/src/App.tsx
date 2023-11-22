@@ -14,8 +14,8 @@ import {Provider} from 'react-native-paper';
 import Navigation from './navigators';
 import {theme} from './config/theme';
 import {QueryClient, QueryClientProvider} from '@tanstack/react-query';
-import {SnackbarProvider} from './components/atoms/SnackbarMessage/SnackbarProvider';
-import {DishProvider} from './components/organisms/DishForm/hooks/DishContext/DishProvider';
+import {SnackbarProvider} from './common/contexts/SnackbarContext/SnackbarProvider';
+import {DishProvider} from './common/contexts/DishContext/DishProvider';
 
 const queryClient = new QueryClient();
 

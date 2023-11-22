@@ -1,13 +1,15 @@
 import {useCallback} from 'react';
-import {DishPhoto, UseSelectPhotoProps} from './types';
+import {DishPhoto, UseSelectDishPhotoProps} from './types';
 import useDish from './useDish';
-import {useFocusEffect} from '@react-navigation/native';
+import {useFocusEffect, useRoute} from '@react-navigation/native';
+import {Scenes} from '../../../navigators/const';
 
-export const useSelectPhoto = ({
+export const useSelectDishPhoto = ({
   setImg,
   handleOnModalDissmiss,
-}: UseSelectPhotoProps) => {
+}: UseSelectDishPhotoProps) => {
   const {dishResponse} = useDish();
+  const routeName = useRoute().name;
 
   const buttonHandler = useCallback(
     async (setPhotoHandler: () => Promise<DishPhoto>) => {
@@ -32,10 +34,10 @@ export const useSelectPhoto = ({
 
   useFocusEffect(
     useCallback(() => {
-      if (dishResponse.photo) {
+      if (dishResponse.photo && routeName === Scenes.EditDish) {
         setImg({uri: dishResponse.photo});
       }
-    }, [dishResponse.photo, setImg]),
+    }, [dishResponse.photo, setImg, routeName]),
   );
 
   return {buttonHandler, handleImageDelete};

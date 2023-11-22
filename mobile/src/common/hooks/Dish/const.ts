@@ -1,4 +1,4 @@
-import {Unit} from '../../../../api/dish/types';
+import {Unit} from '../../../api/dish/types';
 
 export const DEFAULT_DISH_FORM_VALUE = {
   name: '',

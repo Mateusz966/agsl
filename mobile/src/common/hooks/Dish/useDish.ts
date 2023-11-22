@@ -1,14 +1,15 @@
 import {useQuery} from '@tanstack/react-query';
-import {DishResponse, Ingredient} from '../../../../api/dish/types';
-import {getDish} from '../../../../api/dish';
-import {useDishContext} from './DishContext/useDishContext';
+import {DishResponse, Ingredient} from '../../../api/dish/types';
+import {getDish} from '../../../api/dish';
+import {useDishContext} from '../../contexts/DishContext/useDishContext';
 import {useMemo} from 'react';
 
-const useDish = () => {
+const useDish = (isEnabled?: boolean) => {
   const {dishId} = useDishContext();
   const {data, isLoading, refetch} = useQuery<DishResponse>({
     queryKey: ['dish', dishId],
     queryFn: () => getDish(dishId),
+    enabled: isEnabled ?? undefined,
   });
 
   const mappedIngredients = useMemo(() => {
@@ -28,7 +29,7 @@ const useDish = () => {
   };
 
   return {
-    dishResponse: dish,
+    dishResponse: dish as DishResponse,
     isDishLoading: isLoading,
     refetchDish: refetch,
   };

@@ -3,7 +3,7 @@ import Button from '../../atoms/Buttons/TextButton';
 import ControlledTextInput from '../../molecules/ControlledInputs/ControlledTextInput';
 import useRegister from './useRegister';
 import SnackbarMessage from '../../atoms/SnackbarMessage';
-import {useSnackbarContext} from '../../atoms/SnackbarMessage/useSnackbarContext';
+import {useSnackbarContext} from '../../../common/contexts/SnackbarContext/useSnackbarContext';
 
 const RegisterForm = () => {
   const {form, onSubmit, registerMutation} = useRegister();

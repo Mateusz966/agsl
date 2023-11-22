@@ -1,6 +1,5 @@
 import React, {useState} from 'react';
 import ControlledTextInput from '../../molecules/ControlledInputs/ControlledTextInput';
-import {useMutateDish} from './hooks/useMutateDish';
 import {ScrollView, View} from 'react-native';
 import {useModalVisibility} from '../../molecules/Modal/useModalVisibility';
 import PhotoField from '../PhotoField';
@@ -8,19 +7,20 @@ import PhotoField from '../PhotoField';
 import ActionButtonsContainer from '../../molecules/ActionButtonsContainer';
 import {Layout} from '../../atoms/Layout';
 import styles from './styles';
-import {useSelectPhoto} from './hooks/useSelectPhoto';
+import {useSelectDishPhoto} from '../../../common/hooks/Dish/useSelectDishPhoto';
 import SnackbarMessage from '../../atoms/SnackbarMessage';
 import OpenGalleryModal from '../OpenGalleryModal';
 import ControlledSelect from '../../molecules/ControlledInputs/ControlledSelect';
 import {ICON_PATHS} from '../../../utils/icons';
 import {Unit} from '../../../api/dish/types';
 import {DISH_UNITS} from './types';
-import {DishPhoto} from './hooks/types';
+import {DishPhoto} from '../../../common/hooks/Dish/types';
 import IconButton from '../../atoms/Buttons/IconButton';
 import {theme} from '../../../config/theme';
 import TextButton from '../../atoms/Buttons/TextButton';
-import {useSnackbarContext} from '../../atoms/SnackbarMessage/useSnackbarContext';
+import {useSnackbarContext} from '../../../common/contexts/SnackbarContext/useSnackbarContext';
 import {ActivityIndicator} from 'react-native-paper';
+import useDishForm from '../../../common/hooks/Dish/useDishForm';
 
 const DishForm = () => {
   const [img, setImg] = useState<DishPhoto>(null);
@@ -34,11 +34,11 @@ const DishForm = () => {
     append,
     fields,
     removeIngredient,
-    isFormLoading,
-  } = useMutateDish({
+    isDishLoading,
+  } = useDishForm({
     img,
   });
-  const {buttonHandler, handleImageDelete} = useSelectPhoto({
+  const {buttonHandler, handleImageDelete} = useSelectDishPhoto({
     setImg,
     handleOnModalDissmiss,
   });
@@ -49,7 +49,7 @@ const DishForm = () => {
     formState: {errors},
   } = form;
 
-  return isFormLoading ? (
+  return isDishLoading ? (
     <View style={styles.loader}>
       <ActivityIndicator size={50} />
     </View>

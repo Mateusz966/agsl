@@ -8,7 +8,7 @@ import {signUpUser} from '../../../api/user';
 import {useNavigation} from '@react-navigation/core';
 import {AddDishNavigationProps} from '../../../navigators/types';
 import {Scenes} from '../../../navigators/const';
-import {useSnackbarContext} from '../../atoms/SnackbarMessage/useSnackbarContext';
+import {useSnackbarContext} from '../../../common/contexts/SnackbarContext/useSnackbarContext';
 
 const useRegister = () => {
   const form = useForm<UserRegister>({
@@ -25,6 +25,7 @@ const useRegister = () => {
       setVisible(true);
       setText("You're registered");
       form.reset({nick: '', email: '', password: ''});
+      setVisible(false);
       navigation.navigate(Scenes.Login);
     },
     onError: error => {
