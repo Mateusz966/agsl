@@ -81,8 +81,6 @@ const useDishForm = ({img}: UseDishFormProps) => {
         dishResponse,
         ingredientIdsToDelete,
       );
-      console.log(dishResponse.id);
-      console.log(dishData);
       if (dishResponse?.id && routeName === Scenes.EditDish) {
         editDishMutation.mutate({
           id: dishResponse.id,
