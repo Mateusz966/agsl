@@ -14,14 +14,18 @@ import { GetDishByIdHttpController } from '@modules/dish/queries/get-dish-by-id/
 import { GetDishByIdQueryHandler } from '@modules/dish/queries/get-dish-by-id/get-dish-by-id.query-handler';
 import { EditDishHttpController } from '@modules/dish/commands/edit-dish/edit-dish.http.controller';
 import { EditDishService } from '@modules/dish/commands/edit-dish/edit-dish.service';
-import { GetUserDishesTsHttpController } from '@modules/dish/queries/get-user-dishes/get-user-dishes.ts.http.controller';
+import { GetUserDishesHttpController } from '@modules/dish/queries/get-user-dishes/get-user-dishes.http.controller';
 import { GetUserDishesQueryHandler } from '@modules/dish/queries/get-user-dishes/get-user-dishes.query-handler';
+import {IngredientsModelRepository} from "@modules/dish/database/ingredients-model.repository";
+import {
+  GetDishIngredientsQueryHandler
+} from "@modules/dish/queries/get-dish-ingredients/get-dish-ingredients.query-handler";
 
 const httpControllers = [
   CreateDishHttpController,
   GetDishByIdHttpController,
   EditDishHttpController,
-  GetUserDishesTsHttpController,
+  GetUserDishesHttpController,
 ];
 
 const commandHandlers: Provider[] = [CreateDishService, EditDishService];
@@ -29,6 +33,7 @@ const commandHandlers: Provider[] = [CreateDishService, EditDishService];
 const queryHandlers: Provider[] = [
   GetDishByIdQueryHandler,
   GetUserDishesQueryHandler,
+  GetDishIngredientsQueryHandler,
 ];
 
 const mappers: Provider[] = [];
@@ -43,6 +48,7 @@ const mappers: Provider[] = [];
   providers: [
     DishModelRepository,
     DishPhotoModelRepository,
+    IngredientsModelRepository,
     DishMapper,
     Logger,
     ...commandHandlers,
