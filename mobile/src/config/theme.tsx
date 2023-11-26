@@ -2,7 +2,7 @@ import {DefaultTheme} from 'react-native-paper';
 
 export const colors = {
   ...DefaultTheme.colors,
-  primary: '#600EE6',
+  primary: '#6152BE',
   secondary: '#414757',
   error: '#f13a59',
   primaryButton: '#6152BE',
@@ -35,7 +35,11 @@ export const typography = {
 export const components = {
   button: {
     style: {
-      primary: {backgroundColor: colors.primaryButton},
+      primary: {
+        backgroundColor: colors.primaryButton,
+        paddingVertical: 5,
+        borderRadius: 50,
+      },
       secondary: {backgroundColor: colors.white},
     },
     textColor: {

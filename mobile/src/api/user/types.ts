@@ -4,6 +4,7 @@ export type SignInRequest = {
 };
 
 export type SignInResponse = {
+  id: string;
   email: string;
   accessToken: string;
 };

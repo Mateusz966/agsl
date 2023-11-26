@@ -2,6 +2,7 @@ import {z} from 'zod';
 import {Unit} from '../../../api/dish/types';
 
 const Ingredient = z.object({
+  ingredientId: z.string().optional(),
   name: z.string().min(1, {message: 'Provide name'}),
   amount: z
     .string()

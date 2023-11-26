@@ -12,24 +12,41 @@ export default StyleSheet.create({
     borderTopColor: 'black',
   },
   addIngredientContainer: {
-    marginTop: 5,
     flexDirection: 'row',
-    alignItems: 'flex-start',
+    alignItems: 'stretch',
     gap: 10,
   },
   addButton: {
-    marginTop: 10,
     width: '60%',
   },
-
   scrollContainer: {
-    marginTop: 10,
+    marginTop: 15,
     width: '100%',
     height: '100%',
     alignContent: 'center',
-    marginBottom: 50,
   },
   ingredientsErrorStyle: {
     maxWidth: 100,
+  },
+  ingredientFields: {
+    marginTop: 15,
+  },
+  hiddenInput: {
+    opacity: 0,
+    position: 'absolute',
+  },
+  nameInput: {
+    minWidth: 40,
+  },
+  amountInput: {
+    minWidth: 40,
+  },
+  selectInput: {
+    width: 80,
+  },
+  loader: {
+    justifyContent: 'center',
+    width: '100%',
+    height: '80%',
   },
 });

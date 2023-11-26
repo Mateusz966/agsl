@@ -7,7 +7,7 @@ import {
   Patch,
   UploadedFile,
   UseGuards,
-  UseInterceptors
+  UseInterceptors,
 } from '@nestjs/common';
 import { routesV1 } from '@config/app.routes';
 import { ApiConsumes, ApiOperation, ApiResponse } from '@nestjs/swagger';

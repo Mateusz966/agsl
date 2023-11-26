@@ -17,7 +17,7 @@ const PhotoField = ({
       primaryButtonProps={{onPress: handleChange, text: 'Edit'}}
       secondaryButtonProps={{onPress: handleDelete, text: 'Delete'}}
       containerStyle={styles.container}>
-      <Photo source={source} style={styles.image} />
+      <Photo uri={source} style={styles.image} />
     </PhotoActionWrapper>
   ) : (
     <PressableTextBox onPressHandler={handleOnPress} text="Add photo" />

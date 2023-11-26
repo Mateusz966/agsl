@@ -3,11 +3,11 @@ import Button from '../../atoms/Buttons/TextButton';
 import ControlledTextInput from '../../molecules/ControlledInputs/ControlledTextInput';
 import useRegister from './useRegister';
 import SnackbarMessage from '../../atoms/SnackbarMessage';
-import {Layout} from '../../atoms/Layout';
+import {useSnackbarContext} from '../../../common/contexts/SnackbarContext/useSnackbarContext';
 
 const RegisterForm = () => {
-  const {form, mutation, text, onSubmit, visible, handleOnDissmiss} =
-    useRegister();
+  const {form, onSubmit, registerMutation} = useRegister();
+  const {text, visible, handleOnDismiss} = useSnackbarContext();
 
   const {
     control,
@@ -16,7 +16,7 @@ const RegisterForm = () => {
   } = form;
 
   return (
-    <Layout>
+    <>
       <ControlledTextInput
         error={errors.nick?.message}
         control={control}
@@ -33,13 +33,15 @@ const RegisterForm = () => {
         isPassword
         name="password"
       />
-      <Button loading={mutation.isLoading} onPress={handleSubmit(onSubmit)}>
+      <Button
+        loading={registerMutation.isLoading}
+        onPress={handleSubmit(onSubmit)}>
         Sign up
       </Button>
-      <SnackbarMessage visible={visible} onDismiss={handleOnDissmiss}>
+      <SnackbarMessage visible={visible} onDismiss={handleOnDismiss}>
         {text}
       </SnackbarMessage>
-    </Layout>
+    </>
   );
 };
 export default memo(RegisterForm);

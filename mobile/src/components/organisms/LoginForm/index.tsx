@@ -3,11 +3,11 @@ import Button from '../../atoms/Buttons/TextButton';
 import ControlledTextInput from '../../molecules/ControlledInputs/ControlledTextInput';
 import {useLogin} from './useLogin';
 import SnackbarMessage from '../../atoms/SnackbarMessage';
-import {Layout} from '../../atoms/Layout';
+import {useSnackbarContext} from '../../../common/contexts/SnackbarContext/useSnackbarContext';
 
 const LoginForm = () => {
-  const {form, mutation, text, onSubmit, visible, handleOnDissmiss} =
-    useLogin();
+  const {form, loginMutation, onSubmit} = useLogin();
+  const {visible, text, handleOnDismiss} = useSnackbarContext();
 
   const {
     handleSubmit,
@@ -16,25 +16,31 @@ const LoginForm = () => {
   } = form;
 
   return (
-    <Layout>
+    <>
       <ControlledTextInput
         error={errors.email?.message}
         control={control}
         name="email"
+        displayName="E-mail"
+        placeholder="example@email.com"
       />
       <ControlledTextInput
         error={errors.password?.message}
         control={control}
         isPassword
         name="password"
+        displayName="Password"
+        placeholder="********"
       />
-      <Button loading={mutation.isLoading} onPress={handleSubmit(onSubmit)}>
+      <Button
+        loading={loginMutation.isLoading}
+        onPress={handleSubmit(onSubmit)}>
         Sign in
       </Button>
-      <SnackbarMessage visible={visible} onDismiss={handleOnDissmiss}>
+      <SnackbarMessage visible={visible} onDismiss={handleOnDismiss}>
         {text}
       </SnackbarMessage>
-    </Layout>
+    </>
   );
 };
 
