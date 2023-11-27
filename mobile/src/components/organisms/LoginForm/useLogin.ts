@@ -5,14 +5,14 @@ import {UserLogin, userLoginSchema} from './validation';
 import {zodResolver} from '@hookform/resolvers/zod';
 import {ERROR_MESSAGES} from '../../../utils/errorDictionary';
 import {loginUser} from '../../../api/user';
-import {useNavigation} from '@react-navigation/native';
+import {NavigationProp, useNavigation} from '@react-navigation/native';
 import {Scenes} from '../../../navigators/const';
-import {AddDishNavigationProps} from '../../../navigators/types';
 import {useSnackbarContext} from '../../../common/contexts/SnackbarContext/useSnackbarContext';
 import Keychain from 'react-native-keychain';
+import {RootStackParamList} from '../../../navigators/types';
 
 export const useLogin = () => {
-  const navigation = useNavigation<AddDishNavigationProps>();
+  const navigation = useNavigation<NavigationProp<RootStackParamList>>();
   const {setVisible, setText} = useSnackbarContext();
 
   const form = useForm<UserLogin>({

@@ -6,16 +6,17 @@ import {zodResolver} from '@hookform/resolvers/zod';
 import {ERROR_MESSAGES} from '../../../utils/errorDictionary';
 import {signUpUser} from '../../../api/user';
 import {useNavigation} from '@react-navigation/core';
-import {AddDishNavigationProps} from '../../../navigators/types';
 import {Scenes} from '../../../navigators/const';
 import {useSnackbarContext} from '../../../common/contexts/SnackbarContext/useSnackbarContext';
+import {RootStackParamList} from '../../../navigators/types';
+import {NavigationProp} from '@react-navigation/native';
 
 const useRegister = () => {
   const form = useForm<UserRegister>({
     resolver: zodResolver(userRegisterSchema),
   });
   const {setVisible, setText} = useSnackbarContext();
-  const navigation = useNavigation<AddDishNavigationProps>();
+  const navigation = useNavigation<NavigationProp<RootStackParamList>>();
 
   const registerMutation = useMutation<void, void, RegisterRequest>({
     mutationFn: payload => {
