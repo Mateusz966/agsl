@@ -18,17 +18,18 @@ export default StyleSheet.create({
     borderTopRightRadius: 15,
   },
   dishNameContainer: {
-    flexDirection: 'column',
-    justifyContent: 'center',
-    alignContent: 'flex-start',
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    alignItems: 'center',
     width: '100%',
-    marginTop: 10,
-    marginLeft: 10,
   },
   textStyle: {
-    marginBottom: 15,
-    marginLeft: 20,
     ...typography.medium,
+    marginLeft: 20,
+  },
+  iconStyle: {
+    marginBottom: 15,
+    marginRight: 40,
   },
   buttonStyle: {
     ...components.button.style.primary,
