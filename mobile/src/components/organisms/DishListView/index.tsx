@@ -22,8 +22,7 @@ const DishListView = () => {
         renderItem={({item}) => (
           <DishCard
             key={item.id}
-            dishName={item.name}
-            photoSource={item.photo}
+            dish={item}
             onPressHandler={() => {
               setDishId(item.id);
               navigate(Scenes.EditDish);
