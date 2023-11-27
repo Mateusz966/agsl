@@ -3,6 +3,7 @@ export const API_ROUTES = {
     register: '/v1/users',
     login: '/v1/auth/mobile/sign-in',
     dish: '/v1/dishes',
+    shoppingList: '/v1/shopping-list',
   },
 };
 
