@@ -1,6 +1,10 @@
 import {DefaultTheme} from 'react-native-paper';
 
 export const colors = {
+  colors: {
+    ...DefaultTheme.colors,
+    error: '#443D53',
+  },
   ...DefaultTheme.colors,
   primary: '#6152BE',
   secondary: '#414757',

@@ -5,6 +5,7 @@ import {Scenes} from './const';
 import {RootStackParamList} from './types';
 import {
   addDishHeaderOptions,
+  basketHeaderOptions,
   dishListHeaderOptions,
   editDishHeaderOptions,
   loginPageHeaderOptions,
@@ -15,6 +16,7 @@ import Entry from '../components/pages/Entry';
 import Login from '../components/pages/Login';
 import Register from '../components/pages/Register';
 import EditDish from '../components/pages/EditDish';
+import Basket from '../components/pages/Basket';
 
 const Stack = createNativeStackNavigator<RootStackParamList>();
 
@@ -49,6 +51,16 @@ const Navigation = () => (
       name={Scenes.DishList}
       component={DishList}
       options={dishListHeaderOptions}
+    />
+    <Stack.Screen
+      name={Scenes.Basket}
+      component={Basket}
+      options={basketHeaderOptions}
+    />
+    <Stack.Screen
+      name={Scenes.ShoppingList}
+      component={Basket}
+      options={basketHeaderOptions}
     />
   </Stack.Navigator>
 );

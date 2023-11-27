@@ -1,9 +1,7 @@
 import {NativeStackNavigationOptions} from '@react-navigation/native-stack';
 import {colors} from '../config/theme';
-import NavigationButton from '../components/molecules/NavigationButton';
 import React from 'react';
-import {Scenes} from './const';
-import {ICON_PATHS} from '../utils/icons';
+import DishListNavigationHeader from '../components/organisms/DishListNavigationHeader';
 
 export const mainHeaderOptions: NativeStackNavigationOptions = {
   headerStyle: {
@@ -29,10 +27,9 @@ export const editDishHeaderOptions: NativeStackNavigationOptions = {
 
 export const dishListHeaderOptions: NativeStackNavigationOptions = {
   title: 'Dish list',
-  headerRight: () => (
-    <NavigationButton
-      sceneName={Scenes.AddDish}
-      iconSource={ICON_PATHS.ADD_ICON}
-    />
-  ),
+  headerRight: () => <DishListNavigationHeader />,
+};
+
+export const basketHeaderOptions: NativeStackNavigationOptions = {
+  title: 'Basket',
 };

@@ -5,4 +5,6 @@ export enum Scenes {
   Entry = 'Entry',
   Register = 'Register',
   EditDish = 'EditDish',
+  Basket = 'Basket',
+  ShoppingList = 'ShoppingList',
 }
