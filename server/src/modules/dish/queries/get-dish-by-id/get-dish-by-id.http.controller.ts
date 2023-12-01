@@ -11,8 +11,6 @@ import { ApiOperation, ApiResponse } from '@nestjs/swagger';
 import { QueryBus } from '@nestjs/cqrs';
 
 import { UserAlreadyExistsError } from '@modules/user/domain/user.errors';
-import { IdResponse } from '@libs/api/id.response.dto';
-import { ApiErrorResponse } from '@src/libs/api/api-error.response';
 import { User } from '@libs/decorators/User.decorator';
 import { JwtAuthGuard } from '@modules/auth/jwt-auth.guard';
 import { JWTUser } from '@modules/auth/auth.types';
@@ -31,16 +29,7 @@ export class GetDishByIdHttpController {
   @ApiOperation({ summary: 'Get a dish with list of ingredients' })
   @ApiResponse({
     status: HttpStatus.OK,
-    type: IdResponse,
-  })
-  @ApiResponse({
-    status: HttpStatus.CONFLICT,
-    description: UserAlreadyExistsError.message,
-    type: ApiErrorResponse,
-  })
-  @ApiResponse({
-    status: HttpStatus.BAD_REQUEST,
-    type: ApiErrorResponse,
+    type: DishResponseDto,
   })
   @Get(routesV1.dishes.get)
   @UseGuards(JwtAuthGuard)

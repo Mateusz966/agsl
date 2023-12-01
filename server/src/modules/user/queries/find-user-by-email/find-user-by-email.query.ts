@@ -1,7 +1,7 @@
 export class FindUserByEmailQuery {
   email: string;
 
-  constructor(email) {
+  constructor(email: string) {
     this.email = email;
   }
 }

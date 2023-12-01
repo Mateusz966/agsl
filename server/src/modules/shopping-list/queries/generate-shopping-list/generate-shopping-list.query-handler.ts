@@ -1,10 +1,9 @@
-import {IQueryHandler, QueryHandler} from '@nestjs/cqrs';
-import {
-  GenerateShoppingListQuery
-} from '@modules/shopping-list/queries/generate-shopping-list/generate-shopping-list.query';
-import {DataSource} from 'typeorm';
-import {ShoppingListModel} from '@modules/shopping-list/database/shopping-list.model';
-import {v4} from 'uuid';
+import { IQueryHandler, QueryHandler } from '@nestjs/cqrs';
+import { GenerateShoppingListQuery } from '@modules/shopping-list/queries/generate-shopping-list/generate-shopping-list.query';
+import { DataSource } from 'typeorm';
+import { ShoppingListModel } from '@modules/shopping-list/database/shopping-list.model';
+import { v4 } from 'uuid';
+import { ShoppingListStatus } from '@modules/shopping-list/dtos/shopping-list.response.dto';
 
 @QueryHandler(GenerateShoppingListQuery)
 export class GenerateShoppingListQueryHandler implements IQueryHandler {
@@ -16,8 +15,8 @@ export class GenerateShoppingListQueryHandler implements IQueryHandler {
     return await shoppingListRepo.save({
       id: v4(),
       generatedShoppingList: ingredients,
-      isDraft: true,
-      user: {id: userId},
+      status: ShoppingListStatus.Draft,
+      user: { id: userId },
     });
   }
 }

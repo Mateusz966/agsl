@@ -1,8 +1,10 @@
 import { Injectable, OnModuleInit } from '@nestjs/common';
-import {GetObjectCommand, PutObjectCommand, S3Client} from '@aws-sdk/client-s3';
 import {
-  getSignedUrl,
-} from "@aws-sdk/s3-request-presigner";
+  GetObjectCommand,
+  PutObjectCommand,
+  S3Client,
+} from '@aws-sdk/client-s3';
+import { getSignedUrl } from '@aws-sdk/s3-request-presigner';
 import { fileUploaderConfig } from '@config/file-uploader.config';
 import { v4 } from 'uuid';
 
@@ -37,5 +39,4 @@ export class FileService implements OnModuleInit {
     };
     return getSignedUrl(this.s3, new GetObjectCommand(params));
   }
-
 }
