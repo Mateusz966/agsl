@@ -1,4 +1,14 @@
-import {IsString, IsBoolean, IsDate, ValidateNested, IsUUID, IsInt, Min, IsIn, IsNumber} from 'class-validator';
+import {
+  IsString,
+  IsBoolean,
+  IsDate,
+  ValidateNested,
+  IsUUID,
+  IsInt,
+  Min,
+  IsIn,
+  IsNumber,
+} from 'class-validator';
 import { Type } from 'class-transformer';
 
 export class ShoppingListResponseDto {
@@ -17,6 +27,11 @@ export class ShoppingListResponseDto {
 
   @IsDate()
   updatedAt: string;
+}
+
+export class UserShoppingListsResponseDto {
+  @ValidateNested({ each: true })
+  userShoppingLists: ShoppingListResponseDto[];
 }
 
 class GeneratedShoppingListItem {
@@ -42,4 +57,3 @@ class GeneratedShoppingListItem {
   @IsBoolean()
   isBought: boolean;
 }
-
