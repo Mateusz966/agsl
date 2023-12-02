@@ -1,32 +1,33 @@
-import React, {memo} from 'react';
+import React, {memo, useState} from 'react';
 import {FlatList, View} from 'react-native';
-import DishCard from '../../molecules/DishCard';
 
-import {NavigationProp, useNavigation} from '@react-navigation/native';
-import {RootStackParamList} from '../../../navigators/types';
-import {useDishContext} from '../../../common/contexts/DishContext/useDishContext';
-import {Scenes} from '../../../navigators/const';
-import useDishList from '../DishListView/useDishList';
+import ShoppingListElement from '../../molecules/ShoppingListElement';
+import {Ingredient} from '../../../api/dish/types';
+import {colors} from '../../../config/theme';
+import useShoppingLists from '../../../common/hooks/ShoppingList/useShoppingList';
 
 const ShoppingListView = () => {
-  const {setDishId} = useDishContext();
-  const {dishListResponse, isDishListLoading, refetchDishList} = useDishList();
-  const {navigate} = useNavigation<NavigationProp<RootStackParamList>>();
+  const [isBought, setIsBought] = useState(false);
+  const {shoppingListsResponse} = useShoppingLists();
+  const data = [
+    {name: 'Arbuz', amount: 10, unit: 'kg'},
+    {name: 'Arbuz', amount: 10, unit: 'kg'},
+    {name: 'Arbuz', amount: 10, unit: 'kg'},
+    {name: 'Arbuz', amount: 10, unit: 'kg'},
+  ] as Ingredient[];
 
   return (
-    <View>
+    <View style={{height: '100%'}}>
       <FlatList
-        data={dishListResponse}
-        onRefresh={refetchDishList}
-        refreshing={isDishListLoading}
-        renderItem={({item}) => (
-          <DishCard
+        style={{marginTop: 20}}
+        data={shoppingListsResponse}
+        renderItem={({item, index}) => (
+          <ShoppingListElement
             key={item.id}
-            dish={item}
-            onPressHandler={() => {
-              setDishId(item.id);
-              navigate(Scenes.EditDish);
-            }}
+            index={index + 1}
+            ingredient={item}
+            isBought={isBought}
+            setIsBought={setIsBought}
           />
         )}
       />

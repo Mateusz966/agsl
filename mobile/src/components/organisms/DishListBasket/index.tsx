@@ -1,10 +1,10 @@
 import React, {memo} from 'react';
 import {FlatList, View} from 'react-native';
 import {useDishContext} from '../../../common/contexts/DishContext/useDishContext';
-import BasketElement from '../BasketElement';
+import BasketElement from '../../molecules/BasketElement';
 import styles from './styles';
 import ActionButtonsContainer from '../../molecules/ActionButtonsContainer';
-import {useMutateShoppingList} from '../ShoppingListView/useMutateShoppingList';
+import {useMutateShoppingList} from '../../../common/hooks/ShoppingList/useMutateShoppingList';
 
 const DishListBasket = () => {
   const {dishesList} = useDishContext();

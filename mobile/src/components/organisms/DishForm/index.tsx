@@ -21,6 +21,7 @@ import TextButton from '../../atoms/Buttons/TextButton';
 import {useSnackbarContext} from '../../../common/contexts/SnackbarContext/useSnackbarContext';
 import {ActivityIndicator} from 'react-native-paper';
 import useDishForm from '../../../common/hooks/Dish/useDishForm';
+import ControlledNumberInput from '../../molecules/ControlledInputs/ControlledNumberInput';
 
 const DishForm = () => {
   const [img, setImg] = useState<DishPhoto>(null);
@@ -96,11 +97,10 @@ const DishForm = () => {
                   errorStyle={styles.ingredientsErrorStyle}
                   style={styles.nameInput}
                 />
-                <ControlledTextInput
+                <ControlledNumberInput
                   name={`ingredients.${index}.amount`}
                   control={control}
                   displayName="Amount"
-                  keyboardType="numeric"
                   error={errors?.ingredients?.[index]?.amount?.message}
                   errorStyle={styles.ingredientsErrorStyle}
                   style={styles.amountInput}
@@ -126,7 +126,7 @@ const DishForm = () => {
             <TextButton
               icon={ICON_PATHS.ADD_ICON}
               style={styles.addButton}
-              onPress={() => append({name: '', amount: '1', unit: Unit.g})}>
+              onPress={() => append({name: '', amount: 1, unit: Unit.g})}>
               Add another ingredient
             </TextButton>
           </View>
