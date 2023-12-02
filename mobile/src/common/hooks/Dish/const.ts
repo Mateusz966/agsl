@@ -5,7 +5,7 @@ export const DEFAULT_DISH_FORM_VALUE = {
   ingredients: [
     {
       name: '',
-      amount: '1',
+      amount: 1,
       unit: Unit.g,
     },
   ],

@@ -6,9 +6,10 @@ import {DishCardProps} from './types';
 import {Pressable, View} from 'react-native';
 import styles from './styles';
 import Photo from '../../atoms/Photo';
-import {IconButton} from '../../atoms';
 import {ICON_PATHS} from '../../../utils/icons';
 import {useDishListBasket} from '../../../common/hooks/Dish/useDishListBasket';
+import DishCardPhoto from '../../../assets/DishCardPhoto';
+import IconButton from '../../atoms/Buttons/IconButton';
 
 const DishCard: FC<DishCardProps> = ({dish, onPressHandler}) => {
   const {addDishToBasket} = useDishListBasket();
@@ -19,13 +20,14 @@ const DishCard: FC<DishCardProps> = ({dish, onPressHandler}) => {
         style={styles.cardBackgroundStyle}
         elevation={5}
         contentStyle={styles.cardContentStyle}>
-        <Photo
-          uri={
-            dish.photo ??
-            'C:/Users/victo/OneDrive/Pulpit/mine-projects/agsl/mobile/src/assets/icons/add.png'
-          }
-          style={styles.photoStyle}
-        />
+        {dish.photo ? (
+          <Photo uri={dish.photo} style={styles.photoStyle} />
+        ) : (
+          <View style={styles.photoStyle}>
+            <DishCardPhoto />
+          </View>
+        )}
+
         <View style={styles.dishNameContainer}>
           <Message style={styles.textStyle} message={dish.name} />
           <IconButton

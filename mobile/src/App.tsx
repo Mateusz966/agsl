@@ -16,17 +16,20 @@ import {theme} from './config/theme';
 import {QueryClient, QueryClientProvider} from '@tanstack/react-query';
 import {SnackbarProvider} from './common/contexts/SnackbarContext/SnackbarProvider';
 import {DishProvider} from './common/contexts/DishContext/DishProvider';
+import {ShoppingListProvider} from './common/contexts/ShoppingListContext/ShoppingListProvider';
 
 const queryClient = new QueryClient();
 
 const Content = () => {
   return (
     <DishProvider>
-      <SnackbarProvider>
-        <NavigationContainer>
-          <Navigation />
-        </NavigationContainer>
-      </SnackbarProvider>
+      <ShoppingListProvider>
+        <SnackbarProvider>
+          <NavigationContainer>
+            <Navigation />
+          </NavigationContainer>
+        </SnackbarProvider>
+      </ShoppingListProvider>
     </DishProvider>
   );
 };

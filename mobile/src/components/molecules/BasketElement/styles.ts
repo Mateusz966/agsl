@@ -23,13 +23,22 @@ export default StyleSheet.create({
     alignItems: 'center',
     width: '100%',
   },
+  buttonsContainer: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    marginRight: 10,
+  },
   textStyle: {
     ...typography.medium,
     marginLeft: 20,
   },
+  countTextStyle: {
+    ...typography.form,
+    color: colors.primary,
+    fontWeight: '700',
+  },
   iconStyle: {
-    marginBottom: 15,
-    marginRight: 40,
+    width: 30,
   },
   buttonStyle: {
     ...components.button.style.primary,
