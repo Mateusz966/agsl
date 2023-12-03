@@ -51,7 +51,11 @@ export class GetUserShoppingListsHttpController {
         any[]
       >(query);
 
-      const mappedShoppingLists = shoppingLists.map((shoppingList) => {
+      const filteredShoppingLists = shoppingLists.filter(
+        (shoppingList) => shoppingList.generatedShoppingList.length > 0,
+      );
+
+      const mappedShoppingLists = filteredShoppingLists.map((shoppingList) => {
         const res = new ShoppingListResponseDto();
         res.createdAt = shoppingList.createdAt;
         res.updatedAt = shoppingList.updatedAt;
