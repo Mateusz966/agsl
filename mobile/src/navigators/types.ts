@@ -9,4 +9,5 @@ export type RootStackParamList = {
   EditDish: undefined;
   Basket: undefined;
   ShoppingList: undefined;
+  UserShoppingLists: undefined;
 };

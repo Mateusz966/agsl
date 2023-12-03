@@ -1,4 +1,5 @@
 import React, {memo} from 'react';
+import ShoppingListView from '../organisms/ShoppingListView';
 
-const ShoppingList = () => <ShoppingList />;
+const ShoppingList = () => <ShoppingListView />;
 export default memo(ShoppingList);

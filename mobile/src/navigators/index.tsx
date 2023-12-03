@@ -11,6 +11,7 @@ import {
   loginPageHeaderOptions,
   mainHeaderOptions,
   shoppingListHeaderOptions,
+  userShoppingListsHeaderOptions,
 } from './headerOptions';
 import DishList from '../components/organisms/DishListView';
 import Entry from '../components/pages/Entry';
@@ -18,7 +19,8 @@ import Login from '../components/pages/Login';
 import Register from '../components/pages/Register';
 import EditDish from '../components/pages/EditDish';
 import Basket from '../components/pages/Basket';
-import ShoppingListView from '../components/organisms/ShoppingListView';
+import UserShoppingLists from '../components/pages/UserShoppingLists';
+import ShoppingList from '../components/pages/ShoppingList';
 
 const Stack = createNativeStackNavigator<RootStackParamList>();
 
@@ -61,8 +63,13 @@ const Navigation = () => (
     />
     <Stack.Screen
       name={Scenes.ShoppingList}
-      component={ShoppingListView}
+      component={ShoppingList}
       options={shoppingListHeaderOptions}
+    />
+    <Stack.Screen
+      name={Scenes.UserShoppingLists}
+      component={UserShoppingLists}
+      options={userShoppingListsHeaderOptions}
     />
   </Stack.Navigator>
 );

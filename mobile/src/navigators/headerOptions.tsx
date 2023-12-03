@@ -33,3 +33,11 @@ export const dishListHeaderOptions: NativeStackNavigationOptions = {
 export const basketHeaderOptions: NativeStackNavigationOptions = {
   title: 'Basket',
 };
+
+export const shoppingListHeaderOptions: NativeStackNavigationOptions = {
+  title: 'Shopping list',
+};
+
+export const userShoppingListsHeaderOptions: NativeStackNavigationOptions = {
+  title: 'Your shopping lists',
+};

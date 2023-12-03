@@ -7,4 +7,5 @@ export enum Scenes {
   EditDish = 'EditDish',
   Basket = 'Basket',
   ShoppingList = 'ShoppingList',
+  UserShoppingLists = 'UserShoppingLists',
 }
