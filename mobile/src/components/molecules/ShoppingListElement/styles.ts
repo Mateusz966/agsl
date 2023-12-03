@@ -33,7 +33,10 @@ export default StyleSheet.create({
     fontWeight: '700',
     marginRight: 50,
   },
-
+  hiddenInput: {
+    opacity: 0,
+    position: 'absolute',
+  },
   amount: {
     ...typography.form,
     marginRight: 100,

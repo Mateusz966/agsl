@@ -1,9 +1,6 @@
-import {Dispatch, SetStateAction} from 'react';
-import {Ingredient} from '../../../api/dish/types';
+import {ShoppingListItem} from '../../../api/shopping-list/types';
 
 export interface ShoppingListElementProps {
   index: number;
-  ingredient: Ingredient;
-  isBought: boolean;
-  setIsBought: Dispatch<SetStateAction<boolean>>;
+  ingredient: ShoppingListItem;
 }
