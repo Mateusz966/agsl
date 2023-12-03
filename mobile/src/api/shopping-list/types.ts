@@ -9,8 +9,7 @@ export interface ShoppingListRequest {
   dishesId: ShoppingListElement[];
 }
 
-export interface ShoppingListItem {
-  ingredient: Ingredient;
+export interface ShoppingListItem extends Ingredient {
   isBought: boolean;
 }
 
@@ -21,4 +20,10 @@ export interface ShoppingList {
 
 export interface ShoppingListResponse {
   userShoppingLists: ShoppingList[];
+}
+
+export interface EditShoppingListRequest {
+  listId: string;
+  ingredientId: string;
+  isBought: boolean;
 }
