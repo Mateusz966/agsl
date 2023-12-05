@@ -1,16 +1,23 @@
 import { IsArray, IsString, MaxLength, MinLength } from 'class-validator';
 import { IngredientsProps } from '@modules/dish/domain/value-objects/ingredients.value-object';
 import { Transform } from 'class-transformer';
-import { ApiProperty } from '@nestjs/swagger';
+import { ApiProperty, getSchemaPath } from '@nestjs/swagger';
 
 export class CreateDishRequestDto {
-  @ApiProperty()
+  @ApiProperty({
+    name: 'name',
+    minLength: 5,
+    maxLength: 320,
+  })
   @MaxLength(320)
   @MinLength(5)
   @IsString()
   name: string;
 
-  @ApiProperty({ type: CreateDishRequestDto })
+  @ApiProperty({
+    type: 'array',
+    items: { $ref: getSchemaPath(IngredientsProps) },
+  })
   @IsArray()
   @Transform(({ value }) => {
     if (typeof value === 'string') {

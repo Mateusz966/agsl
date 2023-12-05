@@ -6,7 +6,7 @@ import { FileService } from '@modules/file-handler/file.service';
 import { Ingredients } from '@modules/dish/domain/value-objects/ingredients.value-object';
 import { DishMapper } from '@modules/dish/dish.mapper';
 import { v4 } from 'uuid';
-import {DataSource, In} from 'typeorm';
+import { DataSource, In } from 'typeorm';
 import { DishModel } from '@modules/dish/database/dish.model';
 import { DishPhotoModel } from '@modules/dish/database/dish-photo.model';
 import { IngredientsModel } from '@modules/dish/database/ingredients.model';
@@ -21,7 +21,7 @@ export class EditDishService implements ICommandHandler {
     private dataSource: DataSource,
   ) {}
 
-  async execute(command: EditDishCommand): Promise<any> {
+  async execute(command: EditDishCommand) {
     try {
       let fileKey: string | undefined;
 
@@ -39,7 +39,11 @@ export class EditDishService implements ICommandHandler {
         photo: command?.photo === null ? null : fileKey,
       });
 
-      await this.updateDish(dish, command.userId, command?.ingredientsIdsToDelete);
+      await this.updateDish(
+        dish,
+        command.userId,
+        command?.ingredientsIdsToDelete,
+      );
       await dish.publishEvents(this.eventEmitter);
     } catch (error) {
       throw error;
@@ -80,7 +84,9 @@ export class EditDishService implements ICommandHandler {
         });
       }
 
-      await queryRunner.manager.getRepository(IngredientsModel).delete({ id: In(ingredientsIdsToDelete) })
+      await queryRunner.manager
+        .getRepository(IngredientsModel)
+        .delete({ id: In(ingredientsIdsToDelete) });
 
       await Promise.all(
         ingredients.unpack().map(async (ingredient) => {

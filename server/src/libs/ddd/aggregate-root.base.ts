@@ -1,7 +1,6 @@
 import { DomainEvent } from './domain-event.base';
 import { Entity } from './entity.base';
 import { EventEmitter2 } from '@nestjs/event-emitter';
-import { LoggerPort } from '@libs/ports/logger.port';
 import { Logger } from '@nestjs/common';
 
 export abstract class AggregateRoot<EntityProps> extends Entity<EntityProps> {

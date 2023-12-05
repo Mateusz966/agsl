@@ -7,7 +7,7 @@ import { DishModel } from '@modules/dish/database/dish.model';
 export class IngredientsModel extends ModelBase {
   @Column()
   name: string;
-  @Column({ type: 'float4'  })
+  @Column({ type: 'float4' })
   amount: number;
   @Column()
   unit: IngredientMeasurementUnit;

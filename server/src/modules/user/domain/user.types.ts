@@ -20,4 +20,7 @@ export enum UserRoles {
   user = 'user',
 }
 
-export type UserEntityPersistent = Omit<UserModel, 'dish' | 'dishPhoto' | 'shoppingList'>;
+export type UserEntityPersistent = Omit<
+  UserModel,
+  'dish' | 'dishPhoto' | 'shoppingList'
+>;

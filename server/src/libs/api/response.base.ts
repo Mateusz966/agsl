@@ -25,7 +25,6 @@ export class ResponseBase extends IdResponse {
   })
   email: string;
 
-
   @ApiProperty({ example: '2020-11-24T17:43:15.970Z' })
   readonly createdAt: string;
 

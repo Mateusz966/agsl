@@ -13,8 +13,8 @@ import { DishModule } from '@modules/dish/dish.module';
 import { IngredientsModel } from '@modules/dish/database/ingredients.model';
 import { DishModel } from '@modules/dish/database/dish.model';
 import { DishPhotoModel } from '@modules/dish/database/dish-photo.model';
-import {ShoppingListModel} from "@modules/shopping-list/database/shopping-list.model";
-import {ShoppingListModule} from "@modules/shopping-list/shopping-list.module";
+import { ShoppingListModel } from '@modules/shopping-list/database/shopping-list.model';
+import { ShoppingListModule } from '@modules/shopping-list/shopping-list.module';
 
 @Module({
   imports: [
@@ -23,7 +23,13 @@ import {ShoppingListModule} from "@modules/shopping-list/shopping-list.module";
       ...databaseConfig,
       synchronize: true,
       logger: 'advanced-console',
-      entities: [UserModel, DishModel, IngredientsModel, DishPhotoModel, ShoppingListModel],
+      entities: [
+        UserModel,
+        DishModel,
+        IngredientsModel,
+        DishPhotoModel,
+        ShoppingListModel,
+      ],
     }),
     EventEmitterModule.forRoot(),
     UserModule,

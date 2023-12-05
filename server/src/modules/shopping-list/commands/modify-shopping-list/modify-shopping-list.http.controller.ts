@@ -12,8 +12,6 @@ import { ApiOperation, ApiResponse } from '@nestjs/swagger';
 import { CommandBus } from '@nestjs/cqrs';
 
 import { UserAlreadyExistsError } from '@modules/user/domain/user.errors';
-import { IdResponse } from '@libs/api/id.response.dto';
-import { ApiErrorResponse } from '@libs/api/api-error.response';
 import { User } from '@libs/decorators/User.decorator';
 import { JwtAuthGuard } from '@modules/auth/jwt-auth.guard';
 import { JWTUser } from '@modules/auth/auth.types';
@@ -26,16 +24,6 @@ export class ModifyShoppingListHttpController {
   @ApiOperation({ summary: 'Modify a shopping list' })
   @ApiResponse({
     status: HttpStatus.OK,
-    type: IdResponse,
-  })
-  @ApiResponse({
-    status: HttpStatus.CONFLICT,
-    description: UserAlreadyExistsError.message,
-    type: ApiErrorResponse,
-  })
-  @ApiResponse({
-    status: HttpStatus.BAD_REQUEST,
-    type: ApiErrorResponse,
   })
   @Patch(routesV1.shoppingList.modifyList)
   @HttpCode(HttpStatus.NO_CONTENT)
