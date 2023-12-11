@@ -8,7 +8,6 @@ import ActionButtonsContainer from '../../molecules/ActionButtonsContainer';
 import {Layout} from '../../atoms/Layout';
 import styles from './styles';
 import {useSelectDishPhoto} from '../../../common/hooks/Dish/useSelectDishPhoto';
-import SnackbarMessage from '../../atoms/SnackbarMessage';
 import OpenGalleryModal from '../OpenGalleryModal';
 import ControlledSelect from '../../molecules/ControlledInputs/ControlledSelect';
 import {ICON_PATHS} from '../../../utils/icons';
@@ -18,7 +17,6 @@ import {DishPhoto} from '../../../common/hooks/Dish/types';
 import IconButton from '../../atoms/Buttons/IconButton';
 import {theme} from '../../../config/theme';
 import TextButton from '../../atoms/Buttons/TextButton';
-import {useSnackbarContext} from '../../../common/contexts/SnackbarContext/useSnackbarContext';
 import {ActivityIndicator} from 'react-native-paper';
 import useDishForm from '../../../common/hooks/Dish/useDishForm';
 import ControlledNumberInput from '../../molecules/ControlledInputs/ControlledNumberInput';
@@ -27,7 +25,6 @@ const DishForm = () => {
   const [img, setImg] = useState<DishPhoto>(null);
   const {handleOnModalDissmiss, modalVisible, setModalVisible} =
     useModalVisibility();
-  const {text, handleOnDismiss, visible} = useSnackbarContext();
   const {
     form,
     onSubmit,
@@ -139,9 +136,6 @@ const DishForm = () => {
           containerStyle={styles.actionButtonsContainer}
         />
       </View>
-      <SnackbarMessage visible={visible} onDismiss={handleOnDismiss}>
-        {text}
-      </SnackbarMessage>
     </>
   );
 };

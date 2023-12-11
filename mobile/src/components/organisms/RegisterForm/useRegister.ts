@@ -3,7 +3,6 @@ import {useMutation} from '@tanstack/react-query';
 import {RegisterRequest} from '../../../api/user/types';
 import {UserRegister, userRegisterSchema} from './validation';
 import {zodResolver} from '@hookform/resolvers/zod';
-import {ERROR_MESSAGES} from '../../../utils/errorDictionary';
 import {signUpUser} from '../../../api/user';
 import {useNavigation} from '@react-navigation/core';
 import {Scenes} from '../../../navigators/const';
@@ -15,7 +14,7 @@ const useRegister = () => {
   const form = useForm<UserRegister>({
     resolver: zodResolver(userRegisterSchema),
   });
-  const {setVisible, setText} = useSnackbarContext();
+  const {setSnackbarState} = useSnackbarContext();
   const navigation = useNavigation<NavigationProp<RootStackParamList>>();
 
   const registerMutation = useMutation<void, void, RegisterRequest>({
@@ -23,15 +22,12 @@ const useRegister = () => {
       return signUpUser(payload);
     },
     onSuccess: () => {
-      setVisible(true);
-      setText("You're registered");
+      setSnackbarState({visible: true, text: "You're registered"});
       form.reset({nick: '', email: '', password: ''});
-      setVisible(false);
       navigation.navigate(Scenes.Login);
     },
     onError: error => {
-      setVisible(true);
-      setText(`${ERROR_MESSAGES[`${error}`]}`);
+      setSnackbarState({visible: true, text: `${error}`});
     },
   });
 

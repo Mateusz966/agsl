@@ -2,12 +2,9 @@ import React, {memo} from 'react';
 import Button from '../../atoms/Buttons/TextButton';
 import ControlledTextInput from '../../molecules/ControlledInputs/ControlledTextInput';
 import {useLogin} from './useLogin';
-import SnackbarMessage from '../../atoms/SnackbarMessage';
-import {useSnackbarContext} from '../../../common/contexts/SnackbarContext/useSnackbarContext';
 
 const LoginForm = () => {
   const {form, loginMutation, onSubmit} = useLogin();
-  const {visible, text, handleOnDismiss} = useSnackbarContext();
 
   const {
     handleSubmit,
@@ -37,9 +34,6 @@ const LoginForm = () => {
         onPress={handleSubmit(onSubmit)}>
         Sign in
       </Button>
-      <SnackbarMessage visible={visible} onDismiss={handleOnDismiss}>
-        {text}
-      </SnackbarMessage>
     </>
   );
 };

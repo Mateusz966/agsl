@@ -1,26 +1,39 @@
 import React, {useCallback, useState} from 'react';
 import {SnackbarContext, SnackbarProviderProps} from './SnackbarContext';
-import {SnackbarContextProps} from './types';
+import {SnackbarContextProps, SnackbarStateProps} from './types';
+import Snackbar from '../../../components/atoms/Snackbar';
+import {useFocusEffect} from '@react-navigation/native';
 
 export const SnackbarProvider = ({children}: SnackbarProviderProps) => {
-  const [visible, setVisible] = useState(false);
-  const [text, setText] = useState('');
+  const [snackbarState, setSnackbarState] = useState<SnackbarStateProps>({
+    visible: false,
+    text: '',
+    isError: false,
+  });
 
   const handleOnDismiss = useCallback(
-    () => setVisible(!visible),
-    [setVisible, visible],
+    () => setSnackbarState({visible: !snackbarState.visible}),
+    [snackbarState.visible],
+  );
+
+  useFocusEffect(
+    useCallback(() => {
+      return () => setSnackbarState({visible: false});
+    }, []),
   );
 
   const value: SnackbarContextProps = {
-    visible,
-    setVisible,
-    handleOnDismiss,
-    text,
-    setText,
+    setSnackbarState,
   };
 
   return (
     <SnackbarContext.Provider value={value}>
+      <Snackbar
+        isError={snackbarState.isError ?? false}
+        visible={snackbarState.visible}
+        onDismiss={handleOnDismiss}>
+        {snackbarState.text}
+      </Snackbar>
       {children}
     </SnackbarContext.Provider>
   );
