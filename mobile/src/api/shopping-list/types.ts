@@ -22,8 +22,12 @@ export interface ShoppingListResponse {
   userShoppingLists: ShoppingList[];
 }
 
-export interface EditShoppingListRequest {
-  listId: string;
+export interface ShoppingListItemToEdit {
   ingredientId: string;
   isBought: boolean;
+}
+
+export interface EditShoppingListRequest {
+  listId: string;
+  shoppingListItems: ShoppingListItemToEdit[];
 }

@@ -8,7 +8,9 @@ import {useMutateShoppingList} from '../../../common/hooks/ShoppingList/useMutat
 
 const DishListBasket = () => {
   const {dishesList} = useDishContext();
-  const {handleCreateShoppingList, handleResetBasket} = useMutateShoppingList();
+  const {handleCreateShoppingList, handleResetBasket} = useMutateShoppingList(
+    {},
+  );
 
   return (
     <View>

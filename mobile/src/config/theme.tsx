@@ -13,6 +13,8 @@ export const colors = {
   sceneContainerBackground: '#ededed',
   white: '#ffffff',
   primaryTextColor: '#4D4952',
+  cardBackground: '#cccccc',
+  success: '#048a50',
 };
 export const typography = {
   small: {
@@ -41,14 +43,12 @@ export const components = {
     style: {
       primary: {
         backgroundColor: colors.primaryButton,
-        paddingVertical: 5,
-        borderRadius: 50,
       },
       secondary: {backgroundColor: colors.white},
     },
     textColor: {
       primary: colors.white,
-      secondary: colors.primary,
+      secondary: colors.secondary,
     },
   },
 };

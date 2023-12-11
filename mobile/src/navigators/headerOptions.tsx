@@ -2,6 +2,7 @@ import {NativeStackNavigationOptions} from '@react-navigation/native-stack';
 import {colors} from '../config/theme';
 import React from 'react';
 import DishListNavigationHeader from '../components/organisms/DishListNavigationHeader';
+import {Text} from 'react-native-paper';
 
 export const mainHeaderOptions: NativeStackNavigationOptions = {
   headerStyle: {
@@ -11,6 +12,15 @@ export const mainHeaderOptions: NativeStackNavigationOptions = {
     backgroundColor: colors.surface,
   },
   headerTintColor: 'white',
+  headerTitle: ({children, tintColor}) => (
+    <Text
+      variant="titleLarge"
+      style={{
+        color: tintColor,
+      }}>
+      {children}
+    </Text>
+  ),
 };
 
 export const loginPageHeaderOptions: NativeStackNavigationOptions = {

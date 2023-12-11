@@ -7,7 +7,6 @@ import styles from './styles';
 import {BasketElementProps} from './types';
 import Photo from '../../atoms/Photo';
 import {View} from 'react-native';
-import Message from '../../atoms/Message';
 import {ICON_PATHS} from '../../../utils/icons';
 import DishCardPhoto from '../../../assets/DishCardPhoto';
 
@@ -27,14 +26,18 @@ const BasketElement: FC<BasketElementProps> = ({basketElement}) => {
         </View>
       )}
       <View style={styles.dishNameContainer}>
-        <Message style={styles.textStyle} message={basketElement.name} />
+        <Text variant="bodyLarge" style={styles.textStyle}>
+          {basketElement.name}
+        </Text>
         <View style={styles.buttonsContainer}>
           <IconButton
             icon={ICON_PATHS.MINUS}
             style={styles.iconStyle}
             onPress={() => removeDishFromBasket(basketElement)}
           />
-          <Text style={styles.countTextStyle}>{basketElement.count}</Text>
+          <Text variant="bodyLarge" style={styles.countTextStyle}>
+            {basketElement.count}
+          </Text>
           <IconButton
             icon={ICON_PATHS.ADD_FILLED}
             style={styles.iconStyle}

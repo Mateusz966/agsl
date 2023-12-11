@@ -1,7 +1,6 @@
 import React, {FC} from 'react';
-import {Card} from 'react-native-paper';
+import {Card, Text} from 'react-native-paper';
 import {memo} from 'react';
-import Message from '../../atoms/Message';
 import {DishCardProps} from './types';
 import {Pressable, View} from 'react-native';
 import styles from './styles';
@@ -27,9 +26,10 @@ const DishCard: FC<DishCardProps> = ({dish, onPressHandler}) => {
             <DishCardPhoto />
           </View>
         )}
-
         <View style={styles.dishNameContainer}>
-          <Message style={styles.textStyle} message={dish.name} />
+          <Text variant="bodyLarge" style={styles.textStyle}>
+            {dish.name}
+          </Text>
           <IconButton
             icon={ICON_PATHS.ADD_TO_BASKET}
             onPress={() => addDishToBasket(dish)}

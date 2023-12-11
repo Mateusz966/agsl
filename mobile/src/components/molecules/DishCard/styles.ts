@@ -1,11 +1,11 @@
 import {StyleSheet} from 'react-native';
-import {colors, components, typography} from '../../../config/theme';
+import {colors, components} from '../../../config/theme';
 
 export default StyleSheet.create({
   cardBackgroundStyle: {
     backgroundColor: colors.primary,
-    marginHorizontal: 20,
-    marginVertical: 20,
+    marginHorizontal: 25,
+    marginTop: 20,
     alignContent: 'center',
     borderBottomLeftRadius: 0,
     borderBottomRightRadius: 0,
@@ -13,7 +13,7 @@ export default StyleSheet.create({
   },
   cardContentStyle: {
     backgroundColor: 'white',
-    marginBottom: 3,
+    marginBottom: 1.5,
     borderTopLeftRadius: 15,
     borderTopRightRadius: 15,
   },
@@ -24,7 +24,6 @@ export default StyleSheet.create({
     width: '100%',
   },
   textStyle: {
-    ...typography.medium,
     marginLeft: 20,
   },
   iconStyle: {
@@ -43,6 +42,8 @@ export default StyleSheet.create({
     height: 130,
     borderRadius: 0,
     backgroundColor: colors.outlineVariant,
+    borderBottomColor: colors.secondary,
+    borderBottomWidth: 0.5,
     justifyContent: 'center',
   },
 });

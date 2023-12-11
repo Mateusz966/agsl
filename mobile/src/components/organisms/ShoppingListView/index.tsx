@@ -1,35 +1,65 @@
-import React, {memo, useState} from 'react';
+import React, {memo} from 'react';
 import {FlatList, View} from 'react-native';
+import {Text} from 'react-native-paper';
 
-import ShoppingListElement from '../../molecules/ShoppingListElement';
-import {Ingredient} from '../../../api/dish/types';
-import {colors} from '../../../config/theme';
-import useShoppingLists from '../../../common/hooks/ShoppingList/useShoppingList';
-import {useShoppingListContext} from '../../../common/contexts/ShoppingListContext/useShoppingListContext';
 import useShoppingList from '../../../common/hooks/ShoppingList/useShoppingList';
 import TextButton from '../../atoms/Buttons/TextButton';
 import {useMutateShoppingList} from '../../../common/hooks/ShoppingList/useMutateShoppingList';
+import styles from './styles';
+import {ActivityIndicator} from 'react-native-paper';
+import ControlledTextInput from '../../molecules/ControlledInputs/ControlledTextInput';
+import ControlledCheckboxInput from '../../molecules/ControlledInputs/ControlledCheckboxInput';
 
 const ShoppingListView = () => {
-  const {shoppingListResponse} = useShoppingList();
-  const {form, handleEditShoppingList} = useMutateShoppingList();
+  const {shoppingListResponse, isShoppingListLoading} = useShoppingList();
+  const generatedShoppingList = shoppingListResponse?.generatedShoppingList.map(
+    ingredient => ({
+      ingredientId: ingredient.id ?? '',
+      isBought: ingredient.isBought,
+    }),
+  );
+  const {form, handleEditShoppingList} = useMutateShoppingList({
+    ingredients: generatedShoppingList,
+  });
 
-  const {
-    handleSubmit,
-    control,
-    formState: {errors},
-  } = form;
+  const {handleSubmit} = form;
 
-  return (
-    <View style={{height: '100%'}}>
+  return isShoppingListLoading ? (
+    <View style={styles.loader}>
+      <ActivityIndicator size={50} />
+    </View>
+  ) : (
+    <View style={styles.container}>
       <FlatList
-        style={{marginTop: 20}}
+        style={styles.flatlist}
         data={shoppingListResponse?.generatedShoppingList}
         renderItem={({item, index}) => (
-          <ShoppingListElement key={item.id} index={index} ingredient={item} />
+          <View style={styles.itemContainer} key={item.id}>
+            <ControlledTextInput
+              control={form.control}
+              name={'listId'}
+              style={styles.hiddenInput}
+            />
+            <ControlledTextInput
+              control={form.control}
+              name={`shoppingListItems.${index}.ingredientId`}
+              style={styles.hiddenInput}
+            />
+            <ControlledCheckboxInput
+              control={form.control}
+              style={styles.checkbox}
+              name={`shoppingListItems.${index}.isBought`}
+            />
+            <Text variant="bodyLarge" style={styles.name}>
+              {item.name}
+            </Text>
+            <Text variant="bodyMedium">{`${item.amount} ${item.unit}`}</Text>
+          </View>
         )}
       />
-      <TextButton onPress={handleSubmit(handleEditShoppingList)}>
+      <TextButton
+        style={styles.button}
+        onPress={handleSubmit(handleEditShoppingList)}>
         Save changes
       </TextButton>
     </View>

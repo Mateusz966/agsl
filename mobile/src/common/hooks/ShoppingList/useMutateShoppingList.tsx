@@ -16,47 +16,58 @@ import {ShoppingList, shoppingListSchema} from './validation';
 import {useShoppingListContext} from '../../contexts/ShoppingListContext/useShoppingListContext';
 import {UseMutateShoppingListProps} from './types';
 
-export const useMutateShoppingList = ({ingredients}: UseMutateShoppingListProps) => {
-  const {shoppingListId} = useShoppingListContext()
+export const useMutateShoppingList = ({
+  ingredients,
+}: UseMutateShoppingListProps) => {
+  const {setSnackbarState} = useSnackbarContext();
+  const {dishesList, setDishesList} = useDishContext();
+  const {navigate} = useNavigation<NavigationProp<RootStackParamList>>();
+  const {shoppingListId} = useShoppingListContext();
 
   const form = useForm<ShoppingList>({
     resolver: zodResolver(shoppingListSchema),
     mode: 'onChange',
     defaultValues: {
       listId: shoppingListId,
-      shoppingListElements: [{ingredientId: ingredientS., isBought: false}],
+      shoppingListItems: ingredients,
     },
   });
-
-  const {setText, setVisible} = useSnackbarContext();
-  const {dishesList, setDishesList} = useDishContext();
-  const {navigate} = useNavigation<NavigationProp<RootStackParamList>>();
 
   const addShoppingListMutation = useMutation<void, void, ShoppingListRequest>({
     mutationFn: payload => createShoppingList(payload),
     onSuccess: () => {
-      setVisible(true);
-      setText('Your shopping list was created successfully');
+      setSnackbarState({
+        visible: true,
+        text: 'Your shopping list was created successfully',
+      });
     },
     onError: error => {
-      setVisible(true);
-      setText(`${error}`);
+      setSnackbarState({
+        visible: true,
+        text: `${error}`,
+      });
     },
   });
 
   const editDishMutationShoppingListMutation = useMutation<
     void,
-    void,
+    unknown,
     EditShoppingListRequest
   >({
-    mutationFn: payload => editShoppingList(payload),
-    onSuccess: () => {
-      setVisible(true);
-      setText('Your shopping list was created successfully');
+    mutationFn: async (payload: EditShoppingListRequest) => {
+      await editShoppingList(payload);
     },
-    onError: error => {
-      setVisible(true);
-      setText(`${error}`);
+    onSuccess: () => {
+      setSnackbarState({
+        visible: true,
+        text: 'Your shopping list was edited successfully',
+      });
+    },
+    onError: (error: unknown) => {
+      setSnackbarState({
+        visible: true,
+        text: `${error}`,
+      });
     },
   });
 
