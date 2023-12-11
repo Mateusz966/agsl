@@ -17,18 +17,27 @@ import {QueryClient, QueryClientProvider} from '@tanstack/react-query';
 import {SnackbarProvider} from './common/contexts/SnackbarContext/SnackbarProvider';
 import {DishProvider} from './common/contexts/DishContext/DishProvider';
 import {ShoppingListProvider} from './common/contexts/ShoppingListContext/ShoppingListProvider';
+import {AuthProvider} from './common/contexts/AuthContext/AuthProvider';
 
 const queryClient = new QueryClient();
+
+const NavigationContent = () => {
+  return (
+    <NavigationContainer>
+      <SnackbarProvider>
+        <AuthProvider>
+          <Navigation />
+        </AuthProvider>
+      </SnackbarProvider>
+    </NavigationContainer>
+  );
+};
 
 const Content = () => {
   return (
     <DishProvider>
       <ShoppingListProvider>
-        <SnackbarProvider>
-          <NavigationContainer>
-            <Navigation />
-          </NavigationContainer>
-        </SnackbarProvider>
+        <NavigationContent />
       </ShoppingListProvider>
     </DishProvider>
   );

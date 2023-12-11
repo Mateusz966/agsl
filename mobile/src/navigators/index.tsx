@@ -21,56 +21,67 @@ import EditDish from '../components/pages/EditDish';
 import Basket from '../components/pages/Basket';
 import UserShoppingLists from '../components/pages/UserShoppingLists';
 import ShoppingList from '../components/pages/ShoppingList';
+import {useAuthContext} from '../common/contexts/AuthContext/useAuthContext';
 
 const Stack = createNativeStackNavigator<RootStackParamList>();
 
-const Navigation = () => (
-  <Stack.Navigator screenOptions={mainHeaderOptions}>
-    <Stack.Screen
-      name={Scenes.Entry}
-      component={Entry}
-      options={loginPageHeaderOptions}
-    />
-    <Stack.Screen
-      name={Scenes.Login}
-      component={Login}
-      options={loginPageHeaderOptions}
-    />
-    <Stack.Screen
-      name={Scenes.Register}
-      component={Register}
-      options={loginPageHeaderOptions}
-    />
-    <Stack.Screen
-      name={Scenes.AddDish}
-      component={AddDish}
-      options={addDishHeaderOptions}
-    />
-    <Stack.Screen
-      name={Scenes.EditDish}
-      component={EditDish}
-      options={editDishHeaderOptions}
-    />
-    <Stack.Screen
-      name={Scenes.DishList}
-      component={DishList}
-      options={dishListHeaderOptions}
-    />
-    <Stack.Screen
-      name={Scenes.Basket}
-      component={Basket}
-      options={basketHeaderOptions}
-    />
-    <Stack.Screen
-      name={Scenes.ShoppingList}
-      component={ShoppingList}
-      options={shoppingListHeaderOptions}
-    />
-    <Stack.Screen
-      name={Scenes.UserShoppingLists}
-      component={UserShoppingLists}
-      options={userShoppingListsHeaderOptions}
-    />
-  </Stack.Navigator>
-);
+const Navigation = () => {
+  const {isLogged} = useAuthContext();
+  return (
+    <Stack.Navigator screenOptions={mainHeaderOptions}>
+      {!isLogged ? (
+        <>
+          <Stack.Screen
+            name={Scenes.Entry}
+            component={Entry}
+            options={loginPageHeaderOptions}
+          />
+          <Stack.Screen
+            name={Scenes.Login}
+            component={Login}
+            options={loginPageHeaderOptions}
+          />
+          <Stack.Screen
+            name={Scenes.Register}
+            component={Register}
+            options={loginPageHeaderOptions}
+          />
+        </>
+      ) : (
+        <>
+          <Stack.Screen
+            name={Scenes.DishList}
+            component={DishList}
+            options={dishListHeaderOptions}
+          />
+          <Stack.Screen
+            name={Scenes.AddDish}
+            component={AddDish}
+            options={addDishHeaderOptions}
+          />
+          <Stack.Screen
+            name={Scenes.EditDish}
+            component={EditDish}
+            options={editDishHeaderOptions}
+          />
+          <Stack.Screen
+            name={Scenes.Basket}
+            component={Basket}
+            options={basketHeaderOptions}
+          />
+          <Stack.Screen
+            name={Scenes.ShoppingList}
+            component={ShoppingList}
+            options={shoppingListHeaderOptions}
+          />
+          <Stack.Screen
+            name={Scenes.UserShoppingLists}
+            component={UserShoppingLists}
+            options={userShoppingListsHeaderOptions}
+          />
+        </>
+      )}
+    </Stack.Navigator>
+  );
+};
 export default Navigation;
