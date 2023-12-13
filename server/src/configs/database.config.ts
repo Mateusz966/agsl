@@ -7,4 +7,5 @@ export const databaseConfig = {
   username: get('DB_USERNAME').required().asString(),
   password: get('DB_PASSWORD').required().asString(),
   database: get('DB_NAME').required().asString(),
+  host: 'agsl-app-postgres'
 };
