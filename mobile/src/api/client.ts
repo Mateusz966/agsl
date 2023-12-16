@@ -1,4 +1,4 @@
-import axios from 'axios';
+import axios, {AxiosError} from 'axios';
 import {API_ROUTES, AXIOS_CONFIGURATION} from './const';
 import * as Keychain from 'react-native-keychain';
 
@@ -18,7 +18,10 @@ httpClient.interceptors.request.use(
     }
     return config;
   },
-  error => {
+  async (error: AxiosError) => {
+    if (error.response?.status === 401) {
+      await Keychain.setGenericPassword('', '');
+    }
     return Promise.reject(error);
   },
 );

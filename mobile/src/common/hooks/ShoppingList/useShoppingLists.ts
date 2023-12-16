@@ -11,6 +11,7 @@ const useShoppingLists = () => {
   const mappedShoppingLists =
     data?.userShoppingLists.map(shoppingList => ({
       id: shoppingList.id,
+      createdAt: shoppingList.createdAt,
       generatedShoppingList: shoppingList.generatedShoppingList,
     })) ?? [];
 

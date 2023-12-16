@@ -15,6 +15,7 @@ export interface ShoppingListItem extends Ingredient {
 
 export interface ShoppingList {
   id: string;
+  createdAt: string;
   generatedShoppingList: ShoppingListItem[];
 }
 

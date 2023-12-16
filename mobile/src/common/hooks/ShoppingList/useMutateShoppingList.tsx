@@ -1,37 +1,64 @@
-import {useMutation} from '@tanstack/react-query';
+import {useMutation, useQueryClient} from '@tanstack/react-query';
 import {
   EditShoppingListRequest,
   ShoppingListRequest,
 } from '../../../api/shopping-list/types';
 import {createShoppingList, editShoppingList} from '../../../api/shopping-list';
 import {useSnackbarContext} from '../../contexts/SnackbarContext/useSnackbarContext';
-import {useCallback} from 'react';
+import {useCallback, useState} from 'react';
 import {useDishContext} from '../../contexts/DishContext/useDishContext';
-import {NavigationProp, useNavigation} from '@react-navigation/native';
+import {
+  NavigationProp,
+  useFocusEffect,
+  useNavigation,
+} from '@react-navigation/native';
 import {RootStackParamList} from '../../../navigators/types';
 import {Scenes} from '../../../navigators/const';
 import {useForm} from 'react-hook-form';
 import {zodResolver} from '@hookform/resolvers/zod';
 import {ShoppingList, shoppingListSchema} from './validation';
 import {useShoppingListContext} from '../../contexts/ShoppingListContext/useShoppingListContext';
-import {UseMutateShoppingListProps} from './types';
+import {AxiosError} from 'axios';
+import useShoppingList from './useShoppingList';
 
-export const useMutateShoppingList = ({
-  ingredients,
-}: UseMutateShoppingListProps) => {
+export const useMutateShoppingList = () => {
   const {setSnackbarState} = useSnackbarContext();
+  const {shoppingListResponse, isShoppingListLoading} = useShoppingList();
+  const generatedShoppingList = shoppingListResponse?.generatedShoppingList.map(
+    ingredient => ({
+      ingredientId: ingredient.id ?? '',
+      isBought: ingredient.isBought,
+    }),
+  );
   const {dishesList, setDishesList} = useDishContext();
   const {navigate} = useNavigation<NavigationProp<RootStackParamList>>();
   const {shoppingListId} = useShoppingListContext();
+  const [formInitialized, setFormInitialized] = useState(false);
+  const queryClient = useQueryClient();
 
   const form = useForm<ShoppingList>({
     resolver: zodResolver(shoppingListSchema),
     mode: 'onChange',
     defaultValues: {
       listId: shoppingListId,
-      shoppingListItems: ingredients,
+      shoppingListItems: generatedShoppingList,
     },
   });
+
+  useFocusEffect(
+    useCallback(() => {
+      if (!formInitialized && shoppingListResponse && !isShoppingListLoading) {
+        form.reset(generatedShoppingList);
+        setFormInitialized(true);
+      }
+    }, [
+      formInitialized,
+      shoppingListResponse,
+      isShoppingListLoading,
+      form,
+      generatedShoppingList,
+    ]),
+  );
 
   const addShoppingListMutation = useMutation<void, void, ShoppingListRequest>({
     mutationFn: payload => createShoppingList(payload),
@@ -40,6 +67,7 @@ export const useMutateShoppingList = ({
         visible: true,
         text: 'Your shopping list was created successfully',
       });
+      queryClient.invalidateQueries();
     },
     onError: error => {
       setSnackbarState({
@@ -51,7 +79,7 @@ export const useMutateShoppingList = ({
 
   const editDishMutationShoppingListMutation = useMutation<
     void,
-    unknown,
+    AxiosError,
     EditShoppingListRequest
   >({
     mutationFn: async (payload: EditShoppingListRequest) => {
@@ -62,8 +90,9 @@ export const useMutateShoppingList = ({
         visible: true,
         text: 'Your shopping list was edited successfully',
       });
+      queryClient.invalidateQueries();
     },
-    onError: (error: unknown) => {
+    onError: error => {
       setSnackbarState({
         visible: true,
         text: `${error}`,

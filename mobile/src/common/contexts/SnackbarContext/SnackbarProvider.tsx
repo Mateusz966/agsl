@@ -29,7 +29,7 @@ export const SnackbarProvider = ({children}: SnackbarProviderProps) => {
   return (
     <SnackbarContext.Provider value={value}>
       <Snackbar
-        isError={snackbarState.isError ?? false}
+        isError={!!snackbarState.isError}
         visible={snackbarState.visible}
         onDismiss={handleOnDismiss}>
         {snackbarState.text}

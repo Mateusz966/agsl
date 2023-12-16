@@ -12,15 +12,7 @@ import ControlledCheckboxInput from '../../molecules/ControlledInputs/Controlled
 
 const ShoppingListView = () => {
   const {shoppingListResponse, isShoppingListLoading} = useShoppingList();
-  const generatedShoppingList = shoppingListResponse?.generatedShoppingList.map(
-    ingredient => ({
-      ingredientId: ingredient.id ?? '',
-      isBought: ingredient.isBought,
-    }),
-  );
-  const {form, handleEditShoppingList} = useMutateShoppingList({
-    ingredients: generatedShoppingList,
-  });
+  const {form, handleEditShoppingList} = useMutateShoppingList();
 
   const {handleSubmit} = form;
 

@@ -15,10 +15,12 @@ const UserShoppingListsView = () => {
   return (
     <View>
       <FlatList
-        data={shoppingListsResponse}
+        data={shoppingListsResponse
+          .sort((a, b) => a.createdAt.localeCompare(b.createdAt))
+          .reverse()}
         renderItem={({item}) => (
           <ShoppingListCard
-            ingredients={item.generatedShoppingList}
+            createdAt={item.createdAt}
             onPressHandler={() => {
               setShoppingListId(item.id);
               navigate(Scenes.ShoppingList);
