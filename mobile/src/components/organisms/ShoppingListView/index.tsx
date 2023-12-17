@@ -11,7 +11,7 @@ import ControlledTextInput from '../../molecules/ControlledInputs/ControlledText
 import ControlledCheckboxInput from '../../molecules/ControlledInputs/ControlledCheckboxInput';
 
 const ShoppingListView = () => {
-  const {shoppingListResponse, isShoppingListLoading} = useShoppingList();
+  const {shoppingListResponse, isShoppingListLoading} = useShoppingList(true);
   const {form, handleEditShoppingList} = useMutateShoppingList();
 
   const {handleSubmit} = form;
@@ -26,7 +26,7 @@ const ShoppingListView = () => {
         style={styles.flatlist}
         data={shoppingListResponse?.generatedShoppingList}
         renderItem={({item, index}) => (
-          <View style={styles.itemContainer} key={item.id}>
+          <View style={styles.itemContainer} key={item.ingredientId}>
             <ControlledTextInput
               control={form.control}
               name={'listId'}

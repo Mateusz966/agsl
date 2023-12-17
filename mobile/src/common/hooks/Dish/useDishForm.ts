@@ -15,9 +15,7 @@ import {useMutateDish} from './useMutateDish';
 
 const useDishForm = ({img}: UseDishFormProps) => {
   const routeName = useRoute().name;
-  const {dishResponse, isDishLoading} = useDish(
-    routeName === Scenes.EditDish ? true : false,
-  );
+  const {dishResponse, isDishLoading} = useDish(routeName === Scenes.EditDish);
   const [formInitialized, setFormInitialized] = useState(false);
   const [ingredientIdsToDelete, setIngredientIdsToDelete] = useState<string[]>(
     [],

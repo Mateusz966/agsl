@@ -32,7 +32,11 @@ const EntryPageContent = () => {
         style={styles.loginBtn}>
         Login
       </Button>
-      <Button style={styles.registerBtn} textColor="black" mode="outlined">
+      <Button
+        style={styles.registerBtn}
+        onPress={() => navigate(Scenes.Register)}
+        textColor="black"
+        mode="outlined">
         Register
       </Button>
     </ScrollView>

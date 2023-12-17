@@ -8,7 +8,7 @@ import {RootStackParamList} from '../../../navigators/types';
 import {Scenes} from '../../../navigators/const';
 
 const UserShoppingListsView = () => {
-  const {shoppingListsResponse} = useShoppingLists();
+  const {shoppingListsResponse} = useShoppingLists(true);
   const {setShoppingListId} = useShoppingListContext();
   const {navigate} = useNavigation<NavigationProp<RootStackParamList>>();
 

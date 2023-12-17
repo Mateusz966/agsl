@@ -20,11 +20,14 @@ import TextButton from '../../atoms/Buttons/TextButton';
 import {ActivityIndicator} from 'react-native-paper';
 import useDishForm from '../../../common/hooks/Dish/useDishForm';
 import ControlledNumberInput from '../../molecules/ControlledInputs/ControlledNumberInput';
+import {useRoute} from '@react-navigation/native';
+import {Scenes} from '../../../navigators/const';
 
 const DishForm = () => {
   const [img, setImg] = useState<DishPhoto>(null);
   const {handleOnModalDissmiss, modalVisible, setModalVisible} =
     useModalVisibility();
+  const routeName = useRoute().name;
   const {
     form,
     onSubmit,
@@ -47,7 +50,7 @@ const DishForm = () => {
     formState: {errors},
   } = form;
 
-  return isDishLoading ? (
+  return isDishLoading && routeName === Scenes.EditDish ? (
     <View style={styles.loader}>
       <ActivityIndicator size={50} />
     </View>

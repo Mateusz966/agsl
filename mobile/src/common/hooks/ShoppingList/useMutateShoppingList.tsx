@@ -17,47 +17,38 @@ import {Scenes} from '../../../navigators/const';
 import {useForm} from 'react-hook-form';
 import {zodResolver} from '@hookform/resolvers/zod';
 import {ShoppingList, shoppingListSchema} from './validation';
-import {useShoppingListContext} from '../../contexts/ShoppingListContext/useShoppingListContext';
 import {AxiosError} from 'axios';
 import useShoppingList from './useShoppingList';
 
 export const useMutateShoppingList = () => {
   const {setSnackbarState} = useSnackbarContext();
-  const {shoppingListResponse, isShoppingListLoading} = useShoppingList();
-  const generatedShoppingList = shoppingListResponse?.generatedShoppingList.map(
-    ingredient => ({
-      ingredientId: ingredient.id ?? '',
-      isBought: ingredient.isBought,
-    }),
-  );
+  const {shoppingListResponse, isShoppingListLoading} = useShoppingList(true);
   const {dishesList, setDishesList} = useDishContext();
   const {navigate} = useNavigation<NavigationProp<RootStackParamList>>();
-  const {shoppingListId} = useShoppingListContext();
   const [formInitialized, setFormInitialized] = useState(false);
   const queryClient = useQueryClient();
 
   const form = useForm<ShoppingList>({
     resolver: zodResolver(shoppingListSchema),
     mode: 'onChange',
-    defaultValues: {
-      listId: shoppingListId,
-      shoppingListItems: generatedShoppingList,
-    },
   });
 
   useFocusEffect(
     useCallback(() => {
       if (!formInitialized && shoppingListResponse && !isShoppingListLoading) {
-        form.reset(generatedShoppingList);
+        const defaultValues = {
+          listId: shoppingListResponse.listId,
+          shoppingListItems: shoppingListResponse.generatedShoppingList?.map(
+            response => ({
+              ingredientId: response.ingredientId,
+              isBought: response.isBought,
+            }),
+          ),
+        };
+        form.reset(defaultValues);
         setFormInitialized(true);
       }
-    }, [
-      formInitialized,
-      shoppingListResponse,
-      isShoppingListLoading,
-      form,
-      generatedShoppingList,
-    ]),
+    }, [formInitialized, shoppingListResponse, isShoppingListLoading, form]),
   );
 
   const addShoppingListMutation = useMutation<void, void, ShoppingListRequest>({
