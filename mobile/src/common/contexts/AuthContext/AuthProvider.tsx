@@ -13,7 +13,6 @@ import {Scenes} from '../../../navigators/const';
 export const AuthProvider = ({children}: AuthProviderProps) => {
   const {navigate} = useNavigation<NavigationProp<RootStackParamList>>();
   const [isLogged, setIsLogged] = useState(false);
-  console.log(isLogged);
 
   useFocusEffect(
     useCallback(() => {
@@ -32,7 +31,9 @@ export const AuthProvider = ({children}: AuthProviderProps) => {
   useFocusEffect(
     useCallback(() => {
       if (!isLogged) {
-        navigate(Scenes.Login);
+        navigate(Scenes.Entry);
+      } else {
+        navigate(Scenes.DishList);
       }
     }, [isLogged, navigate]),
   );
