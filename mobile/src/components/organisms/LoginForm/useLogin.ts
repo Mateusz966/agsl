@@ -3,16 +3,18 @@ import {useMutation} from '@tanstack/react-query';
 import {SignInRequest, SignInResponse} from '../../../api/user/types';
 import {UserLogin, userLoginSchema} from './validation';
 import {zodResolver} from '@hookform/resolvers/zod';
-import {ERROR_MESSAGES} from '../../../utils/errorDictionary';
 import {loginUser} from '../../../api/user';
-import {useNavigation, useNavigationState} from '@react-navigation/native';
+import {NavigationProp, useNavigation} from '@react-navigation/native';
+import {useSnackbarContext} from '../../../common/contexts/SnackbarContext/useSnackbarContext';
+import Keychain from 'react-native-keychain';
+import {useAuthContext} from '../../../common/contexts/AuthContext/useAuthContext';
+import {RootStackParamList} from '../../../navigators/DefaultNavigation/types';
 import {Scenes} from '../../../navigators/DefaultNavigation/const';
-import {HomeNavigationProps} from '../../../navigators/DefaultNavigation/types';
-import {useSnackbarContext} from '../../atoms/SnackbarMessage/useSnackbarContext';
 
 export const useLogin = () => {
-  const navigation = useNavigation<HomeNavigationProps>();
-  const {setVisible, setText} = useSnackbarContext();
+  const {setIsLogged} = useAuthContext();
+  const navigation = useNavigation<NavigationProp<RootStackParamList>>();
+  const {setSnackbarState} = useSnackbarContext();
 
   const form = useForm<UserLogin>({
     resolver: zodResolver(userLoginSchema),
@@ -27,15 +29,15 @@ export const useLogin = () => {
     mutationFn: payload => {
       return loginUser(payload);
     },
-    onSuccess: () => {
-      setVisible(true);
-      setText("You're logged in");
+    onSuccess: async ({accessToken, email}) => {
+      await Keychain.setGenericPassword(email, accessToken);
+      setIsLogged(true);
+      setSnackbarState({visible: true, text: "You're logged in"});
       form.reset({email: '', password: ''});
       navigation.navigate(Scenes.Home);
     },
     onError: error => {
-      setVisible(true);
-      setText(`${ERROR_MESSAGES[`${error}`]}`);
+      setSnackbarState({visible: false, text: `${error}`});
     },
   });
 

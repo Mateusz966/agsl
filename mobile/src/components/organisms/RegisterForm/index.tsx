@@ -2,13 +2,9 @@ import React, {memo} from 'react';
 import Button from '../../atoms/Buttons/TextButton';
 import ControlledTextInput from '../../molecules/ControlledInputs/ControlledTextInput';
 import useRegister from './useRegister';
-import SnackbarMessage from '../../atoms/SnackbarMessage';
-import {Layout} from '../../atoms/Layout';
-import {useSnackbarContext} from '../../atoms/SnackbarMessage/useSnackbarContext';
 
 const RegisterForm = () => {
   const {form, onSubmit, registerMutation} = useRegister();
-  const {text, visible, handleOnDismiss} = useSnackbarContext();
 
   const {
     control,
@@ -17,7 +13,7 @@ const RegisterForm = () => {
   } = form;
 
   return (
-    <Layout>
+    <>
       <ControlledTextInput
         error={errors.nick?.message}
         control={control}
@@ -39,10 +35,7 @@ const RegisterForm = () => {
         onPress={handleSubmit(onSubmit)}>
         Sign up
       </Button>
-      <SnackbarMessage visible={visible} onDismiss={handleOnDismiss}>
-        {text}
-      </SnackbarMessage>
-    </Layout>
+    </>
   );
 };
 export default memo(RegisterForm);

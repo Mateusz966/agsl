@@ -6,4 +6,8 @@ export const ICON_PATHS = {
   USER: require('mobile/src/assets/icons/user.png'),
   LOGOUT: require('mobile/src/assets/icons/logout.png'),
   LIST: require('mobile/src/assets/icons/list.png'),
+  BASKET: require('mobile/src/assets/icons/basket.png'),
+  ADD_TO_BASKET: require('mobile/src/assets/icons/add_to_basket.png'),
+  MINUS: require('mobile/src/assets/icons/minus.png'),
+  ADD_FILLED: require('mobile/src/assets/icons/add_filled.png'),
 };

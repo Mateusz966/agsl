@@ -1,6 +1,10 @@
 import {DefaultTheme, configureFonts} from 'react-native-paper';
 
 export const colors = {
+  colors: {
+    ...DefaultTheme.colors,
+    error: '#443D53',
+  },
   ...DefaultTheme.colors,
   primary: '#6152BE',
   secondary: '#414757',
@@ -9,6 +13,8 @@ export const colors = {
   sceneContainerBackground: '#ededed',
   white: '#ffffff',
   primaryTextColor: '#4D4952',
+  cardBackground: '#cccccc',
+  success: '#048a50',
 };
 
 export const typography = {
@@ -36,12 +42,14 @@ export const typography = {
 export const components = {
   button: {
     style: {
-      primary: {backgroundColor: colors.primaryButton},
+      primary: {
+        backgroundColor: colors.primaryButton,
+      },
       secondary: {backgroundColor: colors.white},
     },
     textColor: {
       primary: colors.white,
-      secondary: colors.primary,
+      secondary: colors.secondary,
     },
   },
 };

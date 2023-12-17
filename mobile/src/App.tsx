@@ -12,21 +12,30 @@ import React from 'react';
 import {Provider} from 'react-native-paper';
 import {theme} from './config/theme';
 import {QueryClient, QueryClientProvider} from '@tanstack/react-query';
-import {SnackbarProvider} from './components/atoms/SnackbarMessage/SnackbarProvider';
-import {DishProvider} from './components/organisms/DishForm/hooks/DishContext/DishProvider';
 import {NavigationContainer} from '@react-navigation/native';
 import DefaultNavigation from './navigators/DefaultNavigation';
+import {SnackbarProvider} from './common/contexts/SnackbarContext/SnackbarProvider';
+import {DishProvider} from './common/contexts/DishContext/DishProvider';
+import {ShoppingListProvider} from './common/contexts/ShoppingListContext/ShoppingListProvider';
 
 const queryClient = new QueryClient();
+
+const NavigationContent = () => {
+  return (
+    <NavigationContainer>
+      <SnackbarProvider>
+        <DefaultNavigation />
+      </SnackbarProvider>
+    </NavigationContainer>
+  );
+};
 
 const Content = () => {
   return (
     <DishProvider>
-      <SnackbarProvider>
-        <NavigationContainer>
-          <DefaultNavigation />
-        </NavigationContainer>
-      </SnackbarProvider>
+      <ShoppingListProvider>
+        <NavigationContent />
+      </ShoppingListProvider>
     </DishProvider>
   );
 };

@@ -2,15 +2,9 @@ import {z} from 'zod';
 import {Unit} from '../../../api/dish/types';
 
 const Ingredient = z.object({
+  ingredientId: z.string().optional(),
   name: z.string().min(1, {message: 'Provide name'}),
-  amount: z
-    .string()
-    .refine(value => /^\d+$/.test(value), {
-      message: 'Provide amount',
-    })
-    .refine(value => parseInt(value, 10) > 0, {
-      message: 'Proide amount greater than 0',
-    }),
+  amount: z.number().min(1, {message: 'Amount must be at least 1'}),
   unit: z.nativeEnum(Unit),
 });
 export const addDishSchema = z.object({

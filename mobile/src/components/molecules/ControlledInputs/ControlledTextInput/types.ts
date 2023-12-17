@@ -12,4 +12,5 @@ export interface ControlledTextInputProps<
   displayName?: string;
   keyboardType?: KeyboardType;
   errorStyle?: ViewStyle;
+  style?: ViewStyle;
 }

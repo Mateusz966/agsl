@@ -3,6 +3,7 @@ import { UserRoles } from '@modules/user/domain/user.types';
 import { Column, Entity, OneToMany } from 'typeorm';
 import { DishModel } from '@modules/dish/database/dish.model';
 import { DishPhotoModel } from '@modules/dish/database/dish-photo.model';
+import { ShoppingListModel } from '@modules/shopping-list/database/shopping-list.model';
 
 @Entity({ name: 'user' })
 export class UserModel extends ModelBase {
@@ -22,4 +23,6 @@ export class UserModel extends ModelBase {
   dish: DishModel;
   @OneToMany(() => DishPhotoModel, (dishPhoto) => dishPhoto.user)
   dishPhoto: DishPhotoModel;
+  @OneToMany(() => ShoppingListModel, (shoppingList) => shoppingList.user)
+  shoppingList: ShoppingListModel[];
 }
