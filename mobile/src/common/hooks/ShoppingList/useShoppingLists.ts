@@ -2,10 +2,11 @@ import {useQuery} from '@tanstack/react-query';
 import {getShoppingLists} from '../../../api/shopping-list';
 import {ShoppingListResponse} from '../../../api/shopping-list/types';
 
-const useShoppingLists = () => {
+const useShoppingLists = (isEnabled?: boolean) => {
   const {data, isLoading, refetch} = useQuery<ShoppingListResponse>({
     queryKey: ['shoppingLists'],
     queryFn: getShoppingLists,
+    enabled: !!isEnabled,
   });
 
   const mappedShoppingLists =

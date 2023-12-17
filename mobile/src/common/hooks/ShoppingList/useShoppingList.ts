@@ -8,11 +8,23 @@ const useShoppingList = (isEnabled?: boolean) => {
   const {data, isLoading, refetch} = useQuery<ShoppingList>({
     queryKey: ['shoppingList', shoppingListId],
     queryFn: () => getShoppingList(shoppingListId),
-    enabled: isEnabled,
+    enabled: !!isEnabled,
   });
 
+  const mappedShoppingList = {
+    listId: data?.id,
+    createdAt: data?.createdAt,
+    generatedShoppingList: data?.generatedShoppingList.map(ingredient => ({
+      ingredientId: ingredient.id,
+      unit: ingredient.unit,
+      name: ingredient.name,
+      amount: ingredient.amount,
+      isBought: ingredient.isBought,
+    })),
+  };
+
   return {
-    shoppingListResponse: data,
+    shoppingListResponse: mappedShoppingList,
     isShoppingListLoading: isLoading,
     refetchShoppingList: refetch,
   };
