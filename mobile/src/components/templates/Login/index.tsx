@@ -4,7 +4,7 @@ import {ScrollView, View} from 'react-native';
 import LoginPhoto from '../../../assets/LoginPhoto';
 import LoginForm from '../../organisms/LoginForm';
 import {Link} from '@react-navigation/native';
-import {Scenes} from '../../../navigators/const';
+import {Scenes} from '../../../navigators/DefaultNavigation/const';
 import {styles} from './styles';
 
 const LoginTemplate = () => (

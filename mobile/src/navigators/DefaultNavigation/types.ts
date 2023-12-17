@@ -11,4 +11,5 @@ export type RootStackParamList = {
   ShoppingList: undefined;
   UserShoppingLists: undefined;
   Home: undefined;
+  Tab: undefined;
 };

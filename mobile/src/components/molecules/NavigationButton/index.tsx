@@ -3,7 +3,7 @@ import {FC, memo} from 'react';
 import {NavigationButtonProps} from './types';
 import IconButton from '../../atoms/Buttons/IconButton';
 import {NavigationProp, useNavigation} from '@react-navigation/native';
-import {RootStackParamList} from '../../../navigators/types';
+import {RootStackParamList} from '../../../navigators/DefaultNavigation/types';
 import {colors} from '../../../config/theme';
 
 const NavigationButton: FC<NavigationButtonProps> = ({

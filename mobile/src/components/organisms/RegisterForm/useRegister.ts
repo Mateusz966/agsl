@@ -5,9 +5,9 @@ import {UserRegister, userRegisterSchema} from './validation';
 import {zodResolver} from '@hookform/resolvers/zod';
 import {signUpUser} from '../../../api/user';
 import {useNavigation} from '@react-navigation/core';
-import {Scenes} from '../../../navigators/const';
+import {Scenes} from '../../../navigators/DefaultNavigation/const';
 import {useSnackbarContext} from '../../../common/contexts/SnackbarContext/useSnackbarContext';
-import {RootStackParamList} from '../../../navigators/types';
+import {RootStackParamList} from '../../../navigators/DefaultNavigation/types';
 import {NavigationProp} from '@react-navigation/native';
 
 const useRegister = () => {

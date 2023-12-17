@@ -1,5 +1,6 @@
-export enum Scenes {
-  AddDish = 'AddDish',
-  DishList = 'DishList',
-  Home = 'Home',
+export enum BottomNavigationScenes {
+  DishList = 'TabDishList',
+  Home = 'TabHome',
+  Basket = 'TabBasket',
+  UserShoppingLists = 'TabUserShoppingLists',
 }

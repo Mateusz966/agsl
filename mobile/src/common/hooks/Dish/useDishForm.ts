@@ -1,7 +1,7 @@
 import {useCallback, useMemo, useState} from 'react';
 import {EditDishForm} from '../../../api/dish/types';
 import {useFocusEffect, useRoute} from '@react-navigation/native';
-import {Scenes} from '../../../navigators/const';
+import {Scenes} from '../../../navigators/DefaultNavigation/const';
 import {useFieldArray, useForm} from 'react-hook-form';
 import {
   AddDish,

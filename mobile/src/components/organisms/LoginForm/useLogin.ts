@@ -34,7 +34,7 @@ export const useLogin = () => {
       setIsLogged(true);
       setSnackbarState({visible: true, text: "You're logged in"});
       form.reset({email: '', password: ''});
-      navigation.navigate(Scenes.Home);
+      navigation.navigate(Scenes.Tab);
     },
     onError: error => {
       setSnackbarState({visible: false, text: `${error}`});

@@ -1,4 +1,4 @@
-import {DefaultTheme, configureFonts} from 'react-native-paper';
+import {DefaultTheme} from 'react-native-paper';
 
 export const colors = {
   colors: {
@@ -63,5 +63,4 @@ export const theme = {
   ...colors,
   ...typography,
   ...components,
-  fonts: configureFonts({config: fontConfig}),
 };

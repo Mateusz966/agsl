@@ -7,8 +7,8 @@ import {
   useFocusEffect,
   useNavigation,
 } from '@react-navigation/native';
-import {RootStackParamList} from '../../../navigators/types';
-import {Scenes} from '../../../navigators/const';
+import {RootStackParamList} from '../../../navigators/DefaultNavigation/types';
+import {Scenes} from '../../../navigators/DefaultNavigation/const';
 
 export const AuthProvider = ({children}: AuthProviderProps) => {
   const {navigate} = useNavigation<NavigationProp<RootStackParamList>>();
@@ -33,7 +33,7 @@ export const AuthProvider = ({children}: AuthProviderProps) => {
       if (!isLogged) {
         navigate(Scenes.Entry);
       } else {
-        navigate(Scenes.DishList);
+        navigate(Scenes.Home);
       }
     }, [isLogged, navigate]),
   );

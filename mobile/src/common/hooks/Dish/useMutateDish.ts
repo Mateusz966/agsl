@@ -5,7 +5,7 @@ import {EditDishRequest, UseMutateDishProps} from './types';
 import {AxiosError} from 'axios';
 import useDish from './useDish';
 import {useRoute} from '@react-navigation/native';
-import {Scenes} from '../../../navigators/const';
+import {Scenes} from '../../../navigators/DefaultNavigation/const';
 
 export const useMutateDish = ({
   setIngredientIdsToDelete,

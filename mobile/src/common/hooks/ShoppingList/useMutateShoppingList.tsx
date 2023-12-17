@@ -12,8 +12,8 @@ import {
   useFocusEffect,
   useNavigation,
 } from '@react-navigation/native';
-import {RootStackParamList} from '../../../navigators/types';
-import {Scenes} from '../../../navigators/const';
+import {RootStackParamList} from '../../../navigators/DefaultNavigation/types';
+import {Scenes} from '../../../navigators/DefaultNavigation/const';
 import {useForm} from 'react-hook-form';
 import {zodResolver} from '@hookform/resolvers/zod';
 import {ShoppingList, shoppingListSchema} from './validation';
