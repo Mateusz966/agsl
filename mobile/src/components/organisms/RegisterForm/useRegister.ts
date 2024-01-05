@@ -5,10 +5,12 @@ import {UserRegister, userRegisterSchema} from './validation';
 import {zodResolver} from '@hookform/resolvers/zod';
 import {signUpUser} from '../../../api/user';
 import {useNavigation} from '@react-navigation/core';
-import {Scenes} from '../../../navigators/DefaultNavigation/const';
+import {Scenes} from '../../../navigators/RootNavigation/const';
 import {useSnackbarContext} from '../../../common/contexts/SnackbarContext/useSnackbarContext';
-import {RootStackParamList} from '../../../navigators/DefaultNavigation/types';
+import {RootStackParamList} from '../../../navigators/RootNavigation/types';
 import {NavigationProp} from '@react-navigation/native';
+import {AxiosError} from 'axios';
+import {getSnackbarErrorMessage} from '../../../common/contexts/SnackbarContext/helpers';
 
 const useRegister = () => {
   const form = useForm<UserRegister>({
@@ -17,7 +19,7 @@ const useRegister = () => {
   const {setSnackbarState} = useSnackbarContext();
   const navigation = useNavigation<NavigationProp<RootStackParamList>>();
 
-  const registerMutation = useMutation<void, void, RegisterRequest>({
+  const registerMutation = useMutation<void, AxiosError, RegisterRequest>({
     mutationFn: payload => {
       return signUpUser(payload);
     },
@@ -27,7 +29,10 @@ const useRegister = () => {
       navigation.navigate(Scenes.Login);
     },
     onError: error => {
-      setSnackbarState({visible: true, text: `${error}`});
+      setSnackbarState({
+        visible: true,
+        text: `${getSnackbarErrorMessage(error?.status)}`,
+      });
     },
   });
 

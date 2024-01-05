@@ -4,15 +4,15 @@ import {Text} from 'react-native-paper';
 
 import useShoppingList from '../../../common/hooks/ShoppingList/useShoppingList';
 import TextButton from '../../atoms/Buttons/TextButton';
-import {useMutateShoppingList} from '../../../common/hooks/ShoppingList/useMutateShoppingList';
 import styles from './styles';
 import {ActivityIndicator} from 'react-native-paper';
 import ControlledTextInput from '../../molecules/ControlledInputs/ControlledTextInput';
 import ControlledCheckboxInput from '../../molecules/ControlledInputs/ControlledCheckboxInput';
+import {useShoppingListForm} from '../../../common/hooks/ShoppingList/useShoppingListForm';
 
 const ShoppingListView = () => {
   const {shoppingListResponse, isShoppingListLoading} = useShoppingList(true);
-  const {form, handleEditShoppingList} = useMutateShoppingList();
+  const {form, handleEditShoppingList} = useShoppingListForm();
 
   const {handleSubmit} = form;
 

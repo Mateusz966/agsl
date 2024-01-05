@@ -8,9 +8,12 @@ import {colors} from '../../../config/theme';
 import Menu from '../Menu';
 import {MENU_ITEMS} from './const';
 import useMenuVisibilty from './useMenuVisibility';
+import {useAuthContext} from '../../../common/contexts/AuthContext/useAuthContext';
 
 const HomeHeader = () => {
   const {menuVisible, handleMenuVisiblity} = useMenuVisibilty();
+  const {authData} = useAuthContext();
+
   return (
     <View style={styles.container}>
       <View style={styles.icon}>
@@ -23,7 +26,7 @@ const HomeHeader = () => {
         />
         <Menu menuItems={MENU_ITEMS} visible={menuVisible} />
       </View>
-      <Text style={styles.text}>Hello, Vix</Text>
+      <Text style={styles.text}>{`Hello, ${authData.nickName}`}</Text>
     </View>
   );
 };

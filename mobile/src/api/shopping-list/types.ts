@@ -25,7 +25,7 @@ export interface ShoppingListResponse {
 
 export interface ShoppingListItemToEdit {
   ingredientId: string;
-  isBought: boolean;
+  isBought: string;
 }
 
 export interface EditShoppingListRequest {

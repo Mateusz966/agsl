@@ -4,13 +4,13 @@ import {useDishContext} from '../../../common/contexts/DishContext/useDishContex
 import BasketElement from '../../molecules/BasketElement';
 import styles from './styles';
 import ActionButtonsContainer from '../../molecules/ActionButtonsContainer';
-import {useMutateShoppingList} from '../../../common/hooks/ShoppingList/useMutateShoppingList';
 import ShoppingListPhoto from '../../../assets/ShoppingListPhoto';
 import {Text} from 'react-native-paper';
+import {useShoppingListForm} from '../../../common/hooks/ShoppingList/useShoppingListForm';
 
 const DishListBasket = () => {
   const {dishesList} = useDishContext();
-  const {handleCreateShoppingList, handleResetBasket} = useMutateShoppingList();
+  const {handleCreateShoppingList, handleResetBasket} = useShoppingListForm();
 
   return (
     <View>

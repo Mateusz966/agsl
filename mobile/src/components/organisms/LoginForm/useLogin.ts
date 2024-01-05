@@ -6,13 +6,13 @@ import {zodResolver} from '@hookform/resolvers/zod';
 import {loginUser} from '../../../api/user';
 import {NavigationProp, useNavigation} from '@react-navigation/native';
 import {useSnackbarContext} from '../../../common/contexts/SnackbarContext/useSnackbarContext';
-import Keychain from 'react-native-keychain';
-import {useAuthContext} from '../../../common/contexts/AuthContext/useAuthContext';
-import {RootStackParamList} from '../../../navigators/DefaultNavigation/types';
-import {Scenes} from '../../../navigators/DefaultNavigation/const';
+import {RootStackParamList} from '../../../navigators/RootNavigation/types';
+import {Scenes} from '../../../navigators/RootNavigation/const';
+import {AxiosError} from 'axios';
+import {getSnackbarErrorMessage} from '../../../common/contexts/SnackbarContext/helpers';
+import {setGenericPassword} from 'react-native-keychain';
 
 export const useLogin = () => {
-  const {setIsLogged} = useAuthContext();
   const navigation = useNavigation<NavigationProp<RootStackParamList>>();
   const {setSnackbarState} = useSnackbarContext();
 
@@ -25,19 +25,21 @@ export const useLogin = () => {
     },
   });
 
-  const loginMutation = useMutation<SignInResponse, void, SignInRequest>({
+  const loginMutation = useMutation<SignInResponse, AxiosError, SignInRequest>({
     mutationFn: payload => {
       return loginUser(payload);
     },
-    onSuccess: async ({accessToken, email}) => {
-      await Keychain.setGenericPassword(email, accessToken);
-      setIsLogged(true);
+    onSuccess: async ({accessToken, nick}) => {
+      await setGenericPassword(nick, accessToken);
       setSnackbarState({visible: true, text: "You're logged in"});
       form.reset({email: '', password: ''});
       navigation.navigate(Scenes.Tab);
     },
     onError: error => {
-      setSnackbarState({visible: false, text: `${error}`});
+      setSnackbarState({
+        visible: false,
+        text: `${getSnackbarErrorMessage(error?.status)}`,
+      });
     },
   });
 

@@ -1,10 +1,10 @@
 import React from 'react';
 import {Controller, FieldPath, FieldValues} from 'react-hook-form';
-import {Checkbox} from 'react-native-paper'; // Assuming you're using a checkbox component from a library
+import {Checkbox} from 'react-native-paper';
 import ErrorMessage from '../../ErrorMessage';
 import {View} from 'react-native';
 import styles from '../styles';
-import {ControlledCheckboxInputProps} from './types'; // Define the props for checkbox input
+import {ControlledCheckboxInputProps} from './types';
 
 const ControlledCheckboxInput = <
   TFieldValues extends FieldValues,

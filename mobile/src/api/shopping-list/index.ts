@@ -27,9 +27,7 @@ export const editShoppingList = async (
 
   const response = shoppingListItems?.map(async ({ingredientId, isBought}) => {
     return await httpClient.patch(
-      `${
-        API_ROUTES.v1.shoppingList
-      }/${listId}/ingredient/${ingredientId}/${String(isBought)}`,
+      `${API_ROUTES.v1.shoppingList}/${listId}/ingredient/${ingredientId}/${isBought}`,
     );
   });
   return response;
