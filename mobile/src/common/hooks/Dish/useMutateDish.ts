@@ -5,7 +5,8 @@ import {EditDishRequest, UseMutateDishProps} from './types';
 import {AxiosError} from 'axios';
 import useDish from './useDish';
 import {useRoute} from '@react-navigation/native';
-import {Scenes} from '../../../navigators/DefaultNavigation/const';
+import {Scenes} from '../../../navigators/RootNavigation/const';
+import {getSnackbarErrorMessage} from '../../contexts/SnackbarContext/helpers';
 
 export const useMutateDish = ({
   setIngredientIdsToDelete,
@@ -15,7 +16,7 @@ export const useMutateDish = ({
   const {isDishLoading} = useDish(routeName === Scenes.EditDish);
   const client = useQueryClient();
 
-  const addDishMutation = useMutation<void, void, FormData>({
+  const addDishMutation = useMutation<void, AxiosError, FormData>({
     mutationFn: payload => addDish(payload),
     onSuccess: () => {
       setSnackbarState({
@@ -27,7 +28,7 @@ export const useMutateDish = ({
     onError: error => {
       setSnackbarState({
         visible: true,
-        text: `${error}`,
+        text: `${getSnackbarErrorMessage(error?.status)}`,
       });
     },
   });
@@ -45,7 +46,7 @@ export const useMutateDish = ({
     onError: error => {
       setSnackbarState({
         visible: true,
-        text: `${error}`,
+        text: `${getSnackbarErrorMessage(error?.status)}`,
       });
     },
   });

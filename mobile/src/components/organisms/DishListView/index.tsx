@@ -5,8 +5,8 @@ import DishCard from '../../molecules/DishCard';
 import useDishList from './useDishList';
 import {NavigationProp, useNavigation} from '@react-navigation/native';
 import {useDishContext} from '../../../common/contexts/DishContext/useDishContext';
-import {Scenes} from '../../../navigators/DefaultNavigation/const';
-import {RootStackParamList} from '../../../navigators/DefaultNavigation/types';
+import {Scenes} from '../../../navigators/RootNavigation/const';
+import {RootStackParamList} from '../../../navigators/RootNavigation/types';
 
 const DishListView = () => {
   const {setDishId} = useDishContext();

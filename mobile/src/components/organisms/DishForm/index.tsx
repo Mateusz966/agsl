@@ -21,7 +21,7 @@ import {ActivityIndicator} from 'react-native-paper';
 import useDishForm from '../../../common/hooks/Dish/useDishForm';
 import ControlledNumberInput from '../../molecules/ControlledInputs/ControlledNumberInput';
 import {useRoute} from '@react-navigation/native';
-import {Scenes} from '../../../navigators/DefaultNavigation/const';
+import {Scenes} from '../../../navigators/RootNavigation/const';
 
 const DishForm = () => {
   const [img, setImg] = useState<DishPhoto>(null);

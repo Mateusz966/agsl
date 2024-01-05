@@ -1,22 +1,22 @@
-import {useCallback, useState} from 'react';
-import {Scenes} from '../../../navigators/DefaultNavigation/const';
+import {useCallback} from 'react';
+import {Scenes} from '../../../navigators/RootNavigation/const';
 import {NativeStackNavigationProp} from '@react-navigation/native-stack';
 import {useNavigation} from '@react-navigation/native';
-import {RootStackParamList} from '../../../navigators/DefaultNavigation/types';
+import {RootStackParamList} from '../../../navigators/RootNavigation/types';
+import {resetGenericPassword} from 'react-native-keychain';
 
 const useNavigateToScene = () => {
-  const [sceneToNavigate, setSceneToNavigate] = useState<Scenes>(
-    Scenes.AddDish,
-  );
   const navigation =
-    useNavigation<
-      NativeStackNavigationProp<RootStackParamList, typeof sceneToNavigate>
-    >();
+    useNavigation<NativeStackNavigationProp<RootStackParamList>>();
 
   const handleNavigate = useCallback(
-    (scene: Scenes) => {
-      setSceneToNavigate(scene);
-      navigation.navigate(scene);
+    async (scene: Scenes) => {
+      if (scene === Scenes.Login) {
+        await resetGenericPassword();
+        navigation.navigate(scene);
+      } else {
+        navigation.navigate(scene);
+      }
     },
     [navigation],
   );

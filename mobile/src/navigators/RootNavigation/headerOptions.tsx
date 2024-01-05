@@ -55,7 +55,6 @@ export const basketHeaderOptions: NativeStackNavigationOptions = {
 };
 
 export const homeHeaderOptions: NativeStackNavigationOptions = {
-  title: 'Hello, Vix',
   header: () => <HomeHeader />,
 };
 

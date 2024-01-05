@@ -5,8 +5,8 @@ import {Text} from 'react-native-paper';
 import {Button} from '../../atoms';
 import {styles} from './styles';
 import {NavigationProp, useNavigation} from '@react-navigation/native';
-import {RootStackParamList} from '../../../navigators/DefaultNavigation/types';
-import {Scenes} from '../../../navigators/DefaultNavigation/const';
+import {RootStackParamList} from '../../../navigators/RootNavigation/types';
+import {Scenes} from '../../../navigators/RootNavigation/const';
 
 const EntryPageContent = () => {
   const {navigate} = useNavigation<NavigationProp<RootStackParamList>>();

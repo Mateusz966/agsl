@@ -28,7 +28,7 @@ import BottomBar from '../BottomNavigation';
 
 const Stack = createNativeStackNavigator<RootStackParamList>();
 
-const DishNavigation = () => {
+const DishNavigationStack = () => {
   return (
     <Stack.Navigator screenOptions={mainHeaderOptions}>
       <Stack.Screen
@@ -60,7 +60,7 @@ const DishNavigation = () => {
   );
 };
 
-const HomeNavigation = () => {
+const HomeNavigationStack = () => {
   return (
     <Stack.Navigator screenOptions={mainHeaderOptions}>
       <Stack.Screen
@@ -71,7 +71,7 @@ const HomeNavigation = () => {
       <Stack.Screen
         name={Scenes.DishList}
         component={DishList}
-        options={homeHeaderOptions}
+        options={dishListHeaderOptions}
       />
       <Stack.Screen
         name={Scenes.AddDish}
@@ -97,7 +97,7 @@ const HomeNavigation = () => {
   );
 };
 
-const BasketNavigation = () => {
+const BasketNavigationStack = () => {
   return (
     <Stack.Navigator screenOptions={mainHeaderOptions}>
       <Stack.Screen
@@ -108,7 +108,7 @@ const BasketNavigation = () => {
       <Stack.Screen
         name={Scenes.DishList}
         component={DishList}
-        options={homeHeaderOptions}
+        options={dishListHeaderOptions}
       />
       <Stack.Screen
         name={Scenes.UserShoppingLists}
@@ -124,7 +124,7 @@ const BasketNavigation = () => {
   );
 };
 
-const ShoppingListsNavigation = () => {
+const ShoppingListsNavigationStack = () => {
   return (
     <Stack.Navigator screenOptions={mainHeaderOptions}>
       <Stack.Screen
@@ -141,7 +141,7 @@ const ShoppingListsNavigation = () => {
   );
 };
 
-const Navigation = () => {
+const RootNavigation = () => {
   return (
     <AuthProvider>
       <Stack.Navigator screenOptions={mainHeaderOptions}>
@@ -169,10 +169,11 @@ const Navigation = () => {
     </AuthProvider>
   );
 };
+
 export {
-  Navigation,
-  DishNavigation,
-  HomeNavigation,
-  BasketNavigation,
-  ShoppingListsNavigation,
+  RootNavigation,
+  DishNavigationStack,
+  HomeNavigationStack,
+  BasketNavigationStack,
+  ShoppingListsNavigationStack,
 };

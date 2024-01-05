@@ -4,8 +4,8 @@ import useShoppingLists from '../../../common/hooks/ShoppingList/useShoppingList
 import ShoppingListCard from '../../molecules/ShoppingListCard';
 import {useShoppingListContext} from '../../../common/contexts/ShoppingListContext/useShoppingListContext';
 import {NavigationProp, useNavigation} from '@react-navigation/native';
-import {RootStackParamList} from '../../../navigators/DefaultNavigation/types';
-import {Scenes} from '../../../navigators/DefaultNavigation/const';
+import {RootStackParamList} from '../../../navigators/RootNavigation/types';
+import {Scenes} from '../../../navigators/RootNavigation/const';
 
 const UserShoppingListsView = () => {
   const {shoppingListsResponse} = useShoppingLists(true);

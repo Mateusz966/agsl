@@ -2,7 +2,7 @@ import {useCallback} from 'react';
 import {DishPhoto, UseSelectDishPhotoProps} from './types';
 import useDish from './useDish';
 import {useFocusEffect, useRoute} from '@react-navigation/native';
-import {Scenes} from '../../../navigators/DefaultNavigation/const';
+import {Scenes} from '../../../navigators/RootNavigation/const';
 
 export const useSelectDishPhoto = ({
   setImg,
