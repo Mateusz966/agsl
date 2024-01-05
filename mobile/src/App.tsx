@@ -9,24 +9,23 @@
  */
 
 import React from 'react';
-import {BottomNavigation, Provider} from 'react-native-paper';
+import {Provider} from 'react-native-paper';
 import {theme} from './config/theme';
 import {QueryClient, QueryClientProvider} from '@tanstack/react-query';
 import {NavigationContainer} from '@react-navigation/native';
 import {SnackbarProvider} from './common/contexts/SnackbarContext/SnackbarProvider';
 import {DishProvider} from './common/contexts/DishContext/DishProvider';
 import {ShoppingListProvider} from './common/contexts/ShoppingListContext/ShoppingListProvider';
-import BottomNavigationBar from 'react-native-paper/lib/typescript/components/BottomNavigation/BottomNavigationBar';
-import BottomBar from './navigators/BottomNavigation';
-import {Navigation} from './navigators/DefaultNavigation';
+import {RootNavigation} from './navigators/RootNavigation';
+import {navigationRef} from './navigators/RootNavigation/helpers';
 
 const queryClient = new QueryClient();
 
 const NavigationContent = () => {
   return (
-    <NavigationContainer>
+    <NavigationContainer ref={navigationRef}>
       <SnackbarProvider>
-        <Navigation />
+        <RootNavigation />
       </SnackbarProvider>
     </NavigationContainer>
   );

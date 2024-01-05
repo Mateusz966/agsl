@@ -1,6 +1,8 @@
 import axios, {AxiosError, AxiosResponse} from 'axios';
 import {API_ROUTES, AXIOS_CONFIGURATION} from './const';
-import * as Keychain from 'react-native-keychain';
+import {getGenericPassword, resetGenericPassword} from 'react-native-keychain';
+import {navigate} from '../navigators/RootNavigation/helpers';
+import {Scenes} from '../navigators/RootNavigation/const';
 
 export const httpClient = axios.create(AXIOS_CONFIGURATION);
 
@@ -10,7 +12,7 @@ httpClient.interceptors.request.use(
       config.headers.Authorization = undefined;
     } else {
       if (!config.headers.Authorization) {
-        const credentials = await Keychain.getGenericPassword();
+        const credentials = await getGenericPassword();
         if (credentials && credentials.password) {
           config.headers.Authorization = `Bearer ${credentials.password}`;
         }
@@ -30,7 +32,8 @@ httpClient.interceptors.response.use(
   async (error: AxiosError) => {
     console.log(error);
     if (error.response?.status === 401) {
-      await Keychain.resetGenericPassword();
+      await resetGenericPassword();
+      navigate(Scenes.Entry);
     }
   },
 );

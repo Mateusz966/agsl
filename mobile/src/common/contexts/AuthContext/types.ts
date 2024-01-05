@@ -1,8 +1,13 @@
 import {Dispatch, ReactNode, SetStateAction} from 'react';
 
-export interface AuthContextProps {
+export interface AuthState {
   isLogged: boolean;
-  setIsLogged: Dispatch<SetStateAction<boolean>>;
+  nickName: string;
+}
+
+export interface AuthContextProps {
+  authData: AuthState;
+  setAuthData: Dispatch<SetStateAction<AuthState>>;
 }
 
 export interface AuthProviderProps {

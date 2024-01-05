@@ -1,27 +1,31 @@
 import React, {useCallback, useState} from 'react';
-import {AuthContextProps, AuthProviderProps} from './types';
+import {AuthContextProps, AuthProviderProps, AuthState} from './types';
 import {AuthContext} from './AuthContext';
-import Keychain from 'react-native-keychain';
+import {getGenericPassword} from 'react-native-keychain';
 import {
   NavigationProp,
   useFocusEffect,
   useNavigation,
 } from '@react-navigation/native';
-import {RootStackParamList} from '../../../navigators/DefaultNavigation/types';
-import {Scenes} from '../../../navigators/DefaultNavigation/const';
+import {RootStackParamList} from '../../../navigators/RootNavigation/types';
+import {Scenes} from '../../../navigators/RootNavigation/const';
 
 export const AuthProvider = ({children}: AuthProviderProps) => {
   const {navigate} = useNavigation<NavigationProp<RootStackParamList>>();
-  const [isLogged, setIsLogged] = useState(false);
+  const [authData, setAuthData] = useState<AuthState>({
+    isLogged: false,
+    nickName: '',
+  });
 
   useFocusEffect(
     useCallback(() => {
       const isTokenValid = async () => {
-        const credentials = await Keychain.getGenericPassword();
+        const credentials = await getGenericPassword();
+        console.log(credentials, 'credentials');
         if (credentials) {
-          setIsLogged(true);
+          setAuthData({isLogged: true, nickName: credentials.username});
         } else {
-          setIsLogged(false);
+          setAuthData({isLogged: false, nickName: ''});
         }
       };
       isTokenValid();
@@ -30,17 +34,17 @@ export const AuthProvider = ({children}: AuthProviderProps) => {
 
   useFocusEffect(
     useCallback(() => {
-      if (!isLogged) {
+      if (!authData.isLogged) {
         navigate(Scenes.Entry);
       } else {
-        navigate(Scenes.Home);
+        navigate(Scenes.Tab);
       }
-    }, [isLogged, navigate]),
+    }, [authData.isLogged, navigate]),
   );
 
   const value: AuthContextProps = {
-    isLogged,
-    setIsLogged,
+    authData,
+    setAuthData,
   };
 
   return <AuthContext.Provider value={value}>{children}</AuthContext.Provider>;

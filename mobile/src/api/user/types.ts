@@ -7,6 +7,7 @@ export type SignInResponse = {
   id: string;
   email: string;
   accessToken: string;
+  nick: string;
 };
 
 export type RegisterRequest = {
