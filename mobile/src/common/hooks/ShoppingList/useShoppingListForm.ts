@@ -1,4 +1,7 @@
-import {EditShoppingListRequest} from '../../../api/shopping-list/types';
+import {
+  EditShoppingListRequest,
+  IsBoughtType,
+} from '../../../api/shopping-list/types';
 import {useCallback, useState} from 'react';
 import {useDishContext} from '../../contexts/DishContext/useDishContext';
 import {
@@ -25,6 +28,9 @@ export const useShoppingListForm = () => {
   const [formInitialized, setFormInitialized] = useState(false);
   const {addShoppingListMutation, editDishMutationShoppingListMutation} =
     useMutateShoppingList();
+  const [formDefaultValues, setFormDefaultValues] = useState<
+    EditShoppingListRequest | undefined
+  >();
 
   const form = useForm<EditShoppingListRequest>({
     resolver: zodResolver(shoppingListSchema),
@@ -39,10 +45,11 @@ export const useShoppingListForm = () => {
           shoppingListItems: shoppingListResponse.generatedShoppingList?.map(
             response => ({
               ingredientId: response.ingredientId,
-              isBought: String(response.isBought),
+              isBought: String(response.isBought) as IsBoughtType,
             }),
           ),
         };
+        setFormDefaultValues(defaultValues);
         form.reset(defaultValues);
         setFormInitialized(true);
       }
@@ -66,16 +73,21 @@ export const useShoppingListForm = () => {
 
   const handleEditShoppingList = useCallback(
     (payload: EditShoppingListRequest) => {
-      const payloadEdited = {
+      const filteredPayload = {
         listId: payload.listId,
-        shoppingListItems: payload.shoppingListItems.map(item => ({
-          ingredientId: item.ingredientId,
-          isBought: String(item.isBought),
-        })),
+        shoppingListItems: payload.shoppingListItems.filter(
+          (list, index) =>
+            list.isBought !==
+            formDefaultValues?.shoppingListItems[index].isBought,
+        ),
       };
-      editDishMutationShoppingListMutation.mutate(payload);
+      console.log(filteredPayload);
+      editDishMutationShoppingListMutation.mutate(filteredPayload);
     },
-    [editDishMutationShoppingListMutation],
+    [
+      editDishMutationShoppingListMutation,
+      formDefaultValues?.shoppingListItems,
+    ],
   );
 
   return {

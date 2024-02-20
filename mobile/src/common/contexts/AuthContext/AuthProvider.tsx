@@ -21,7 +21,6 @@ export const AuthProvider = ({children}: AuthProviderProps) => {
     useCallback(() => {
       const isTokenValid = async () => {
         const credentials = await getGenericPassword();
-        console.log(credentials, 'credentials');
         if (credentials) {
           setAuthData({isLogged: true, nickName: credentials.username});
         } else {

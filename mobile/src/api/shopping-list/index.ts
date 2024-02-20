@@ -25,10 +25,13 @@ export const editShoppingList = async (
 ) => {
   const {listId, shoppingListItems} = editListData;
 
-  const response = shoppingListItems?.map(async ({ingredientId, isBought}) => {
-    return await httpClient.patch(
-      `${API_ROUTES.v1.shoppingList}/${listId}/ingredient/${ingredientId}/${isBought}`,
-    );
-  });
+  const response = await Promise.all(
+    shoppingListItems?.map(async ({ingredientId, isBought}) => {
+      return await httpClient.patch(
+        `${API_ROUTES.v1.shoppingList}/${listId}/ingredient/${ingredientId}/${isBought}`,
+      );
+    }) || [],
+  );
+
   return response;
 };

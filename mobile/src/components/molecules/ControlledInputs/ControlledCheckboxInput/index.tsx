@@ -25,8 +25,10 @@ const ControlledCheckboxInput = <
         rules={rules}
         render={({field: {onChange, value}}) => (
           <Checkbox
-            status={value ? 'checked' : 'unchecked'}
-            onPress={() => onChange(!value)}
+            status={value === 'true' ? 'checked' : 'unchecked'}
+            onPress={() => {
+              value === 'true' ? onChange('false') : onChange('true');
+            }}
           />
         )}
       />

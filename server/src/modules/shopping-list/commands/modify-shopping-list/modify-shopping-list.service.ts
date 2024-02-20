@@ -2,7 +2,7 @@ import { CommandHandler, ICommandHandler } from '@nestjs/cqrs';
 
 import { DataSource } from 'typeorm';
 import { ModifyShoppingListCommand } from '@modules/shopping-list/commands/modify-shopping-list/modify-shopping-list.command';
-import {HttpException, HttpStatus} from "@nestjs/common";
+import { HttpException, HttpStatus } from '@nestjs/common';
 
 @CommandHandler(ModifyShoppingListCommand)
 export class ModifyShoppingListService implements ICommandHandler {
@@ -20,8 +20,11 @@ export class ModifyShoppingListService implements ICommandHandler {
       `)
       )?.[0]?.idx - 1;
 
-    if (!listElementIndex || listElementIndex < 0) {
-      throw new HttpException('Incorrect ingredient id', HttpStatus.BAD_REQUEST);
+    if (listElementIndex < 0) {
+      throw new HttpException(
+        'Incorrect ingredient id',
+        HttpStatus.BAD_REQUEST,
+      );
     }
 
     await this.dataSource.createQueryRunner().query(`

@@ -22,10 +22,11 @@ export interface ShoppingList {
 export interface ShoppingListResponse {
   userShoppingLists: ShoppingList[];
 }
+export type IsBoughtType = 'true' | 'false';
 
 export interface ShoppingListItemToEdit {
   ingredientId: string;
-  isBought: string;
+  isBought: IsBoughtType;
 }
 
 export interface EditShoppingListRequest {

@@ -11,10 +11,12 @@ import {Scenes} from '../../../navigators/RootNavigation/const';
 import {AxiosError} from 'axios';
 import {getSnackbarErrorMessage} from '../../../common/contexts/SnackbarContext/helpers';
 import {setGenericPassword} from 'react-native-keychain';
+import {useAuthContext} from '../../../common/contexts/AuthContext/useAuthContext';
 
 export const useLogin = () => {
   const navigation = useNavigation<NavigationProp<RootStackParamList>>();
   const {setSnackbarState} = useSnackbarContext();
+  const {setAuthData} = useAuthContext();
 
   const form = useForm<UserLogin>({
     resolver: zodResolver(userLoginSchema),
@@ -31,6 +33,7 @@ export const useLogin = () => {
     },
     onSuccess: async ({accessToken, nick}) => {
       await setGenericPassword(nick, accessToken);
+      setAuthData({isLogged: true, nickName: nick});
       setSnackbarState({visible: true, text: "You're logged in"});
       form.reset({email: '', password: ''});
       navigation.navigate(Scenes.Tab);

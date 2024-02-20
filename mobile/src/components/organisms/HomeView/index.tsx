@@ -11,8 +11,7 @@ const HomeView = () => (
       alignItems: 'center',
       display: 'flex',
       flexDirection: 'row',
-    }}>
-    <ButtonGroup buttons={HOME_BUTTON_GROUP} display={'horizontal'} />
-  </View>
+    }}
+  />
 );
 export default HomeView;

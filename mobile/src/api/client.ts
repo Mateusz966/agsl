@@ -30,10 +30,10 @@ httpClient.interceptors.response.use(
     return response;
   },
   async (error: AxiosError) => {
-    console.log(error);
     if (error.response?.status === 401) {
       await resetGenericPassword();
       navigate(Scenes.Entry);
     }
+    return error;
   },
 );
