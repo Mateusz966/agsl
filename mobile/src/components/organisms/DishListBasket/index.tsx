@@ -5,8 +5,8 @@ import BasketElement from '../../molecules/BasketElement';
 import styles from './styles';
 import ActionButtonsContainer from '../../molecules/ActionButtonsContainer';
 import ShoppingListPhoto from '../../../assets/ShoppingListPhoto';
-import {Text} from 'react-native-paper';
 import {useShoppingListForm} from '../../../common/hooks/ShoppingList/useShoppingListForm';
+import EmptyPageContent from '../../templates/EmptyPageContent';
 
 const DishListBasket = () => {
   const {dishesList} = useDishContext();
@@ -23,19 +23,11 @@ const DishListBasket = () => {
           )}
         />
       ) : (
-        <>
-          <View style={styles.emptyBasketContainer}>
-            <ShoppingListPhoto />
-          </View>
-          <View style={styles.emptyBasket}>
-            <Text style={styles.headlineMedium} variant="headlineMedium">
-              Add dishes to the basket
-            </Text>
-            <Text style={styles.headlineSmall} variant="headlineSmall">
-              and create your shopping list
-            </Text>
-          </View>
-        </>
+        <EmptyPageContent
+          fillerPhoto={<ShoppingListPhoto />}
+          headlineMedium="Add dishes to the basket"
+          headlineSmall="and create your shopping list"
+        />
       )}
       <ActionButtonsContainer
         primaryButtonProps={{

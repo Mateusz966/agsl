@@ -6,6 +6,11 @@ import {useShoppingListContext} from '../../../common/contexts/ShoppingListConte
 import {NavigationProp, useNavigation} from '@react-navigation/native';
 import {RootStackParamList} from '../../../navigators/RootNavigation/types';
 import {Scenes} from '../../../navigators/RootNavigation/const';
+import EmptyPageContent from '../../templates/EmptyPageContent';
+import EmptyShoppingListPhoto from '../../../assets/EmptyShoppingListPhoto';
+import TextButton from '../../atoms/Buttons/TextButton';
+import {BottomNavigationProps} from 'react-native-paper';
+import {BottomNavigationScenes} from '../../../navigators/BottomNavigation/const';
 
 const UserShoppingListsView = () => {
   const {shoppingListsResponse} = useShoppingLists(true);
@@ -14,20 +19,33 @@ const UserShoppingListsView = () => {
 
   return (
     <View>
-      <FlatList
-        data={shoppingListsResponse
-          .sort((a, b) => a.createdAt.localeCompare(b.createdAt))
-          .reverse()}
-        renderItem={({item}) => (
-          <ShoppingListCard
-            createdAt={item.createdAt}
-            onPressHandler={() => {
-              setShoppingListId(item.id);
-              navigate(Scenes.ShoppingList);
-            }}
-          />
-        )}
-      />
+      {shoppingListsResponse.length > 0 ? (
+        <FlatList
+          data={shoppingListsResponse
+            .sort((a, b) => a.createdAt.localeCompare(b.createdAt))
+            .reverse()}
+          renderItem={({item}) => (
+            <ShoppingListCard
+              createdAt={item.createdAt}
+              onPressHandler={() => {
+                setShoppingListId(item.id);
+                navigate(Scenes.ShoppingList);
+              }}
+            />
+          )}
+        />
+      ) : (
+        <EmptyPageContent
+          fillerPhoto={<EmptyShoppingListPhoto />}
+          headlineMedium="Create your  first shopping list"
+          headlineSmall="add your dishes to basket"
+          actionElement={
+            <TextButton onPress={() => navigate(BottomNavigationScenes.Basket)}>
+              Navigate to basket
+            </TextButton>
+          }
+        />
+      )}
     </View>
   );
 };

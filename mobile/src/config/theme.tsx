@@ -1,10 +1,6 @@
 import {DefaultTheme} from 'react-native-paper';
 
 export const colors = {
-  colors: {
-    ...DefaultTheme.colors,
-    error: '#443D53',
-  },
   ...DefaultTheme.colors,
   primary: '#6152BE',
   secondary: '#414757',
@@ -44,6 +40,7 @@ export const components = {
     style: {
       primary: {
         backgroundColor: colors.primaryButton,
+        minWidth: 150,
       },
       secondary: {backgroundColor: colors.white},
     },
@@ -52,10 +49,6 @@ export const components = {
       secondary: colors.secondary,
     },
   },
-};
-const fontConfig = {
-  fontFamily: 'sans-serif',
-  letterSpacing: 1.5,
 };
 
 export const theme = {

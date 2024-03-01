@@ -1,17 +1,12 @@
 import React from 'react';
-import ButtonGroup from '../../molecules/ButtonGroup';
-import {View} from 'react-native';
-import {HOME_BUTTON_GROUP} from './const';
+import EmptyPageContent from '../../templates/EmptyPageContent';
+import HomePhoto from '../../../assets/HomePhoto';
 
 const HomeView = () => (
-  <View
-    style={{
-      justifyContent: 'center',
-      alignContent: 'center',
-      alignItems: 'center',
-      display: 'flex',
-      flexDirection: 'row',
-    }}
+  <EmptyPageContent
+    fillerPhoto={<HomePhoto />}
+    headlineMedium="Welcome to AGSL!"
+    headlineSmall="All your shopping lists in one place"
   />
 );
 export default HomeView;
