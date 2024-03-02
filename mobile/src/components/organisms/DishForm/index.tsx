@@ -62,7 +62,7 @@ const DishForm = () => {
             name={'name'}
             control={control}
             error={errors.name?.message}
-            displayName="Name of your meal"
+            displayName="Meal name"
           />
           <OpenGalleryModal
             visible={modalVisible}

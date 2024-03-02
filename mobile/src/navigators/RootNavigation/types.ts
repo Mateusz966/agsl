@@ -7,7 +7,7 @@ export type RootStackParamList = {
   AddDish: DishResponse | undefined;
   DishList: undefined;
   EditDish: undefined;
-  Basket: undefined;
+  TabBasket: undefined;
   ShoppingList: undefined;
   UserShoppingLists: undefined;
   Home: undefined;

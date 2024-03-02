@@ -9,7 +9,6 @@ import {Scenes} from '../../../navigators/RootNavigation/const';
 import EmptyPageContent from '../../templates/EmptyPageContent';
 import EmptyShoppingListPhoto from '../../../assets/EmptyShoppingListPhoto';
 import TextButton from '../../atoms/Buttons/TextButton';
-import {BottomNavigationProps} from 'react-native-paper';
 import {BottomNavigationScenes} from '../../../navigators/BottomNavigation/const';
 
 const UserShoppingListsView = () => {
@@ -37,7 +36,7 @@ const UserShoppingListsView = () => {
       ) : (
         <EmptyPageContent
           fillerPhoto={<EmptyShoppingListPhoto />}
-          headlineMedium="Create your  first shopping list"
+          headlineMedium="Create your first shopping list"
           headlineSmall="add your dishes to basket"
           actionElement={
             <TextButton onPress={() => navigate(BottomNavigationScenes.Basket)}>

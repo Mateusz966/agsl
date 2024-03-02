@@ -38,7 +38,6 @@ const DishListBasket = () => {
           text: 'Reset basket',
           onPress: () => handleResetBasket(),
         }}
-        containerStyle={styles.actionButtonsContainer}
       />
     </View>
   );
