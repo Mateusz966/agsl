@@ -21,6 +21,11 @@ import {navigationRef} from './navigators/RootNavigation/helpers';
 
 const queryClient = new QueryClient();
 
+if (__DEV__) {
+  // @ts-ignore
+  import("../ReactotronConfig").then(() => console.log("Reactotron Configured"));
+}
+
 const NavigationContent = () => {
   return (
     <NavigationContainer ref={navigationRef}>

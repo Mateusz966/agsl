@@ -2,7 +2,7 @@ import {
   EditShoppingListRequest,
   IsBoughtType,
 } from '../../../api/shopping-list/types';
-import {useCallback, useState} from 'react';
+import {useCallback} from 'react';
 import {useDishContext} from '../../contexts/DishContext/useDishContext';
 import {
   NavigationProp,
@@ -25,12 +25,8 @@ export const useShoppingListForm = () => {
     !!(dishesList.length && shoppingListId),
   );
   const {navigate} = useNavigation<NavigationProp<RootStackParamList>>();
-  const [formInitialized, setFormInitialized] = useState(false);
   const {addShoppingListMutation, editDishMutationShoppingListMutation} =
     useMutateShoppingList();
-  const [formDefaultValues, setFormDefaultValues] = useState<
-    EditShoppingListRequest | undefined
-  >();
 
   const form = useForm<EditShoppingListRequest>({
     resolver: zodResolver(shoppingListSchema),
@@ -39,21 +35,20 @@ export const useShoppingListForm = () => {
 
   useFocusEffect(
     useCallback(() => {
-      if (!formInitialized && shoppingListResponse && !isShoppingListLoading) {
-        const defaultValues = {
+      if (shoppingListResponse && !isShoppingListLoading) {
+        const formValues = {
           listId: shoppingListResponse.listId,
           shoppingListItems: shoppingListResponse.generatedShoppingList?.map(
             response => ({
-              ingredientId: response.ingredientId,
+              ingredientId: response.ingredientId ?? '',
               isBought: String(response.isBought) as IsBoughtType,
             }),
           ),
         };
-        setFormDefaultValues(defaultValues);
-        form.reset(defaultValues);
-        setFormInitialized(true);
+        form.setValue('listId', formValues.listId);
+        form.setValue('shoppingListItems', formValues.shoppingListItems);
       }
-    }, [formInitialized, shoppingListResponse, isShoppingListLoading, form]),
+    }, [shoppingListResponse, isShoppingListLoading]),
   );
 
   const handleCreateShoppingList = useCallback(() => {
@@ -75,19 +70,11 @@ export const useShoppingListForm = () => {
     (payload: EditShoppingListRequest) => {
       const filteredPayload = {
         listId: payload.listId,
-        shoppingListItems: payload.shoppingListItems.filter(
-          (list, index) =>
-            list.isBought !==
-            formDefaultValues?.shoppingListItems[index].isBought,
-        ),
+        shoppingListItems: payload.shoppingListItems,
       };
-      console.log(filteredPayload);
       editDishMutationShoppingListMutation.mutate(filteredPayload);
     },
-    [
-      editDishMutationShoppingListMutation,
-      formDefaultValues?.shoppingListItems,
-    ],
+    [editDishMutationShoppingListMutation],
   );
 
   return {

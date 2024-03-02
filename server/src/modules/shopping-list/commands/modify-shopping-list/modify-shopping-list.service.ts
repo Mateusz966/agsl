@@ -20,7 +20,7 @@ export class ModifyShoppingListService implements ICommandHandler {
       `)
       )?.[0]?.idx - 1;
 
-    if (!listElementIndex || listElementIndex < 0) {
+    if (listElementIndex === -1) {
       throw new HttpException(
         'Incorrect ingredient id',
         HttpStatus.BAD_REQUEST,

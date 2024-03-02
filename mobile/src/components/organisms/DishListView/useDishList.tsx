@@ -8,6 +8,8 @@ const useDishList = () => {
     queryFn: getDishList,
   });
 
+  console.log('useDishList', data, isLoading, refetch)
+
   return {
     dishListResponse: data ?? [],
     isDishListLoading: isLoading,
