@@ -3,17 +3,20 @@ import {useMutation} from '@tanstack/react-query';
 import {SignInRequest, SignInResponse} from '../../../api/user/types';
 import {UserLogin, userLoginSchema} from './validation';
 import {zodResolver} from '@hookform/resolvers/zod';
-import {ERROR_MESSAGES} from '../../../utils/errorDictionary';
 import {loginUser} from '../../../api/user';
-import {useNavigation} from '@react-navigation/native';
-import {Scenes} from '../../../navigators/const';
-import {AddDishNavigationProps} from '../../../navigators/types';
+import {NavigationProp, useNavigation} from '@react-navigation/native';
 import {useSnackbarContext} from '../../../common/contexts/SnackbarContext/useSnackbarContext';
-import Keychain from 'react-native-keychain';
+import {RootStackParamList} from '../../../navigators/RootNavigation/types';
+import {Scenes} from '../../../navigators/RootNavigation/const';
+import {AxiosError} from 'axios';
+import {getSnackbarErrorMessage} from '../../../common/contexts/SnackbarContext/helpers';
+import {setGenericPassword} from 'react-native-keychain';
+import {useAuthContext} from '../../../common/contexts/AuthContext/useAuthContext';
 
 export const useLogin = () => {
-  const navigation = useNavigation<AddDishNavigationProps>();
-  const {setVisible, setText} = useSnackbarContext();
+  const navigation = useNavigation<NavigationProp<RootStackParamList>>();
+  const {setSnackbarState} = useSnackbarContext();
+  const {setAuthData} = useAuthContext();
 
   const form = useForm<UserLogin>({
     resolver: zodResolver(userLoginSchema),
@@ -24,21 +27,22 @@ export const useLogin = () => {
     },
   });
 
-  const loginMutation = useMutation<SignInResponse, void, SignInRequest>({
+  const loginMutation = useMutation<SignInResponse, AxiosError, SignInRequest>({
     mutationFn: payload => {
       return loginUser(payload);
     },
-    onSuccess: async ({accessToken, email}) => {
-      await Keychain.setGenericPassword(email, accessToken);
-      setVisible(true);
-      setText("You're logged in");
+    onSuccess: async ({accessToken, nick}) => {
+      await setGenericPassword(nick, accessToken);
+      setAuthData({isLogged: true, nickName: nick});
+      setSnackbarState({visible: true, text: "You're logged in"});
       form.reset({email: '', password: ''});
-      setVisible(false);
-      navigation.navigate(Scenes.DishList);
+      navigation.navigate(Scenes.Tab);
     },
     onError: error => {
-      setVisible(true);
-      setText(`${ERROR_MESSAGES[`${error}`]}`);
+      setSnackbarState({
+        visible: false,
+        text: `${getSnackbarErrorMessage(error?.status)}`,
+      });
     },
   });
 

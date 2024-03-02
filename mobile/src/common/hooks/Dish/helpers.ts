@@ -1,5 +1,5 @@
 import {DishResponse, EditDishForm} from '../../../api/dish/types';
-import {Scenes} from '../../../navigators/const';
+import {Scenes} from '../../../navigators/RootNavigation/const';
 import {DEFAULT_DISH_FORM_VALUE} from './const';
 import {DishPhoto} from './types';
 

@@ -1,4 +1,4 @@
-import {Scenes} from '../../../navigators/const';
+import {Scenes} from '../../../navigators/RootNavigation/const';
 
 export type ScenesType = keyof typeof Scenes;
 

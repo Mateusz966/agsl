@@ -1,5 +1,6 @@
+import {DishResponse} from '../../../api/dish/types';
+
 export interface DishCardProps {
-  dishName: string;
+  dish: DishResponse;
   onPressHandler: () => void;
-  photoSource?: string;
 }

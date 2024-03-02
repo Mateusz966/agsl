@@ -7,8 +7,8 @@ import { DishModel } from '@modules/dish/database/dish.model';
 export class IngredientsModel extends ModelBase {
   @Column()
   name: string;
-  @Column()
-  amount: string;
+  @Column({ type: 'float4'  })
+  amount: number;
   @Column()
   unit: IngredientMeasurementUnit;
   @ManyToOne(() => DishModel, (dish) => dish.ingredients)

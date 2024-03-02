@@ -8,7 +8,6 @@ import ActionButtonsContainer from '../../molecules/ActionButtonsContainer';
 import {Layout} from '../../atoms/Layout';
 import styles from './styles';
 import {useSelectDishPhoto} from '../../../common/hooks/Dish/useSelectDishPhoto';
-import SnackbarMessage from '../../atoms/SnackbarMessage';
 import OpenGalleryModal from '../OpenGalleryModal';
 import ControlledSelect from '../../molecules/ControlledInputs/ControlledSelect';
 import {ICON_PATHS} from '../../../utils/icons';
@@ -18,15 +17,17 @@ import {DishPhoto} from '../../../common/hooks/Dish/types';
 import IconButton from '../../atoms/Buttons/IconButton';
 import {theme} from '../../../config/theme';
 import TextButton from '../../atoms/Buttons/TextButton';
-import {useSnackbarContext} from '../../../common/contexts/SnackbarContext/useSnackbarContext';
 import {ActivityIndicator} from 'react-native-paper';
 import useDishForm from '../../../common/hooks/Dish/useDishForm';
+import ControlledNumberInput from '../../molecules/ControlledInputs/ControlledNumberInput';
+import {useRoute} from '@react-navigation/native';
+import {Scenes} from '../../../navigators/RootNavigation/const';
 
 const DishForm = () => {
   const [img, setImg] = useState<DishPhoto>(null);
   const {handleOnModalDissmiss, modalVisible, setModalVisible} =
     useModalVisibility();
-  const {text, handleOnDismiss, visible} = useSnackbarContext();
+  const routeName = useRoute().name;
   const {
     form,
     onSubmit,
@@ -49,7 +50,7 @@ const DishForm = () => {
     formState: {errors},
   } = form;
 
-  return isDishLoading ? (
+  return isDishLoading && routeName === Scenes.EditDish ? (
     <View style={styles.loader}>
       <ActivityIndicator size={50} />
     </View>
@@ -61,7 +62,7 @@ const DishForm = () => {
             name={'name'}
             control={control}
             error={errors.name?.message}
-            displayName="Name of your meal"
+            displayName="Meal name"
           />
           <OpenGalleryModal
             visible={modalVisible}
@@ -96,11 +97,10 @@ const DishForm = () => {
                   errorStyle={styles.ingredientsErrorStyle}
                   style={styles.nameInput}
                 />
-                <ControlledTextInput
+                <ControlledNumberInput
                   name={`ingredients.${index}.amount`}
                   control={control}
                   displayName="Amount"
-                  keyboardType="numeric"
                   error={errors?.ingredients?.[index]?.amount?.message}
                   errorStyle={styles.ingredientsErrorStyle}
                   style={styles.amountInput}
@@ -126,7 +126,7 @@ const DishForm = () => {
             <TextButton
               icon={ICON_PATHS.ADD_ICON}
               style={styles.addButton}
-              onPress={() => append({name: '', amount: '1', unit: Unit.g})}>
+              onPress={() => append({name: '', amount: 1, unit: Unit.g})}>
               Add another ingredient
             </TextButton>
           </View>
@@ -139,9 +139,6 @@ const DishForm = () => {
           containerStyle={styles.actionButtonsContainer}
         />
       </View>
-      <SnackbarMessage visible={visible} onDismiss={handleOnDismiss}>
-        {text}
-      </SnackbarMessage>
     </>
   );
 };

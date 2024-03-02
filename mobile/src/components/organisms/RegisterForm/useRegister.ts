@@ -3,34 +3,36 @@ import {useMutation} from '@tanstack/react-query';
 import {RegisterRequest} from '../../../api/user/types';
 import {UserRegister, userRegisterSchema} from './validation';
 import {zodResolver} from '@hookform/resolvers/zod';
-import {ERROR_MESSAGES} from '../../../utils/errorDictionary';
 import {signUpUser} from '../../../api/user';
 import {useNavigation} from '@react-navigation/core';
-import {AddDishNavigationProps} from '../../../navigators/types';
-import {Scenes} from '../../../navigators/const';
+import {Scenes} from '../../../navigators/RootNavigation/const';
 import {useSnackbarContext} from '../../../common/contexts/SnackbarContext/useSnackbarContext';
+import {RootStackParamList} from '../../../navigators/RootNavigation/types';
+import {NavigationProp} from '@react-navigation/native';
+import {AxiosError} from 'axios';
+import {getSnackbarErrorMessage} from '../../../common/contexts/SnackbarContext/helpers';
 
 const useRegister = () => {
   const form = useForm<UserRegister>({
     resolver: zodResolver(userRegisterSchema),
   });
-  const {setVisible, setText} = useSnackbarContext();
-  const navigation = useNavigation<AddDishNavigationProps>();
+  const {setSnackbarState} = useSnackbarContext();
+  const navigation = useNavigation<NavigationProp<RootStackParamList>>();
 
-  const registerMutation = useMutation<void, void, RegisterRequest>({
+  const registerMutation = useMutation<void, AxiosError, RegisterRequest>({
     mutationFn: payload => {
       return signUpUser(payload);
     },
     onSuccess: () => {
-      setVisible(true);
-      setText("You're registered");
+      setSnackbarState({visible: true, text: "You're registered"});
       form.reset({nick: '', email: '', password: ''});
-      setVisible(false);
       navigation.navigate(Scenes.Login);
     },
     onError: error => {
-      setVisible(true);
-      setText(`${ERROR_MESSAGES[`${error}`]}`);
+      setSnackbarState({
+        visible: true,
+        text: `${getSnackbarErrorMessage(error?.status)}`,
+      });
     },
   });
 

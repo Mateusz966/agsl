@@ -5,8 +5,8 @@ import {Text} from 'react-native-paper';
 import {Button} from '../../atoms';
 import {styles} from './styles';
 import {NavigationProp, useNavigation} from '@react-navigation/native';
-import {RootStackParamList} from '../../../navigators/types';
-import {Scenes} from '../../../navigators/const';
+import {RootStackParamList} from '../../../navigators/RootNavigation/types';
+import {Scenes} from '../../../navigators/RootNavigation/const';
 
 const EntryPageContent = () => {
   const {navigate} = useNavigation<NavigationProp<RootStackParamList>>();
@@ -32,7 +32,11 @@ const EntryPageContent = () => {
         style={styles.loginBtn}>
         Login
       </Button>
-      <Button style={styles.registerBtn} textColor="black" mode="outlined">
+      <Button
+        style={styles.registerBtn}
+        onPress={() => navigate(Scenes.Register)}
+        textColor="black"
+        mode="outlined">
         Register
       </Button>
     </ScrollView>

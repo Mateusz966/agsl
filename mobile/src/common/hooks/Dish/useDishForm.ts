@@ -1,7 +1,7 @@
 import {useCallback, useMemo, useState} from 'react';
 import {EditDishForm} from '../../../api/dish/types';
 import {useFocusEffect, useRoute} from '@react-navigation/native';
-import {Scenes} from '../../../navigators/const';
+import {Scenes} from '../../../navigators/RootNavigation/const';
 import {useFieldArray, useForm} from 'react-hook-form';
 import {
   AddDish,
@@ -15,9 +15,7 @@ import {useMutateDish} from './useMutateDish';
 
 const useDishForm = ({img}: UseDishFormProps) => {
   const routeName = useRoute().name;
-  const {dishResponse, isDishLoading} = useDish(
-    routeName === Scenes.EditDish ? true : false,
-  );
+  const {dishResponse, isDishLoading} = useDish(routeName === Scenes.EditDish);
   const [formInitialized, setFormInitialized] = useState(false);
   const [ingredientIdsToDelete, setIngredientIdsToDelete] = useState<string[]>(
     [],

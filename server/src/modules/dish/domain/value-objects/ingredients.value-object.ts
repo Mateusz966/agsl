@@ -9,7 +9,7 @@ export type IngredientMeasurementUnit = 'g' | 'ml' | 'kg' | 'l';
 export class IngredientsProps {
   id: string | undefined;
   name: string;
-  amount: string;
+  amount: number;
   unit: IngredientMeasurementUnit;
 }
 

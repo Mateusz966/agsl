@@ -1,31 +1,35 @@
-import {useMutation} from '@tanstack/react-query';
+import {useMutation, useQueryClient} from '@tanstack/react-query';
 import {addDish, editDish} from '../../../api/dish';
 import {useSnackbarContext} from '../../contexts/SnackbarContext/useSnackbarContext';
 import {EditDishRequest, UseMutateDishProps} from './types';
 import {AxiosError} from 'axios';
 import useDish from './useDish';
-import useDishList from '../../../components/organisms/DishListView/useDishList';
-import {useFocusEffect} from '@react-navigation/native';
-import {useCallback} from 'react';
+import {useRoute} from '@react-navigation/native';
+import {Scenes} from '../../../navigators/RootNavigation/const';
+import {getSnackbarErrorMessage} from '../../contexts/SnackbarContext/helpers';
 
 export const useMutateDish = ({
   setIngredientIdsToDelete,
 }: UseMutateDishProps) => {
-  const {setText, setVisible} = useSnackbarContext();
-  const {refetchDish, isDishLoading} = useDish();
+  const {setSnackbarState} = useSnackbarContext();
+  const routeName = useRoute().name;
+  const {isDishLoading} = useDish(routeName === Scenes.EditDish);
+  const client = useQueryClient();
 
-  const {refetchDishList} = useDishList();
-
-  const addDishMutation = useMutation<void, void, FormData>({
+  const addDishMutation = useMutation<void, AxiosError, FormData>({
     mutationFn: payload => addDish(payload),
     onSuccess: () => {
-      setVisible(true);
-      setText('Your dish was added sucessfully');
-      refetchDishList();
+      setSnackbarState({
+        visible: true,
+        text: 'Your dish was added sucessfully',
+      });
+      client.invalidateQueries();
     },
     onError: error => {
-      setVisible(true);
-      setText(`${error}`);
+      setSnackbarState({
+        visible: true,
+        text: `${getSnackbarErrorMessage(error?.status)}`,
+      });
     },
   });
 
@@ -33,22 +37,19 @@ export const useMutateDish = ({
     mutationFn: payload => editDish(payload),
     onSuccess: async () => {
       setIngredientIdsToDelete([]);
-      setVisible(true);
-      setText('Your dish was edited sucessfully');
-      refetchDish();
-      refetchDishList();
+      setSnackbarState({
+        visible: true,
+        text: 'Your dish was edited sucessfully',
+      });
+      client.invalidateQueries();
     },
     onError: error => {
-      setVisible(true);
-      setText(`${error}`);
+      setSnackbarState({
+        visible: true,
+        text: `${getSnackbarErrorMessage(error?.status)}`,
+      });
     },
   });
-
-  useFocusEffect(
-    useCallback(() => {
-      return () => setVisible(false);
-    }, [setVisible]),
-  );
 
   return {
     addDishMutation,
