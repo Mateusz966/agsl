@@ -6,7 +6,7 @@ export class EditDishCommand extends Command {
   readonly name: string;
   readonly photo?: Express.Multer.File | null;
   readonly ingredients: IngredientsProps[];
-  readonly ingredientsIdsToDelete?: string[]
+  readonly ingredientsIdsToDelete?: string[];
   readonly userId: string;
 
   constructor(props: CommandProps<EditDishCommand>) {

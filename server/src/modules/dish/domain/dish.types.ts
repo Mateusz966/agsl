@@ -1,6 +1,6 @@
 // All properties that a Dish has
 import { Ingredients } from '@modules/dish/domain/value-objects/ingredients.value-object';
-import {DishModel} from "@modules/dish/database/dish.model";
+import { DishModel } from '@modules/dish/database/dish.model';
 
 export interface DishProps {
   name: string;
@@ -35,7 +35,6 @@ export type DishEntityPersistent = {
 
 export type DishPhoto = string | null;
 
-
 export interface DishModelWithPhoto extends DishModel {
-  photo: string
+  photo: string;
 }

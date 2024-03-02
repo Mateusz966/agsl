@@ -16,10 +16,8 @@ import { EditDishHttpController } from '@modules/dish/commands/edit-dish/edit-di
 import { EditDishService } from '@modules/dish/commands/edit-dish/edit-dish.service';
 import { GetUserDishesHttpController } from '@modules/dish/queries/get-user-dishes/get-user-dishes.http.controller';
 import { GetUserDishesQueryHandler } from '@modules/dish/queries/get-user-dishes/get-user-dishes.query-handler';
-import {IngredientsModelRepository} from "@modules/dish/database/ingredients-model.repository";
-import {
-  GetDishIngredientsQueryHandler
-} from "@modules/dish/queries/get-dish-ingredients/get-dish-ingredients.query-handler";
+import { IngredientsModelRepository } from '@modules/dish/database/ingredients-model.repository';
+import { GetDishIngredientsQueryHandler } from '@modules/dish/queries/get-dish-ingredients/get-dish-ingredients.query-handler';
 
 const httpControllers = [
   CreateDishHttpController,

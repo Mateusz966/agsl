@@ -16,7 +16,6 @@ import { CommandBus } from '@nestjs/cqrs';
 import { UserAlreadyExistsError } from '@modules/user/domain/user.errors';
 import { IdResponse } from '@libs/api/id.response.dto';
 import { AggregateID } from '@libs/ddd';
-import { ApiErrorResponse } from '@src/libs/api/api-error.response';
 import { FileFastifyInterceptor } from 'fastify-file-interceptor';
 import { Ingredients } from '@modules/dish/domain/value-objects/ingredients.value-object';
 import { User } from '@libs/decorators/User.decorator';
@@ -34,15 +33,6 @@ export class EditDishHttpController {
   @ApiResponse({
     status: HttpStatus.OK,
     type: IdResponse,
-  })
-  @ApiResponse({
-    status: HttpStatus.CONFLICT,
-    description: UserAlreadyExistsError.message,
-    type: ApiErrorResponse,
-  })
-  @ApiResponse({
-    status: HttpStatus.BAD_REQUEST,
-    type: ApiErrorResponse,
   })
   @Patch(`${routesV1.dishes.root}/:id`)
   @UseGuards(JwtAuthGuard)

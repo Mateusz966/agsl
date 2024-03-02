@@ -2,7 +2,7 @@ import { Guard } from '../guard';
 import {
   ArgumentInvalidException,
   ArgumentNotProvidedException,
-  ArgumentOutOfRangeException
+  ArgumentOutOfRangeException,
 } from '@libs/exceptions/exception.codes';
 import { convertPropsToObject } from '@libs/utils/convert-props-to-object.util';
 

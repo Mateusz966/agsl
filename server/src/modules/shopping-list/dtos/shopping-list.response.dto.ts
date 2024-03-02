@@ -4,30 +4,10 @@ import {
   IsDate,
   ValidateNested,
   IsUUID,
-  IsInt,
   Min,
-  IsIn,
-  IsNumber,
+  IsNumber, IsEnum,
 } from 'class-validator';
 import { Type } from 'class-transformer';
-
-export class ShoppingListResponseDto {
-  @IsUUID()
-  id: string;
-
-  @ValidateNested({ each: true })
-  @Type(() => GeneratedShoppingListItem)
-  generatedShoppingList: GeneratedShoppingListItem[];
-
-  @IsBoolean()
-  isDraft: boolean;
-
-  @IsDate()
-  createdAt: string;
-
-  @IsDate()
-  updatedAt: string;
-}
 
 export class UserShoppingListsResponseDto {
   @ValidateNested({ each: true })
@@ -56,4 +36,28 @@ class GeneratedShoppingListItem {
 
   @IsBoolean()
   isBought: boolean;
+}
+
+export enum ShoppingListStatus {
+  Draft = 'Draft',
+  Accepted = 'Accepted',
+  Ended = 'Ended',
+}
+
+export class ShoppingListResponseDto {
+  @IsUUID()
+  id: string;
+
+  @ValidateNested({ each: true })
+  @Type(() => GeneratedShoppingListItem)
+  generatedShoppingList: GeneratedShoppingListItem[];
+
+  @IsEnum(ShoppingListStatus)
+  status: ShoppingListStatus;
+
+  @IsDate()
+  createdAt: string;
+
+  @IsDate()
+  updatedAt: string;
 }
