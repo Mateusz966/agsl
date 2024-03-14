@@ -12,6 +12,8 @@ const DishListBasket = () => {
   const {dishesList} = useDishContext();
   const {handleCreateShoppingList, handleResetBasket} = useShoppingListForm();
 
+  const hideBtnContainer = dishesList.length === 0;
+
   return (
     <View>
       {dishesList.length > 0 ? (
@@ -29,16 +31,18 @@ const DishListBasket = () => {
           headlineSmall="and create your shopping list"
         />
       )}
-      <ActionButtonsContainer
-        primaryButtonProps={{
-          text: 'Create shopping list',
-          onPress: () => handleCreateShoppingList(),
-        }}
-        secondaryButtonProps={{
-          text: 'Reset basket',
-          onPress: () => handleResetBasket(),
-        }}
-      />
+      {!hideBtnContainer && (
+        <ActionButtonsContainer
+          primaryButtonProps={{
+            text: 'Create shopping list',
+            onPress: handleCreateShoppingList,
+          }}
+          secondaryButtonProps={{
+            text: 'Reset basket',
+            onPress: handleResetBasket,
+          }}
+        />
+      )}
     </View>
   );
 };
