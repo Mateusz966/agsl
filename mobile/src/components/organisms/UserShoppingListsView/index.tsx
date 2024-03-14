@@ -10,11 +10,17 @@ import EmptyPageContent from '../../templates/EmptyPageContent';
 import EmptyShoppingListPhoto from '../../../assets/EmptyShoppingListPhoto';
 import TextButton from '../../atoms/Buttons/TextButton';
 import {BottomNavigationScenes} from '../../../navigators/BottomNavigation/const';
+import {ActivityIndicator} from 'react-native-paper';
 
 const UserShoppingListsView = () => {
-  const {shoppingListsResponse} = useShoppingLists(true);
+  const {shoppingListsResponse, areShoppingListsLoading} =
+    useShoppingLists(true);
   const {setShoppingListId} = useShoppingListContext();
   const {navigate} = useNavigation<NavigationProp<RootStackParamList>>();
+
+  if (areShoppingListsLoading) {
+    return <ActivityIndicator animating />;
+  }
 
   return (
     <View>

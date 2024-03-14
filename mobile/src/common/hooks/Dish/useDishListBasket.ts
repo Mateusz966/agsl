@@ -9,7 +9,7 @@ export const useDishListBasket = () => {
       const existingIndex = prevState.findIndex(item => item.id === dish.id);
 
       if (existingIndex !== -1) {
-        // If the dishx already exists, update the count
+        // If the dish already exists, update the count
         return prevState.map((item, index) =>
           index === existingIndex ? {...item, count: item.count + 1} : item,
         );

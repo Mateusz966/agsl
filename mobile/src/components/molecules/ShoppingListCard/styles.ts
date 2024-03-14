@@ -56,20 +56,4 @@ export default StyleSheet.create({
     backgroundColor: colors.outlineVariant,
     justifyContent: 'center',
   },
-
-  itemContainer: {
-    flexDirection: 'row',
-    height: 50,
-    marginHorizontal: 20,
-    marginVertical: 10,
-    backgroundColor: colors.white,
-    alignItems: 'center',
-    textAlign: 'center',
-    borderBottomWidth: 0.5,
-    borderColor: colors.primary,
-    justifyContent: 'flex-start',
-    shadowColor: 'black',
-    gap: 30,
-    elevation: 6,
-  },
 });
