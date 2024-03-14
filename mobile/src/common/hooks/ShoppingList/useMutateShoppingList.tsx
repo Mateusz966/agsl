@@ -7,8 +7,11 @@ import {createShoppingList, editShoppingList} from '../../../api/shopping-list';
 import {useSnackbarContext} from '../../contexts/SnackbarContext/useSnackbarContext';
 import {AxiosError} from 'axios';
 import {getSnackbarErrorMessage} from '../../contexts/SnackbarContext/helpers';
+import {UseMutateShoppingListProps} from './types';
 
-export const useMutateShoppingList = () => {
+export const useMutateShoppingList = ({
+  handleResetBasket,
+}: UseMutateShoppingListProps) => {
   const {setSnackbarState} = useSnackbarContext();
   const queryClient = useQueryClient();
 
@@ -23,6 +26,7 @@ export const useMutateShoppingList = () => {
         visible: true,
         text: 'Your shopping list was created successfully',
       });
+      handleResetBasket();
       queryClient.invalidateQueries();
     },
     onError: error => {

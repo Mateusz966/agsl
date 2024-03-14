@@ -25,8 +25,13 @@ export const useShoppingListForm = () => {
     !!(dishesList.length && shoppingListId),
   );
   const {navigate} = useNavigation<NavigationProp<NavigationParamList>>();
+
+  const handleResetBasket = useCallback(() => {
+    setDishesList([]);
+  }, [setDishesList]);
+
   const {addShoppingListMutation, editDishMutationShoppingListMutation} =
-    useMutateShoppingList();
+    useMutateShoppingList({handleResetBasket: handleResetBasket});
 
   const form = useForm<EditShoppingListRequest>({
     resolver: zodResolver(shoppingListSchema),
@@ -61,10 +66,6 @@ export const useShoppingListForm = () => {
       navigate(TabScenes.TabUserShoppingLists);
     }
   }, [addShoppingListMutation, dishesList, navigate]);
-
-  const handleResetBasket = useCallback(() => {
-    setDishesList([]);
-  }, [setDishesList]);
 
   const handleEditShoppingList = useCallback(
     (payload: EditShoppingListRequest) => {
