@@ -6,7 +6,7 @@ import {ICON_PATHS} from '../../utils/icons';
 import HomeHeader from '../../components/molecules/HomeHeader';
 import NavigationButton from '../../components/molecules/NavigationButton';
 import DishListNavigationHeader from '../../components/organisms/NavigatonHeaders/DishListNavigationHeader';
-import {BottomNavigationScenes} from "../BottomNavigation/const";
+import {BottomNavigationScenes} from '../BottomNavigation/const';
 
 export const mainHeaderOptions: NativeStackNavigationOptions = {
   headerStyle: {

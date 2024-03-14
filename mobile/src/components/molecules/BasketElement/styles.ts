@@ -1,5 +1,5 @@
 import {StyleSheet} from 'react-native';
-import {colors, components, typography} from '../../../config/theme';
+import {colors, components} from '../../../config/theme';
 
 export default StyleSheet.create({
   cardBackgroundStyle: {

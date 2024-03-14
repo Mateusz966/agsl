@@ -10,13 +10,13 @@ import {
   useNavigation,
 } from '@react-navigation/native';
 import {RootStackParamList} from '../../../navigators/RootNavigation/types';
-import {Scenes} from '../../../navigators/RootNavigation/const';
 import {useForm} from 'react-hook-form';
 import {zodResolver} from '@hookform/resolvers/zod';
 import {shoppingListSchema} from './validation';
 import useShoppingList from './useShoppingList';
 import {useMutateShoppingList} from './useMutateShoppingList';
 import {useShoppingListContext} from '../../contexts/ShoppingListContext/useShoppingListContext';
+import {BottomNavigationScenes} from '../../../navigators/BottomNavigation/const';
 
 export const useShoppingListForm = () => {
   const {dishesList, setDishesList} = useDishContext();
@@ -58,7 +58,7 @@ export const useShoppingListForm = () => {
       });
 
       addShoppingListMutation.mutate({dishesId: dishes});
-      navigate(Scenes.UserShoppingLists);
+      navigate(BottomNavigationScenes.UserShoppingLists);
     }
   }, [addShoppingListMutation, dishesList, navigate]);
 
