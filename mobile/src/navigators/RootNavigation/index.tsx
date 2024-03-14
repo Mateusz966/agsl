@@ -1,7 +1,6 @@
 import React from 'react';
 import {createNativeStackNavigator} from '@react-navigation/native-stack';
-import {Scenes} from './const';
-import {RootStackParamList} from './types';
+import {RootScenes, RootStackParamList} from './types';
 import {
   addDishHeaderOptions,
   basketHeaderOptions,
@@ -32,27 +31,27 @@ const DishNavigationStack = () => {
   return (
     <Stack.Navigator screenOptions={mainHeaderOptions}>
       <Stack.Screen
-        name={Scenes.DishList}
+        name={RootScenes.DishList}
         component={DishList}
         options={dishListHeaderOptions}
       />
       <Stack.Screen
-        name={Scenes.AddDish}
+        name={RootScenes.AddDish}
         component={AddDish}
         options={addDishHeaderOptions}
       />
       <Stack.Screen
-        name={Scenes.EditDish}
+        name={RootScenes.EditDish}
         component={EditDish}
         options={editDishHeaderOptions}
       />
       <Stack.Screen
-        name={Scenes.Basket}
+        name={RootScenes.Basket}
         component={Basket}
         options={basketHeaderOptions}
       />
       <Stack.Screen
-        name={Scenes.ShoppingList}
+        name={RootScenes.ShoppingList}
         component={ShoppingList}
         options={shoppingListHeaderOptions}
       />
@@ -64,32 +63,32 @@ const HomeNavigationStack = () => {
   return (
     <Stack.Navigator screenOptions={mainHeaderOptions}>
       <Stack.Screen
-        name={Scenes.Home}
+        name={RootScenes.Home}
         component={Home}
         options={homeHeaderOptions}
       />
       <Stack.Screen
-        name={Scenes.DishList}
+        name={RootScenes.DishList}
         component={DishList}
         options={dishListHeaderOptions}
       />
       <Stack.Screen
-        name={Scenes.AddDish}
+        name={RootScenes.AddDish}
         component={AddDish}
         options={addDishHeaderOptions}
       />
       <Stack.Screen
-        name={Scenes.EditDish}
+        name={RootScenes.EditDish}
         component={EditDish}
         options={editDishHeaderOptions}
       />
       <Stack.Screen
-        name={Scenes.Basket}
+        name={RootScenes.Basket}
         component={Basket}
         options={basketHeaderOptions}
       />
       <Stack.Screen
-        name={Scenes.ShoppingList}
+        name={RootScenes.ShoppingList}
         component={ShoppingList}
         options={shoppingListHeaderOptions}
       />
@@ -101,22 +100,22 @@ const BasketNavigationStack = () => {
   return (
     <Stack.Navigator screenOptions={mainHeaderOptions}>
       <Stack.Screen
-        name={Scenes.Basket}
+        name={RootScenes.Basket}
         component={Basket}
         options={basketHeaderOptions}
       />
       <Stack.Screen
-        name={Scenes.DishList}
+        name={RootScenes.DishList}
         component={DishList}
         options={dishListHeaderOptions}
       />
       <Stack.Screen
-        name={Scenes.UserShoppingLists}
+        name={RootScenes.UserShoppingLists}
         component={UserShoppingLists}
         options={userShoppingListsHeaderOptions}
       />
       <Stack.Screen
-        name={Scenes.ShoppingList}
+        name={RootScenes.ShoppingList}
         component={ShoppingList}
         options={shoppingListHeaderOptions}
       />
@@ -128,12 +127,12 @@ const ShoppingListsNavigationStack = () => {
   return (
     <Stack.Navigator screenOptions={mainHeaderOptions}>
       <Stack.Screen
-        name={Scenes.UserShoppingLists}
+        name={RootScenes.UserShoppingLists}
         component={UserShoppingLists}
         options={userShoppingListsHeaderOptions}
       />
       <Stack.Screen
-        name={Scenes.ShoppingList}
+        name={RootScenes.ShoppingList}
         component={ShoppingList}
         options={shoppingListHeaderOptions}
       />
@@ -146,22 +145,22 @@ const RootNavigation = () => {
     <AuthProvider>
       <Stack.Navigator screenOptions={mainHeaderOptions}>
         <Stack.Screen
-          name={Scenes.Entry}
+          name={RootScenes.Entry}
           component={Entry}
           options={loginPageHeaderOptions}
         />
         <Stack.Screen
-          name={Scenes.Login}
+          name={RootScenes.Login}
           component={Login}
           options={loginPageHeaderOptions}
         />
         <Stack.Screen
-          name={Scenes.Register}
+          name={RootScenes.Register}
           component={Register}
           options={loginPageHeaderOptions}
         />
         <Stack.Screen
-          name={Scenes.Tab}
+          name={RootScenes.Tab}
           component={BottomBar}
           options={loginPageHeaderOptions}
         />

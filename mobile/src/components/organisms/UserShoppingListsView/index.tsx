@@ -4,13 +4,15 @@ import useShoppingLists from '../../../common/hooks/ShoppingList/useShoppingList
 import ShoppingListCard from '../../molecules/ShoppingListCard';
 import {useShoppingListContext} from '../../../common/contexts/ShoppingListContext/useShoppingListContext';
 import {NavigationProp, useNavigation} from '@react-navigation/native';
-import {RootStackParamList} from '../../../navigators/RootNavigation/types';
-import {Scenes} from '../../../navigators/RootNavigation/const';
+import {
+  RootScenes,
+  RootStackParamList,
+} from '../../../navigators/RootNavigation/types';
 import EmptyPageContent from '../../templates/EmptyPageContent';
 import EmptyShoppingListPhoto from '../../../assets/EmptyShoppingListPhoto';
 import TextButton from '../../atoms/Buttons/TextButton';
-import {BottomNavigationScenes} from '../../../navigators/BottomNavigation/const';
 import {ActivityIndicator} from 'react-native-paper';
+import {TabScenes} from '../../../navigators/BottomNavigation/types';
 
 const UserShoppingListsView = () => {
   const {shoppingListsResponse, areShoppingListsLoading} =
@@ -34,7 +36,7 @@ const UserShoppingListsView = () => {
               createdAt={item.createdAt}
               onPressHandler={() => {
                 setShoppingListId(item.id);
-                navigate(Scenes.ShoppingList);
+                navigate(RootScenes.ShoppingList);
               }}
             />
           )}
@@ -45,7 +47,7 @@ const UserShoppingListsView = () => {
           headlineMedium="Create your first shopping list"
           headlineSmall="add your dishes to basket"
           actionElement={
-            <TextButton onPress={() => navigate(BottomNavigationScenes.Basket)}>
+            <TextButton onPress={() => navigate(TabScenes.TabBasket)}>
               Navigate to basket
             </TextButton>
           }

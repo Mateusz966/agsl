@@ -21,7 +21,7 @@ import {ActivityIndicator} from 'react-native-paper';
 import useDishForm from '../../../common/hooks/Dish/useDishForm';
 import ControlledNumberInput from '../../molecules/ControlledInputs/ControlledNumberInput';
 import {useRoute} from '@react-navigation/native';
-import {Scenes} from '../../../navigators/RootNavigation/const';
+import {RootScenes} from '../../../navigators/RootNavigation/types';
 
 const DishForm = () => {
   const [img, setImg] = useState<DishPhoto>(null);
@@ -50,7 +50,7 @@ const DishForm = () => {
     formState: {errors},
   } = form;
 
-  return isDishLoading && routeName === Scenes.EditDish ? (
+  return isDishLoading && routeName === RootScenes.EditDish ? (
     <View style={styles.loader}>
       <ActivityIndicator size={50} />
     </View>

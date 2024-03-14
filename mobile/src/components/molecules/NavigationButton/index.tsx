@@ -3,14 +3,14 @@ import {FC, memo} from 'react';
 import {NavigationButtonProps} from './types';
 import IconButton from '../../atoms/Buttons/IconButton';
 import {NavigationProp, useNavigation} from '@react-navigation/native';
-import {RootStackParamList} from '../../../navigators/RootNavigation/types';
 import {colors} from '../../../config/theme';
+import {NavigationParamList} from '../../../navigators/types';
 
 const NavigationButton: FC<NavigationButtonProps> = ({
   sceneName,
   iconSource,
 }) => {
-  const {navigate} = useNavigation<NavigationProp<RootStackParamList>>();
+  const {navigate} = useNavigation<NavigationProp<NavigationParamList>>();
 
   return (
     <IconButton

@@ -5,8 +5,10 @@ import DishCard from '../../molecules/DishCard';
 import useDishList from './useDishList';
 import {NavigationProp, useNavigation} from '@react-navigation/native';
 import {useDishContext} from '../../../common/contexts/DishContext/useDishContext';
-import {Scenes} from '../../../navigators/RootNavigation/const';
-import {RootStackParamList} from '../../../navigators/RootNavigation/types';
+import {
+  RootScenes,
+  RootStackParamList,
+} from '../../../navigators/RootNavigation/types';
 import EmptyPageContent from '../../templates/EmptyPageContent';
 import EmptyDishListPhoto from '../../../assets/EmptyDishListPhoto';
 import TextButton from '../../atoms/Buttons/TextButton';
@@ -29,7 +31,7 @@ const DishListView = () => {
               dish={item}
               onPressHandler={() => {
                 setDishId(item.id);
-                navigate(Scenes.EditDish);
+                navigate(RootScenes.EditDish);
               }}
             />
           )}
@@ -40,7 +42,7 @@ const DishListView = () => {
           headlineMedium="Add your meal"
           headlineSmall="and create your dish list"
           actionElement={
-            <TextButton onPress={() => navigate(Scenes.AddDish)}>
+            <TextButton onPress={() => navigate(RootScenes.AddDish)}>
               Add dish
             </TextButton>
           }

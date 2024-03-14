@@ -5,15 +5,15 @@ import {EditDishRequest, UseMutateDishProps} from './types';
 import {AxiosError} from 'axios';
 import useDish from './useDish';
 import {useRoute} from '@react-navigation/native';
-import {Scenes} from '../../../navigators/RootNavigation/const';
 import {getSnackbarErrorMessage} from '../../contexts/SnackbarContext/helpers';
+import {RootScenes} from '../../../navigators/RootNavigation/types';
 
 export const useMutateDish = ({
   setIngredientIdsToDelete,
 }: UseMutateDishProps) => {
   const {setSnackbarState} = useSnackbarContext();
   const routeName = useRoute().name;
-  const {isDishLoading} = useDish(routeName === Scenes.EditDish);
+  const {isDishLoading} = useDish(routeName === RootScenes.EditDish);
   const client = useQueryClient();
 
   const addDishMutation = useMutation<void, AxiosError, FormData>({

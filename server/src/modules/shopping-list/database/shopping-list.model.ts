@@ -6,7 +6,12 @@ import { ListItem } from '@modules/shopping-list/queries/generate-shopping-list/
 
 @Entity({ name: 'shopping_list' })
 export class ShoppingListModel extends ModelBase {
-  @Column({ type: 'enum', enum: ShoppingListStatus })
+  @Column({
+    type: 'enum',
+    enum: ShoppingListStatus,
+    nullable: true,
+    default: null,
+  })
   status: ShoppingListStatus;
 
   @Column({ type: 'jsonb' })

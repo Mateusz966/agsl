@@ -7,7 +7,6 @@ import {
   shoppingListsNavigationHeaderOptions,
 } from './headerOptions';
 
-import {BottomNavigationScenes} from './const';
 import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
 import {
   BasketNavigationStack,
@@ -15,28 +14,29 @@ import {
   HomeNavigationStack,
   ShoppingListsNavigationStack,
 } from '../RootNavigation';
+import {TabScenes} from './types';
 
 const Tab = createBottomTabNavigator();
 
 const BottomBar = () => (
   <Tab.Navigator screenOptions={mainHeaderOptions}>
     <Tab.Screen
-      name={BottomNavigationScenes.Home}
+      name={TabScenes.TabHome}
       component={HomeNavigationStack}
       options={homeNavigationHeaderOptions}
     />
     <Tab.Screen
-      name={BottomNavigationScenes.DishList}
+      name={TabScenes.TabDishList}
       component={DishNavigationStack}
       options={dishListNavigationHeaderOptions}
     />
     <Tab.Screen
-      name={BottomNavigationScenes.Basket}
+      name={TabScenes.TabBasket}
       component={BasketNavigationStack}
       options={basketNavigationHeaderOptions}
     />
     <Tab.Screen
-      name={BottomNavigationScenes.UserShoppingLists}
+      name={TabScenes.TabUserShoppingLists}
       component={ShoppingListsNavigationStack}
       options={shoppingListsNavigationHeaderOptions}
     />

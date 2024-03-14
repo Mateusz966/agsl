@@ -1,8 +1,8 @@
 import {MenuItemProps} from 'react-native-paper';
-import {Scenes} from '../../../navigators/RootNavigation/const';
+import {RootScenes} from '../../../navigators/RootNavigation/types';
 
 export interface ItemsProps extends MenuItemProps {
-  sceneToNavigate: Scenes;
+  sceneToNavigate: RootScenes;
 }
 
 export interface MenuProps {

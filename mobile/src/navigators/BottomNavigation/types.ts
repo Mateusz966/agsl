@@ -1,12 +1,13 @@
-import {MaterialBottomTabNavigationOptions} from '@react-navigation/material-bottom-tabs';
-import {colors} from '../../config/theme';
+export enum TabScenes {
+  TabDishList = 'TabDishList',
+  TabHome = 'TabHome',
+  TabBasket = 'TabBasket',
+  TabUserShoppingLists = 'TabUserShoppingLists',
+}
 
-export const mainHeaderOptions: MaterialBottomTabNavigationOptions = {
-  tabBarColor: colors.primary,
-};
-
-export const addDishHeaderOptions: MaterialBottomTabNavigationOptions = {};
-
-export const dishListHeaderOptions: MaterialBottomTabNavigationOptions = {
-  title: 'Dish list',
+export type BottomTabParamList = {
+  TabDishList: undefined;
+  TabHome: undefined;
+  TabBasket: undefined;
+  TabUserShoppingLists: undefined;
 };

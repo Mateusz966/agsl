@@ -1,8 +1,10 @@
 import {useCallback} from 'react';
-import {Scenes} from '../../../navigators/RootNavigation/const';
 import {NativeStackNavigationProp} from '@react-navigation/native-stack';
 import {useNavigation} from '@react-navigation/native';
-import {RootStackParamList} from '../../../navigators/RootNavigation/types';
+import {
+  RootScenes,
+  RootStackParamList,
+} from '../../../navigators/RootNavigation/types';
 import {resetGenericPassword} from 'react-native-keychain';
 
 const useNavigateToScene = () => {
@@ -10,8 +12,8 @@ const useNavigateToScene = () => {
     useNavigation<NativeStackNavigationProp<RootStackParamList>>();
 
   const handleNavigate = useCallback(
-    async (scene: Scenes) => {
-      if (scene === Scenes.Login) {
+    async (scene: RootScenes) => {
+      if (scene === RootScenes.Login) {
         await resetGenericPassword();
         navigation.navigate(scene);
       } else {

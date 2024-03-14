@@ -5,9 +5,11 @@ import {UserRegister, userRegisterSchema} from './validation';
 import {zodResolver} from '@hookform/resolvers/zod';
 import {signUpUser} from '../../../api/user';
 import {useNavigation} from '@react-navigation/core';
-import {Scenes} from '../../../navigators/RootNavigation/const';
 import {useSnackbarContext} from '../../../common/contexts/SnackbarContext/useSnackbarContext';
-import {RootStackParamList} from '../../../navigators/RootNavigation/types';
+import {
+  RootScenes,
+  RootStackParamList,
+} from '../../../navigators/RootNavigation/types';
 import {NavigationProp} from '@react-navigation/native';
 import {AxiosError} from 'axios';
 import {getSnackbarErrorMessage} from '../../../common/contexts/SnackbarContext/helpers';
@@ -26,7 +28,7 @@ const useRegister = () => {
     onSuccess: () => {
       setSnackbarState({visible: true, text: "You're registered"});
       form.reset({nick: '', email: '', password: ''});
-      navigation.navigate(Scenes.Login);
+      navigation.navigate(RootScenes.Login);
     },
     onError: error => {
       setSnackbarState({

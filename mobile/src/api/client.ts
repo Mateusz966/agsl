@@ -2,7 +2,7 @@ import axios, {AxiosError, AxiosResponse} from 'axios';
 import {API_ROUTES, AXIOS_CONFIGURATION} from './const';
 import {getGenericPassword, resetGenericPassword} from 'react-native-keychain';
 import {navigate} from '../navigators/RootNavigation/helpers';
-import {Scenes} from '../navigators/RootNavigation/const';
+import {RootScenes} from '../navigators/RootNavigation/types';
 
 export const httpClient = axios.create(AXIOS_CONFIGURATION);
 
@@ -32,7 +32,7 @@ httpClient.interceptors.response.use(
   async (error: AxiosError) => {
     if (error.response?.status === 401) {
       await resetGenericPassword();
-      navigate(Scenes.Entry);
+      navigate(RootScenes.Entry);
     }
     return error;
   },

@@ -1,7 +1,6 @@
 import {useCallback, useMemo, useState} from 'react';
 import {EditDishForm} from '../../../api/dish/types';
 import {useFocusEffect, useRoute} from '@react-navigation/native';
-import {Scenes} from '../../../navigators/RootNavigation/const';
 import {useFieldArray, useForm} from 'react-hook-form';
 import {
   AddDish,
@@ -12,10 +11,13 @@ import useDish from './useDish';
 import {createFormData, getDefaultDishFormValues} from './helpers';
 import {UseDishFormProps} from './types';
 import {useMutateDish} from './useMutateDish';
+import {RootScenes} from '../../../navigators/RootNavigation/types';
 
 const useDishForm = ({img}: UseDishFormProps) => {
   const routeName = useRoute().name;
-  const {dishResponse, isDishLoading} = useDish(routeName === Scenes.EditDish);
+  const {dishResponse, isDishLoading} = useDish(
+    routeName === RootScenes.EditDish,
+  );
   const [formInitialized, setFormInitialized] = useState(false);
   const [ingredientIdsToDelete, setIngredientIdsToDelete] = useState<string[]>(
     [],
@@ -25,7 +27,7 @@ const useDishForm = ({img}: UseDishFormProps) => {
   });
 
   const responseDishValue = useMemo(
-    () => getDefaultDishFormValues(routeName as Scenes, dishResponse),
+    () => getDefaultDishFormValues(routeName as RootScenes, dishResponse),
     [dishResponse, routeName],
   );
 
@@ -45,7 +47,7 @@ const useDishForm = ({img}: UseDishFormProps) => {
       if (
         !formInitialized &&
         dishResponse &&
-        routeName === Scenes.EditDish &&
+        routeName === RootScenes.EditDish &&
         !isDishLoading
       ) {
         form.reset(responseDishValue);
@@ -79,7 +81,7 @@ const useDishForm = ({img}: UseDishFormProps) => {
         dishResponse,
         ingredientIdsToDelete,
       );
-      if (dishResponse?.id && routeName === Scenes.EditDish) {
+      if (dishResponse?.id && routeName === RootScenes.EditDish) {
         editDishMutation.mutate({
           id: dishResponse.id,
           dish: dishData,

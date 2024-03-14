@@ -6,7 +6,7 @@ import {ICON_PATHS} from '../../utils/icons';
 import HomeHeader from '../../components/molecules/HomeHeader';
 import NavigationButton from '../../components/molecules/NavigationButton';
 import DishListNavigationHeader from '../../components/organisms/NavigatonHeaders/DishListNavigationHeader';
-import {BottomNavigationScenes} from '../BottomNavigation/const';
+import {TabScenes} from '../BottomNavigation/types';
 
 export const mainHeaderOptions: NativeStackNavigationOptions = {
   headerStyle: {
@@ -48,7 +48,7 @@ export const basketHeaderOptions: NativeStackNavigationOptions = {
   title: 'Basket',
   headerRight: () => (
     <NavigationButton
-      sceneName={BottomNavigationScenes.DishList}
+      sceneName={TabScenes.TabDishList}
       iconSource={ICON_PATHS.ADD_ICON}
     />
   ),

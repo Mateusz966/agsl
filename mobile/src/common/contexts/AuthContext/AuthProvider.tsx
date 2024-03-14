@@ -7,8 +7,10 @@ import {
   useFocusEffect,
   useNavigation,
 } from '@react-navigation/native';
-import {RootStackParamList} from '../../../navigators/RootNavigation/types';
-import {Scenes} from '../../../navigators/RootNavigation/const';
+import {
+  RootScenes,
+  RootStackParamList,
+} from '../../../navigators/RootNavigation/types';
 
 export const AuthProvider = ({children}: AuthProviderProps) => {
   const {navigate} = useNavigation<NavigationProp<RootStackParamList>>();
@@ -34,9 +36,9 @@ export const AuthProvider = ({children}: AuthProviderProps) => {
   useFocusEffect(
     useCallback(() => {
       if (!authData.isLogged) {
-        navigate(Scenes.Entry);
+        navigate(RootScenes.Entry);
       } else {
-        navigate(Scenes.Tab);
+        navigate(RootScenes.Tab);
       }
     }, [authData.isLogged, navigate]),
   );

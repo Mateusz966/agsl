@@ -9,14 +9,14 @@ import {
   useFocusEffect,
   useNavigation,
 } from '@react-navigation/native';
-import {RootStackParamList} from '../../../navigators/RootNavigation/types';
 import {useForm} from 'react-hook-form';
 import {zodResolver} from '@hookform/resolvers/zod';
 import {shoppingListSchema} from './validation';
 import useShoppingList from './useShoppingList';
 import {useMutateShoppingList} from './useMutateShoppingList';
 import {useShoppingListContext} from '../../contexts/ShoppingListContext/useShoppingListContext';
-import {BottomNavigationScenes} from '../../../navigators/BottomNavigation/const';
+import {TabScenes} from '../../../navigators/BottomNavigation/types';
+import {NavigationParamList} from '../../../navigators/types';
 
 export const useShoppingListForm = () => {
   const {dishesList, setDishesList} = useDishContext();
@@ -24,7 +24,7 @@ export const useShoppingListForm = () => {
   const {shoppingListResponse, isShoppingListLoading} = useShoppingList(
     !!(dishesList.length && shoppingListId),
   );
-  const {navigate} = useNavigation<NavigationProp<RootStackParamList>>();
+  const {navigate} = useNavigation<NavigationProp<NavigationParamList>>();
   const {addShoppingListMutation, editDishMutationShoppingListMutation} =
     useMutateShoppingList();
 
@@ -48,7 +48,7 @@ export const useShoppingListForm = () => {
         form.setValue('listId', formValues.listId);
         form.setValue('shoppingListItems', formValues.shoppingListItems);
       }
-    }, [shoppingListResponse, isShoppingListLoading]),
+    }, [shoppingListResponse, isShoppingListLoading, form]),
   );
 
   const handleCreateShoppingList = useCallback(() => {
@@ -58,7 +58,7 @@ export const useShoppingListForm = () => {
       });
 
       addShoppingListMutation.mutate({dishesId: dishes});
-      navigate(BottomNavigationScenes.UserShoppingLists);
+      navigate(TabScenes.TabUserShoppingLists);
     }
   }, [addShoppingListMutation, dishesList, navigate]);
 

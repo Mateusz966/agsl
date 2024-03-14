@@ -6,8 +6,10 @@ import {zodResolver} from '@hookform/resolvers/zod';
 import {loginUser} from '../../../api/user';
 import {NavigationProp, useNavigation} from '@react-navigation/native';
 import {useSnackbarContext} from '../../../common/contexts/SnackbarContext/useSnackbarContext';
-import {RootStackParamList} from '../../../navigators/RootNavigation/types';
-import {Scenes} from '../../../navigators/RootNavigation/const';
+import {
+  RootScenes,
+  RootStackParamList,
+} from '../../../navigators/RootNavigation/types';
 import {AxiosError} from 'axios';
 import {getSnackbarErrorMessage} from '../../../common/contexts/SnackbarContext/helpers';
 import {setGenericPassword} from 'react-native-keychain';
@@ -36,7 +38,7 @@ export const useLogin = () => {
       setAuthData({isLogged: true, nickName: nick});
       setSnackbarState({visible: true, text: "You're logged in"});
       form.reset({email: '', password: ''});
-      navigation.navigate(Scenes.Tab);
+      navigation.navigate(RootScenes.Tab);
     },
     onError: error => {
       setSnackbarState({
