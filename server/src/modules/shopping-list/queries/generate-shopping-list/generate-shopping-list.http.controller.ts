@@ -20,6 +20,20 @@ import { GenerateShoppingListQuery } from '@modules/shopping-list/queries/genera
 import { GetDishIngredientsQuery } from '@modules/dish/queries/get-dish-ingredients/get-dish-ingredients.query';
 import { IngredientsModel } from '@modules/dish/database/ingredients.model';
 import { ShoppingListResponseDto } from '@modules/shopping-list/dtos/shopping-list.response.dto';
+import { IngredientMeasurementUnit } from '@modules/dish/domain/value-objects/ingredients.value-object';
+import { DishModel } from '@modules/dish/database/dish.model';
+
+export type ListItem = {
+  isBought: boolean;
+  name: string;
+  amount: number;
+  unit: IngredientMeasurementUnit;
+  dish: DishModel;
+  id: string;
+  createdAt: Date;
+  updatedAt: Date;
+};
+
 @Controller(routesV1.version)
 export class GenerateShoppingListHttpController {
   constructor(private readonly queryBus: QueryBus) {}
@@ -39,7 +53,7 @@ export class GenerateShoppingListHttpController {
   ): Promise<ShoppingListResponseDto> {
     try {
       const ingredientsQuery = new GetDishIngredientsQuery(dishesId);
-      const list = (
+      const list: ListItem[] = (
         await this.queryBus.execute<
           GetDishIngredientsQuery,
           IngredientsModel[]
