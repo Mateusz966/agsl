@@ -10,6 +10,8 @@ export type RootStackParamList = {
   TabBasket: undefined;
   ShoppingList: undefined;
   UserShoppingLists: undefined;
+  TabDishList: undefined;
   Home: undefined;
+  Basket: undefined;
   Tab: undefined;
 };

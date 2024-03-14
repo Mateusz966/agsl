@@ -9,5 +9,7 @@ export enum Scenes {
   Basket = 'Basket',
   ShoppingList = 'ShoppingList',
   UserShoppingLists = 'UserShoppingLists',
+  TabDishList = 'TabDishList',
+  TabBasket = 'TabBasket',
   Tab = 'Tab',
 }

@@ -2,11 +2,11 @@ import {NativeStackNavigationOptions} from '@react-navigation/native-stack';
 import {colors} from '../../config/theme';
 import React from 'react';
 import {Text} from 'react-native-paper';
-import {Scenes} from './const';
 import {ICON_PATHS} from '../../utils/icons';
 import HomeHeader from '../../components/molecules/HomeHeader';
 import NavigationButton from '../../components/molecules/NavigationButton';
 import DishListNavigationHeader from '../../components/organisms/NavigatonHeaders/DishListNavigationHeader';
+import {BottomNavigationScenes} from "../BottomNavigation/const";
 
 export const mainHeaderOptions: NativeStackNavigationOptions = {
   headerStyle: {
@@ -48,7 +48,7 @@ export const basketHeaderOptions: NativeStackNavigationOptions = {
   title: 'Basket',
   headerRight: () => (
     <NavigationButton
-      sceneName={Scenes.DishList}
+      sceneName={BottomNavigationScenes.DishList}
       iconSource={ICON_PATHS.ADD_ICON}
     />
   ),
