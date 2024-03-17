@@ -2,7 +2,7 @@ import {z} from 'zod';
 
 const ShoppingListElement = z.object({
   ingredientId: z.string(),
-  isBought: z.enum(['true', 'false']),
+  isBought: z.boolean(),
 });
 export const shoppingListSchema = z.object({
   listId: z.string(),

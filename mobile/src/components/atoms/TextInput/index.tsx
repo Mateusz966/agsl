@@ -4,7 +4,6 @@ import {colors} from '../../../config/theme';
 import {styles} from './styles';
 
 const TextInput: FC<TextInputProps> = ({...props}) => {
-  console.log(props.error, 'error2');
   return (
     <Input
       style={styles.input}

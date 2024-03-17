@@ -30,6 +30,6 @@ export const routesV1 = {
   shoppingList: {
     root: shoppingListRoot,
     get: `${shoppingListRoot}/:id`,
-    modifyList: `${shoppingListRoot}/:listId/ingredient/:ingredientId/:isBought`,
+    modifyList: `${shoppingListRoot}/:listId/ingredients`,
   },
 };

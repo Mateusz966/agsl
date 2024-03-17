@@ -1,7 +1,4 @@
-import {
-  EditShoppingListRequest,
-  IsBoughtType,
-} from '../../../api/shopping-list/types';
+import {EditShoppingListRequest} from '../../../api/shopping-list/types';
 import {useCallback} from 'react';
 import {useDishContext} from '../../contexts/DishContext/useDishContext';
 import {
@@ -46,7 +43,7 @@ export const useShoppingListForm = () => {
           shoppingListItems: shoppingListResponse.generatedShoppingList?.map(
             response => ({
               ingredientId: response.ingredientId ?? '',
-              isBought: String(response.isBought) as IsBoughtType,
+              isBought: response.isBought,
             }),
           ),
         };

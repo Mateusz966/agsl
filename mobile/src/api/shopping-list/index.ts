@@ -1,6 +1,10 @@
 import {httpClient} from '../client';
 import {API_ROUTES} from '../const';
-import {EditShoppingListRequest, ShoppingList, ShoppingListRequest,} from './types';
+import {
+  EditShoppingListRequest,
+  ShoppingList,
+  ShoppingListRequest,
+} from './types';
 
 export const createShoppingList = async (dishes: ShoppingListRequest) => {
   const response = await httpClient.post(API_ROUTES.v1.shoppingList, dishes);
@@ -37,16 +41,14 @@ export const getShoppingList = async (shoppingListId: string) => {
   };
 };
 
-export const editShoppingList = async (
-  editListData: EditShoppingListRequest,
-) => {
-  const {listId, shoppingListItems} = editListData;
-
-  return await Promise.all(
-    shoppingListItems?.map(async ({ingredientId, isBought}) => {
-      return await httpClient.patch(
-        `${API_ROUTES.v1.shoppingList}/${listId}/ingredient/${ingredientId}/${isBought}`,
-      );
-    }) || [],
+export const editShoppingList = async ({
+  listId,
+  shoppingListItems,
+}: EditShoppingListRequest) => {
+  return (
+    (await httpClient.patch(
+      `${API_ROUTES.v1.shoppingList}/${listId}/ingredients`,
+      {ingredients: shoppingListItems},
+    )) ?? []
   );
 };

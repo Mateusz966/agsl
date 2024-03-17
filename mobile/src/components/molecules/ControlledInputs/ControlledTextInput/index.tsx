@@ -22,7 +22,6 @@ const ControlledTextInput = <
   errorStyle,
   style,
 }: ControlledTextInputProps<TFieldValues, TName>) => {
-  console.log(error, 'error');
   return (
     <View style={[styles.controlledInputContainer, style]}>
       <Controller
