@@ -35,7 +35,6 @@ export class ModifyShoppingListHttpController {
     @Param('listId') listId: string,
     @Body() { ingredients }: ModifyShoppingListRequestDto,
   ) {
-    console.log(ingredients, 'ingredients');
     try {
       const command = new ModifyShoppingListCommand({
         listId,
