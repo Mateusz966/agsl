@@ -1,4 +1,5 @@
 import {
+  Body,
   ConflictException as ConflictHttpException,
   Controller,
   HttpCode,
@@ -16,6 +17,7 @@ import { User } from '@libs/decorators/User.decorator';
 import { JwtAuthGuard } from '@modules/auth/jwt-auth.guard';
 import { JWTUser } from '@modules/auth/auth.types';
 import { ModifyShoppingListCommand } from '@modules/shopping-list/commands/modify-shopping-list/modify-shopping-list.command';
+import { ModifyShoppingListRequestDto } from '@modules/shopping-list/dtos/modify-shopping-list.request.dto';
 
 @Controller(routesV1.version)
 export class ModifyShoppingListHttpController {
@@ -30,18 +32,13 @@ export class ModifyShoppingListHttpController {
   @UseGuards(JwtAuthGuard)
   async modifyShoppingList(
     @User() user: JWTUser,
-    @Param()
-    {
-      listId,
-      ingredientId,
-      isBought,
-    }: { listId: string; ingredientId: string; isBought: boolean },
+    @Param('listId') listId: string,
+    @Body() { ingredients }: ModifyShoppingListRequestDto,
   ) {
     try {
       const command = new ModifyShoppingListCommand({
         listId,
-        ingredientId,
-        isBought,
+        ingredients,
       });
       await this.commandBus.execute(command);
     } catch (error) {

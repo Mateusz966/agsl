@@ -5,10 +5,14 @@ import {
   ValidateNested,
   IsUUID,
   Min,
-  IsNumber,
-  IsEnum,
+  IsNumber, IsEnum,
 } from 'class-validator';
 import { Type } from 'class-transformer';
+
+export class UserShoppingListsResponseDto {
+  @ValidateNested({ each: true })
+  userShoppingLists: ShoppingListResponseDto[];
+}
 
 class GeneratedShoppingListItem {
   @IsUUID()

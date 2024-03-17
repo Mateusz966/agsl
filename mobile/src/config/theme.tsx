@@ -9,26 +9,29 @@ export const colors = {
   sceneContainerBackground: '#ededed',
   white: '#ffffff',
   primaryTextColor: '#4D4952',
+  cardBackground: '#cccccc',
+  success: '#048a50',
 };
+
 export const typography = {
   small: {
-    fontFamily: 'roboto',
     fontSize: 14,
     lineHeight: 16,
   },
+  form: {
+    fontSize: 16,
+  },
   medium: {
-    fontFamily: 'roboto',
     fontSize: 20,
     lineHeight: 22,
   },
   large: {
-    fontFamily: 'roboto',
     fontSize: 24,
     lineHeight: 26,
   },
-  form: {
-    fontFamily: 'roboto',
-    fontSize: 16,
+  h1: {
+    fontSize: 34,
+    lineHeight: 34,
   },
 };
 
@@ -37,14 +40,13 @@ export const components = {
     style: {
       primary: {
         backgroundColor: colors.primaryButton,
-        paddingVertical: 5,
-        borderRadius: 50,
+        minWidth: 150,
       },
       secondary: {backgroundColor: colors.white},
     },
     textColor: {
       primary: colors.white,
-      secondary: colors.primary,
+      secondary: colors.secondary,
     },
   },
 };

@@ -8,25 +8,40 @@
  * @format
  */
 
-import {NavigationContainer} from '@react-navigation/native';
 import React from 'react';
 import {Provider} from 'react-native-paper';
-import Navigation from './navigators';
 import {theme} from './config/theme';
 import {QueryClient, QueryClientProvider} from '@tanstack/react-query';
+import {NavigationContainer} from '@react-navigation/native';
 import {SnackbarProvider} from './common/contexts/SnackbarContext/SnackbarProvider';
 import {DishProvider} from './common/contexts/DishContext/DishProvider';
+import {ShoppingListProvider} from './common/contexts/ShoppingListContext/ShoppingListProvider';
+import {RootNavigation} from './navigators/RootNavigation';
+import {navigationRef} from './navigators/RootNavigation/helpers';
 
 const queryClient = new QueryClient();
+
+if (__DEV__) {
+  // @ts-ignore
+  import("../ReactotronConfig").then(() => console.log("Reactotron Configured"));
+}
+
+const NavigationContent = () => {
+  return (
+    <NavigationContainer ref={navigationRef}>
+      <SnackbarProvider>
+        <RootNavigation />
+      </SnackbarProvider>
+    </NavigationContainer>
+  );
+};
 
 const Content = () => {
   return (
     <DishProvider>
-      <SnackbarProvider>
-        <NavigationContainer>
-          <Navigation />
-        </NavigationContainer>
-      </SnackbarProvider>
+      <ShoppingListProvider>
+        <NavigationContent />
+      </ShoppingListProvider>
     </DishProvider>
   );
 };

@@ -29,6 +29,7 @@ export const routesV1 = {
   },
   shoppingList: {
     root: shoppingListRoot,
-    modifyList: `${shoppingListRoot}/:listId/ingredient/:ingredientId/:isBought`,
+    get: `${shoppingListRoot}/:id`,
+    modifyList: `${shoppingListRoot}/:listId/ingredients`,
   },
 };

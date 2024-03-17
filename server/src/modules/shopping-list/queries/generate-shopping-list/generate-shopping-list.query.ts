@@ -1,10 +1,10 @@
-import { IngredientsModel } from '@modules/dish/database/ingredients.model';
+import { ListItem } from '@modules/shopping-list/queries/generate-shopping-list/generate-shopping-list.http.controller';
 
 export class GenerateShoppingListQuery {
   userId: string;
-  ingredients: IngredientsModel[];
+  ingredients: ListItem[];
 
-  constructor(userId: string, ingredients: IngredientsModel[]) {
+  constructor(userId: string, ingredients: ListItem[]) {
     this.userId = userId;
     this.ingredients = ingredients;
   }

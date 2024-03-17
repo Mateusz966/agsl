@@ -4,8 +4,8 @@ import {ScrollView, View} from 'react-native';
 import LoginPhoto from '../../../assets/LoginPhoto';
 import LoginForm from '../../organisms/LoginForm';
 import {Link} from '@react-navigation/native';
-import {Scenes} from '../../../navigators/const';
 import {styles} from './styles';
+import {RootScenes} from '../../../navigators/RootNavigation/types';
 
 const LoginTemplate = () => (
   <ScrollView style={styles.scrollView}>
@@ -21,7 +21,7 @@ const LoginTemplate = () => (
     <LoginForm />
     <View style={styles.footer}>
       <Text variant="bodyMedium">Don't have an account?</Text>
-      <Link to={{screen: Scenes.Register}}> Register</Link>
+      <Link to={{screen: RootScenes.Register}}> Register</Link>
     </View>
   </ScrollView>
 );

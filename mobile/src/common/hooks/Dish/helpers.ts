@@ -1,13 +1,13 @@
 import {DishResponse, EditDishForm} from '../../../api/dish/types';
-import {Scenes} from '../../../navigators/const';
+import {RootScenes} from '../../../navigators/RootNavigation/types';
 import {DEFAULT_DISH_FORM_VALUE} from './const';
 import {DishPhoto} from './types';
 
 export const getDefaultDishFormValues = (
-  sceneName: Scenes,
+  sceneName: RootScenes,
   dishResponse?: DishResponse,
 ) =>
-  dishResponse && sceneName === Scenes.EditDish
+  dishResponse && sceneName === RootScenes.EditDish
     ? {
         id: dishResponse.id,
         name: dishResponse.name,

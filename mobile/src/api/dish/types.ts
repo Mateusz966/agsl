@@ -8,14 +8,14 @@ export enum Unit {
 export interface Ingredient {
   id?: string;
   name: string;
-  amount: string;
+  amount: number;
   unit: Unit;
 }
 
 export interface FormIngredient {
   ingredientId?: string;
   name: string;
-  amount: string;
+  amount: number;
   unit: Unit;
 }
 

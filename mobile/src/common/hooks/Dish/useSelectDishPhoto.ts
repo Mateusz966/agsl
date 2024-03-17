@@ -2,7 +2,7 @@ import {useCallback} from 'react';
 import {DishPhoto, UseSelectDishPhotoProps} from './types';
 import useDish from './useDish';
 import {useFocusEffect, useRoute} from '@react-navigation/native';
-import {Scenes} from '../../../navigators/const';
+import {RootScenes} from '../../../navigators/RootNavigation/types';
 
 export const useSelectDishPhoto = ({
   setImg,
@@ -34,7 +34,7 @@ export const useSelectDishPhoto = ({
 
   useFocusEffect(
     useCallback(() => {
-      if (dishResponse.photo && routeName === Scenes.EditDish) {
+      if (dishResponse.photo && routeName === RootScenes.EditDish) {
         setImg({uri: dishResponse.photo});
       }
     }, [dishResponse.photo, setImg, routeName]),

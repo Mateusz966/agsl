@@ -9,7 +9,7 @@ const useDish = (isEnabled?: boolean) => {
   const {data, isLoading, refetch} = useQuery<DishResponse>({
     queryKey: ['dish', dishId],
     queryFn: () => getDish(dishId),
-    enabled: isEnabled,
+    enabled: !!isEnabled,
   });
 
   const mappedIngredients = useMemo(() => {
