@@ -1,9 +1,4 @@
-import {
-  EditShoppingListRequest,
-  IsBoughtType,
-} from '../../../api/shopping-list/types';
 import {useCallback} from 'react';
-import {useDishContext} from '../../contexts/DishContext/useDishContext';
 import {
   NavigationProp,
   useFocusEffect,
@@ -11,12 +6,13 @@ import {
 } from '@react-navigation/native';
 import {useForm} from 'react-hook-form';
 import {zodResolver} from '@hookform/resolvers/zod';
-import {shoppingListSchema} from './validation';
-import useShoppingList from './useShoppingList';
-import {useMutateShoppingList} from './useMutateShoppingList';
-import {useShoppingListContext} from '../../contexts/ShoppingListContext/useShoppingListContext';
-import {TabScenes} from '../../../navigators/BottomNavigation/types';
-import {NavigationParamList} from '../../../navigators/types';
+import {EditShoppingListRequest, IsBoughtType} from 'api/shopping-list/types';
+import {useDishContext} from 'common/contexts/DishContext/useDishContext';
+import {useShoppingListContext} from 'common/contexts/ShoppingListContext/useShoppingListContext';
+import {shoppingListSchema} from './shoppingListValidation';
+import {TabScenes} from 'navigators/TabNavigation';
+import {NavigationParamList} from 'navigators/types';
+import {useMutateShoppingList, useShoppingList} from '.';
 
 export const useShoppingListForm = () => {
   const {dishesList, setDishesList} = useDishContext();

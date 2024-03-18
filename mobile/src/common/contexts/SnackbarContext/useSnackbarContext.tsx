@@ -1,6 +1,6 @@
 import {useContext} from 'react';
 import {SnackbarContext} from './SnackbarContext';
-import {SnackbarContextProps} from './types';
+import {SnackbarContextProps} from './SnackbarContext.types';
 
 export const useSnackbarContext = (): SnackbarContextProps => {
   const context = useContext(SnackbarContext);

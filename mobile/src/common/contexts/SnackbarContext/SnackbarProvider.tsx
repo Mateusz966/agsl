@@ -1,10 +1,13 @@
 import React, {useCallback, useState} from 'react';
 import {SnackbarContext, SnackbarProviderProps} from './SnackbarContext';
-import {SnackbarContextProps, SnackbarStateProps} from './types';
+import {
+  SnackbarContextProps,
+  SnackbarStateProps,
+} from './SnackbarContext.types';
 import Snackbar from '../../../components/atoms/Snackbar';
 import {useFocusEffect} from '@react-navigation/native';
 
-export const SnackbarProvider = ({children}: SnackbarProviderProps) => {
+const SnackbarProvider = ({children}: SnackbarProviderProps) => {
   const [snackbarState, setSnackbarState] = useState<SnackbarStateProps>({
     visible: false,
     text: '',
@@ -38,3 +41,5 @@ export const SnackbarProvider = ({children}: SnackbarProviderProps) => {
     </SnackbarContext.Provider>
   );
 };
+
+export default SnackbarProvider;

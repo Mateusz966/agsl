@@ -1,8 +1,12 @@
 import React, {useMemo, useState} from 'react';
 import {DishContext} from './DishContext';
-import {DishBasketElement, DishContextProps, DishProviderProps} from './types';
+import {
+  DishBasketElement,
+  DishContextProps,
+  DishProviderProps,
+} from './DishContext.types';
 
-export const DishProvider = ({children}: DishProviderProps) => {
+const DishProvider = ({children}: DishProviderProps) => {
   const [dishId, setDishId] = useState('');
   const [dishesList, setDishesList] = useState<DishBasketElement[]>([]);
 
@@ -21,3 +25,5 @@ export const DishProvider = ({children}: DishProviderProps) => {
 
   return <DishContext.Provider value={value}>{children}</DishContext.Provider>;
 };
+
+export default DishProvider;

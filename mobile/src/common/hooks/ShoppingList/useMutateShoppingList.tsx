@@ -1,13 +1,14 @@
 import {useMutation, useQueryClient} from '@tanstack/react-query';
+import {AxiosError} from 'axios';
 import {
   EditShoppingListRequest,
   ShoppingListRequest,
-} from '../../../api/shopping-list/types';
-import {createShoppingList, editShoppingList} from '../../../api/shopping-list';
-import {useSnackbarContext} from '../../contexts/SnackbarContext/useSnackbarContext';
-import {AxiosError} from 'axios';
-import {getSnackbarErrorMessage} from '../../contexts/SnackbarContext/helpers';
-import {UseMutateShoppingListProps} from './types';
+  createShoppingList,
+  editShoppingList,
+} from 'api/shopping-list';
+import {useSnackbarContext} from 'common/contexts/SnackbarContext/useSnackbarContext';
+import {getSnackbarErrorMessage} from 'common/contexts/SnackbarContext/SnackbarContext.helpers';
+import {UseMutateShoppingListProps} from './useShoppingList.types';
 
 export const useMutateShoppingList = ({
   handleResetBasket,

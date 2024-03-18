@@ -13,17 +13,20 @@ import {Provider} from 'react-native-paper';
 import {theme} from './config/theme';
 import {QueryClient, QueryClientProvider} from '@tanstack/react-query';
 import {NavigationContainer} from '@react-navigation/native';
-import {SnackbarProvider} from './common/contexts/SnackbarContext/SnackbarProvider';
-import {DishProvider} from './common/contexts/DishContext/DishProvider';
-import {ShoppingListProvider} from './common/contexts/ShoppingListContext/ShoppingListProvider';
-import {RootNavigation} from './navigators/RootNavigation';
-import {navigationRef} from './navigators/RootNavigation/helpers';
+import {
+  SnackbarProvider,
+  DishProvider,
+  ShoppingListProvider,
+} from './common/contexts';
+import RootNavigation, {navigationRef} from 'navigators/RootNavigation';
 
 const queryClient = new QueryClient();
 
 if (__DEV__) {
   // @ts-ignore
-  import("../ReactotronConfig").then(() => console.log("Reactotron Configured"));
+  import('../ReactotronConfig').then(() =>
+    console.log('Reactotron Configured'),
+  );
 }
 
 const NavigationContent = () => {

@@ -1,21 +1,18 @@
 import {useForm} from 'react-hook-form';
 import {useMutation} from '@tanstack/react-query';
-import {SignInRequest, SignInResponse} from '../../../api/user/types';
-import {UserLogin, userLoginSchema} from './validation';
-import {zodResolver} from '@hookform/resolvers/zod';
-import {loginUser} from '../../../api/user';
-import {NavigationProp, useNavigation} from '@react-navigation/native';
-import {useSnackbarContext} from '../../../common/contexts/SnackbarContext/useSnackbarContext';
-import {
-  RootScenes,
-  RootStackParamList,
-} from '../../../navigators/RootNavigation/types';
-import {AxiosError} from 'axios';
-import {getSnackbarErrorMessage} from '../../../common/contexts/SnackbarContext/helpers';
 import {setGenericPassword} from 'react-native-keychain';
+import {zodResolver} from '@hookform/resolvers/zod';
+import {NavigationProp, useNavigation} from '@react-navigation/native';
+import {AxiosError} from 'axios';
+import {loginUser, SignInRequest, SignInResponse} from 'api/user';
+import {useSnackbarContext} from '../../../common/contexts/SnackbarContext/useSnackbarContext';
+import {RootScenes, RootStackParamList} from 'navigators/RootNavigation';
+import {getSnackbarErrorMessage} from '../../../common/contexts/SnackbarContext/SnackbarContext.helpers';
 import {useAuthContext} from '../../../common/contexts/AuthContext/useAuthContext';
+import {userLoginSchema} from './loginFormValidation';
+import {UserLogin} from '.';
 
-export const useLogin = () => {
+const useLogin = () => {
   const navigation = useNavigation<NavigationProp<RootStackParamList>>();
   const {setSnackbarState} = useSnackbarContext();
   const {setAuthData} = useAuthContext();
@@ -54,3 +51,5 @@ export const useLogin = () => {
 
   return {form, loginMutation, onSubmit};
 };
+
+export default useLogin;

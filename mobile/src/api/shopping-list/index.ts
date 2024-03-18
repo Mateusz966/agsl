@@ -1,19 +1,28 @@
 import {httpClient} from '../client';
 import {API_ROUTES} from '../const';
-import {EditShoppingListRequest, ShoppingList, ShoppingListRequest,} from './types';
+import {
+  EditShoppingListRequest,
+  ShoppingList,
+  ShoppingListRequest,
+  IsBoughtType,
+  ShoppingListElement,
+  ShoppingListItem,
+  ShoppingListItemToEdit,
+  ShoppingListResponse,
+} from './types';
 
-export const createShoppingList = async (dishes: ShoppingListRequest) => {
+const createShoppingList = async (dishes: ShoppingListRequest) => {
   const response = await httpClient.post(API_ROUTES.v1.shoppingList, dishes);
   return response.data;
 };
 
-export const getShoppingLists = async () => {
+const getShoppingLists = async () => {
   const response = await httpClient.get(`${API_ROUTES.v1.shoppingList}`);
 
   return response.data;
 };
 
-export const getShoppingList = async (shoppingListId: string) => {
+const getShoppingList = async (shoppingListId: string) => {
   const response = await httpClient.get<ShoppingList>(
     `${API_ROUTES.v1.shoppingList}/${shoppingListId}`,
   );
@@ -37,9 +46,7 @@ export const getShoppingList = async (shoppingListId: string) => {
   };
 };
 
-export const editShoppingList = async (
-  editListData: EditShoppingListRequest,
-) => {
+const editShoppingList = async (editListData: EditShoppingListRequest) => {
   const {listId, shoppingListItems} = editListData;
 
   return await Promise.all(
@@ -49,4 +56,22 @@ export const editShoppingList = async (
       );
     }) || [],
   );
+};
+
+export {
+  createShoppingList,
+  getShoppingList,
+  getShoppingLists,
+  editShoppingList,
+};
+
+export type {
+  EditShoppingListRequest,
+  ShoppingList,
+  ShoppingListRequest,
+  IsBoughtType,
+  ShoppingListElement,
+  ShoppingListItem,
+  ShoppingListItemToEdit,
+  ShoppingListResponse,
 };

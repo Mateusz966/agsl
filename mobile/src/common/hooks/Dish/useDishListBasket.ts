@@ -1,5 +1,5 @@
-import {useDishContext} from '../../contexts/DishContext/useDishContext';
-import {DishResponse} from '../../../api/dish/types';
+import {useDishContext} from 'common/contexts/DishContext/useDishContext';
+import {DishResponse} from 'api/dish/types';
 
 export const useDishListBasket = () => {
   const {setDishesList} = useDishContext();

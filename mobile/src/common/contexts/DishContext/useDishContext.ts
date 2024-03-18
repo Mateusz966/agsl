@@ -1,5 +1,5 @@
 import {useContext} from 'react';
-import {DishContextProps} from './types';
+import {DishContextProps} from './DishContext.types';
 import {DishContext} from './DishContext';
 
 export const useDishContext = (): DishContextProps => {

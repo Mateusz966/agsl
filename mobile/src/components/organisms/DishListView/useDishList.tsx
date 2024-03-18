@@ -1,6 +1,6 @@
 import {useQuery} from '@tanstack/react-query';
-import {getDishList} from '../../../api/dish';
-import {DishListResponse} from './types';
+import {getDishList} from 'api/dish';
+import {DishListResponse} from './DishListView.types';
 
 const useDishList = () => {
   const {data, isLoading, refetch} = useQuery<DishListResponse[]>({

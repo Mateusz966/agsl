@@ -1,20 +1,20 @@
 import {useForm} from 'react-hook-form';
 import {useMutation} from '@tanstack/react-query';
-import {RegisterRequest} from '../../../api/user/types';
-import {UserRegister, userRegisterSchema} from './validation';
+import {RegisterRequest} from 'api/user/types';
+import {UserRegister, userRegisterSchema} from './registerFormValidation';
 import {zodResolver} from '@hookform/resolvers/zod';
-import {signUpUser} from '../../../api/user';
+import {signUpUser} from 'api/user';
 import {useNavigation} from '@react-navigation/core';
-import {useSnackbarContext} from '../../../common/contexts/SnackbarContext/useSnackbarContext';
+import {useSnackbarContext} from 'common/contexts/SnackbarContext/useSnackbarContext';
 import {
   RootScenes,
   RootStackParamList,
-} from '../../../navigators/RootNavigation/types';
+} from 'navigators/RootNavigation/RootNavigation.types';
 import {NavigationProp} from '@react-navigation/native';
 import {AxiosError} from 'axios';
-import {getSnackbarErrorMessage} from '../../../common/contexts/SnackbarContext/helpers';
+import {getSnackbarErrorMessage} from 'common/contexts/SnackbarContext/SnackbarContext.helpers';
 
-const useRegister = () => {
+export const useRegister = () => {
   const form = useForm<UserRegister>({
     resolver: zodResolver(userRegisterSchema),
   });
@@ -44,5 +44,3 @@ const useRegister = () => {
 
   return {form, registerMutation, onSubmit};
 };
-
-export default useRegister;
