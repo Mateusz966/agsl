@@ -1,7 +1,7 @@
 import React, {FC, memo} from 'react';
 import {TextInput as Input, TextInputProps} from 'react-native-paper';
 import {colors} from 'theme';
-import {styles} from '.';
+import {styles} from './TextInput.styles';
 
 const TextInput: FC<TextInputProps> = ({...props}) => (
   <Input
