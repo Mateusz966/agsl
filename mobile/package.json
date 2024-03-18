@@ -21,7 +21,7 @@
     "base-64": "^1.0.0",
     "react": "18.2.0",
     "react-hook-form": "^7.43.1",
-    "react-native": "0.71.2",
+    "react-native": "^0.71.11",
     "react-native-blob-util": "^0.19.1",
     "react-native-fs": "^2.20.0",
     "react-native-image-picker": "^5.3.1",
