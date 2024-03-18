@@ -1,6 +1,5 @@
 import {useQuery} from '@tanstack/react-query';
-import {getShoppingLists} from '../../../api/shopping-list';
-import {ShoppingListResponse} from '../../../api/shopping-list/types';
+import {getShoppingLists, ShoppingListResponse} from 'api/shopping-list';
 
 const useShoppingLists = (isEnabled?: boolean) => {
   const {data, isLoading, refetch} = useQuery<ShoppingListResponse>({

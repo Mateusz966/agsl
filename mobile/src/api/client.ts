@@ -1,8 +1,8 @@
 import axios, {AxiosError, AxiosResponse} from 'axios';
 import {API_ROUTES, AXIOS_CONFIGURATION} from './const';
 import {getGenericPassword, resetGenericPassword} from 'react-native-keychain';
-import {navigate} from '../navigators/RootNavigation/helpers';
-import {RootScenes} from '../navigators/RootNavigation/types';
+import {navigate} from '../navigators/RootNavigation/RootNavigation.helpers';
+import {RootScenes} from '../navigators/RootNavigation/RootNavigation.types';
 
 export const httpClient = axios.create(AXIOS_CONFIGURATION);
 

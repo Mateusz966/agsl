@@ -1,5 +1,5 @@
 import React, {memo} from 'react';
-import EntryPageContent from '../templates/EntryPageContent';
+import {EntryPageContent} from 'templates';
 
 const Entry = () => {
   return <EntryPageContent />;

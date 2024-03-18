@@ -1,6 +1,6 @@
 import {useQuery} from '@tanstack/react-query';
-import {useShoppingListContext} from '../../contexts/ShoppingListContext/useShoppingListContext';
-import {getShoppingList} from '../../../api/shopping-list';
+import {useShoppingListContext} from 'common/contexts/ShoppingListContext/useShoppingListContext';
+import {getShoppingList} from 'api/shopping-list';
 
 const useShoppingList = (isEnabled?: boolean) => {
   const {shoppingListId} = useShoppingListContext();

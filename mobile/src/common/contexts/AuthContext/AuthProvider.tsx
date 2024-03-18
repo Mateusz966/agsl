@@ -1,5 +1,9 @@
 import React, {useCallback, useState} from 'react';
-import {AuthContextProps, AuthProviderProps, AuthState} from './types';
+import {
+  AuthContextProps,
+  AuthProviderProps,
+  AuthState,
+} from './AuthContext.types';
 import {AuthContext} from './AuthContext';
 import {getGenericPassword} from 'react-native-keychain';
 import {
@@ -10,9 +14,9 @@ import {
 import {
   RootScenes,
   RootStackParamList,
-} from '../../../navigators/RootNavigation/types';
+} from '../../../navigators/RootNavigation/RootNavigation.types';
 
-export const AuthProvider = ({children}: AuthProviderProps) => {
+const AuthProvider = ({children}: AuthProviderProps) => {
   const {navigate} = useNavigation<NavigationProp<RootStackParamList>>();
   const [authData, setAuthData] = useState<AuthState>({
     isLogged: false,
@@ -50,3 +54,5 @@ export const AuthProvider = ({children}: AuthProviderProps) => {
 
   return <AuthContext.Provider value={value}>{children}</AuthContext.Provider>;
 };
+
+export default AuthProvider;

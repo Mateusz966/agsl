@@ -1,8 +1,8 @@
 import {useCallback} from 'react';
-import {DishPhoto, UseSelectDishPhotoProps} from './types';
+import {DishPhoto, UseSelectDishPhotoProps} from './useDish.types';
 import useDish from './useDish';
 import {useFocusEffect, useRoute} from '@react-navigation/native';
-import {RootScenes} from '../../../navigators/RootNavigation/types';
+import {RootScenes} from 'navigators/RootNavigation/RootNavigation.types';
 
 export const useSelectDishPhoto = ({
   setImg,

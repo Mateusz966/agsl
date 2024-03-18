@@ -1,8 +1,7 @@
-import {useQuery} from '@tanstack/react-query';
-import {DishResponse} from '../../../api/dish/types';
-import {getDish} from '../../../api/dish';
-import {useDishContext} from '../../contexts/DishContext/useDishContext';
 import {useMemo} from 'react';
+import {useQuery} from '@tanstack/react-query';
+import {getDish, DishResponse} from 'api/dish';
+import {useDishContext} from 'common/contexts/DishContext/useDishContext';
 
 const useDish = (isEnabled?: boolean) => {
   const {dishId} = useDishContext();

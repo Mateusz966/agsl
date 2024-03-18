@@ -1,4 +1,4 @@
-import {BottomTabParamList} from './BottomNavigation/types';
-import {RootStackParamList} from './RootNavigation/types';
+import {RootStackParamList} from './RootNavigation/RootNavigation.types';
+import {TabParamList} from './TabNavigation';
 
-export type NavigationParamList = RootStackParamList & BottomTabParamList;
+export type NavigationParamList = RootStackParamList & TabParamList;

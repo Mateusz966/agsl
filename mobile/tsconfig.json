@@ -5,6 +5,27 @@
     /* Visit https://aka.ms/tsconfig.json to read more about this file */
       "jsx": "react",
     /* Completeness */
-    "skipLibCheck": true                                 /* Skip type checking all .d.ts files. */
-  }
+    "skipLibCheck": true,  
+    "strict": true,     
+
+    "baseUrl": ".",
+    "paths": {
+      "*": ["src/*"],
+      "components/*":["src/components/*"],
+      "atoms": ["src/components/atoms"],
+      "molecules": ["src/components/molecules"],
+      "organisms": ["src/components/organisms"],
+      "templates": ["src/components/templates"],
+      "pages": ["src/components/pages"],
+      "theme": ["src/config/theme"],
+      "navigators/*": ["src/navigators/*"],
+      "common/*": ["src/common/*"],
+      "assets":["src/assets"],
+      "api/*":["src/api/*"],
+      "CameraSettings": ["src/utils/CameraSettings"],
+    },
+  },
+  "exclude": [
+    "node_modules"
+  ]
 }

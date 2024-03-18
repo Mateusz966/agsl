@@ -1,8 +1,11 @@
 import React, {useState} from 'react';
-import {ShoppingListContextProps, ShoppingListProviderProps} from './types';
+import {
+  ShoppingListContextProps,
+  ShoppingListProviderProps,
+} from './ShoppingListContext.types';
 import {ShoppingListContext} from './ShoppingListContext';
 
-export const ShoppingListProvider = ({children}: ShoppingListProviderProps) => {
+const ShoppingListProvider = ({children}: ShoppingListProviderProps) => {
   const [shoppingListId, setShoppingListId] = useState('');
 
   const value: ShoppingListContextProps = {
@@ -16,3 +19,5 @@ export const ShoppingListProvider = ({children}: ShoppingListProviderProps) => {
     </ShoppingListContext.Provider>
   );
 };
+
+export default ShoppingListProvider;

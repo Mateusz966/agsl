@@ -1,5 +1,5 @@
 import {ReactNode, createContext} from 'react';
-import {SnackbarContextProps} from './types';
+import {SnackbarContextProps} from './SnackbarContext.types';
 
 export const SnackbarContext = createContext<SnackbarContextProps | undefined>(
   undefined,
