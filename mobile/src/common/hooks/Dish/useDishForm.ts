@@ -1,17 +1,16 @@
 import {useCallback, useMemo, useState} from 'react';
-import {EditDishForm} from '../../../api/dish/types';
+import {EditDishForm} from 'api/dish/types';
 import {useFocusEffect, useRoute} from '@react-navigation/native';
 import {useFieldArray, useForm} from 'react-hook-form';
 import {
   AddDish,
   addDishSchema,
-} from '../../../components/organisms/DishForm/validation';
+} from 'components/organisms/DishForm/dishFormValidation';
 import {zodResolver} from '@hookform/resolvers/zod';
-import useDish from './useDish';
-import {createFormData, getDefaultDishFormValues} from './helpers';
-import {UseDishFormProps} from './types';
-import {useMutateDish} from './useMutateDish';
-import {RootScenes} from '../../../navigators/RootNavigation/types';
+import {createFormData, getDefaultDishFormValues} from './useDish.helpers';
+import {UseDishFormProps} from './useDish.types';
+import {RootScenes} from 'navigators/RootNavigation';
+import {useMutateDish, useDish} from '.';
 
 const useDishForm = ({img}: UseDishFormProps) => {
   const routeName = useRoute().name;

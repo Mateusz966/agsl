@@ -1,6 +1,6 @@
 import React, {memo} from 'react';
-import LoginTemplate from '../templates/Login';
+import {LoginPageContent} from 'templates';
 
-const Login = () => <LoginTemplate />;
+const Login = () => <LoginPageContent />;
 
 export default memo(Login);

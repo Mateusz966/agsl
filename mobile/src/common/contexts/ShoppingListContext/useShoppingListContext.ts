@@ -1,5 +1,5 @@
 import {useContext} from 'react';
-import {ShoppingListContextProps} from './types';
+import {ShoppingListContextProps} from './ShoppingListContext.types';
 import {ShoppingListContext} from './ShoppingListContext';
 
 export const useShoppingListContext = (): ShoppingListContextProps => {

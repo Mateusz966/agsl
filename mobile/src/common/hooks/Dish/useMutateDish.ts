@@ -1,12 +1,12 @@
 import {useMutation, useQueryClient} from '@tanstack/react-query';
-import {addDish, editDish} from '../../../api/dish';
-import {useSnackbarContext} from '../../contexts/SnackbarContext/useSnackbarContext';
-import {EditDishRequest, UseMutateDishProps} from './types';
 import {AxiosError} from 'axios';
+import {addDish, editDish} from 'api/dish';
+import {useSnackbarContext} from 'common/contexts/SnackbarContext/useSnackbarContext';
+import {getSnackbarErrorMessage} from 'common/contexts/SnackbarContext/SnackbarContext.helpers';
+import {EditDishRequest, UseMutateDishProps} from './useDish.types';
 import useDish from './useDish';
 import {useRoute} from '@react-navigation/native';
-import {getSnackbarErrorMessage} from '../../contexts/SnackbarContext/helpers';
-import {RootScenes} from '../../../navigators/RootNavigation/types';
+import {RootScenes} from 'navigators/RootNavigation';
 
 export const useMutateDish = ({
   setIngredientIdsToDelete,

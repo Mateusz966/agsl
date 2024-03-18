@@ -1,6 +1,6 @@
 import React, {memo} from 'react';
-import RegisterTemplate from '../templates/Register';
+import {RegisterPageContent} from 'templates';
 
-const Register = () => <RegisterTemplate />;
+const Register = () => <RegisterPageContent />;
 
 export default memo(Register);

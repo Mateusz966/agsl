@@ -1,6 +1,6 @@
 import React, {memo} from 'react';
-import DishListBasket from '../organisms/DishListBasket';
-import {Layout} from '../atoms/Layout';
+import {DishListBasket} from 'organisms';
+import {Layout} from 'atoms';
 
 const Basket = () => (
   <Layout>
