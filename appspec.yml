@@ -4,6 +4,10 @@ files:
   - source: /
     destination: /home/agsl
 hooks:
+  BeforeInstall:
+    - location: scripts/before_install.sh
+      timeout: 500
+      runas: ec2-user
   AfterInstall:
     - location: scripts/docker_start.sh
       timeout: 300
