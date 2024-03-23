@@ -7,4 +7,4 @@ hooks:
   AfterInstall:
     - location: scripts/docker_start.sh
       timeout: 180
-      runas: codedeployuser
+      runas: ec2-user
