@@ -38,6 +38,7 @@ read_env_variables_from_parameter_store() {
   ENV_VARS=$(aws ssm get-parameter --name "/agsl-server-env" --with-decryption --output text --query Parameter.Value)
   # Set decrypted value as environment variable
   while IFS= read -r line; do
+    echo "Setting environment variables... $line"
     key=$(echo "$line" | cut -d "=" -f 1)
     value=$(echo "$line" | cut -d "=" -f 2-)
     export "$key"="$value"
