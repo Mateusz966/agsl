@@ -10,7 +10,7 @@ install_docker() {
   if ! command_exists docker; then
     echo "Installing Docker..."
     sudo yum update -y
-    sudo amazon-linux-extras install docker -y
+    sudo yum install docker
     sudo service docker start
     sudo usermod -a -G docker ec2-user
     echo "Docker installed successfully."
@@ -42,6 +42,9 @@ read_env_variables_from_parameter_store() {
     key=$(echo "$line" | cut -d "=" -f 1)
     value=$(echo "$line" | cut -d "=" -f 2-)
     export "$key"="$value"
+
+    echo "export $key='$value'" >> ~/.bashrc
+
     echo "Set environment variable $key=$value"
   done <<< "$ENV_VARS"
 }
