@@ -2,4 +2,4 @@
 
 DOCKER_COMPOSE_PATH="/usr/local/bin/docker-compose"
 
-"$DOCKER_COMPOSE_PATH" -f /agsl/server/docker-compose.yml  up -d --remove-orphans -e DB_CLIENT_USERNAME="$DB_CLIENT_USERNAME" DB_CLIENT_PASSWORD="$DB_CLIENT_USERNAME" DB_PASSWORD="$DB_PASSWORD" DB_USERNAME="$DB_USERNAME" DB_NAME="$DB_NAME" DB_PORT="$DB_PORT" DB_CLIENT_PORT="$DB_CLIENT_PORT"
+"$DOCKER_COMPOSE_PATH" -f /agsl/server/docker-compose.yml up -d --remove-orphans
