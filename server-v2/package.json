@@ -1,0 +1,17 @@
+{
+    "name": "agsl-serverless",
+    "main": "index.ts",
+    "devDependencies": {
+        "@types/aws-lambda": "^8.10.145",
+        "@types/node": "^18",
+        "typescript": "^5.0.0"
+    },
+    "dependencies": {
+        "@middy/core": "^5.5.1",
+        "@middy/http-json-body-parser": "^5.5.1",
+        "@middy/validator": "^5.5.1",
+        "@pulumi/aws": "^6.0.0",
+        "@pulumi/awsx": "^2.16.1",
+        "@pulumi/pulumi": "^3.113.0"
+    }
+}
