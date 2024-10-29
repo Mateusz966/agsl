@@ -3,6 +3,7 @@ import { pipeline } from "ts-pipe-compose";
 import { DataSource } from "typeorm";
 import { loadEnvs } from "../utils/env";
 import { User } from "../../entities/user.entity";
+import { Migration1730148420238 } from "../../migrations/1730148420238-migration";
 
 // MODELS_IMPORT
 
@@ -10,7 +11,7 @@ loadEnvs();
 
 const loadDbConfigFromEnvs = (env: any) => ({
   type: "postgres",
-  synchronize: false,
+  synchronize: true,
   logging: true,
   entities: [
     User,

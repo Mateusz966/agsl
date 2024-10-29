@@ -17,3 +17,4 @@ provider:
 
 functions:
   - ${file(functions/auth/function.yml)}
+  - ${file(functions/migrations/function.yml)}
