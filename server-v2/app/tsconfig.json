@@ -13,7 +13,11 @@
     "lib": ["ES2022"],
     "rootDir": "./",
     "resolveJsonModule": true,
-    "esModuleInterop": true
+    "esModuleInterop": true,
+    "types": [
+      "node",
+      "webpack-env"
+    ]
   },
   "exclude": ["node_modules", "build"],
   "ts-node": {
