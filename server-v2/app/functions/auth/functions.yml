@@ -1,0 +1,12 @@
+register:
+  handler: functions/auth/register/handler.handle
+  events:
+    - http:
+        path: /auth/register
+        method: POST
+login:
+  handler: functions/auth/login/handler.handle
+  events:
+    - http:
+        path: /auth/login
+        method: POST

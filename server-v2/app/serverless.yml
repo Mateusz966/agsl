@@ -18,5 +18,5 @@ provider:
 
 functions:
   - ${file(functions/migrations/function.yml)}
-  - ${file(functions/auth/function.yml)}
+  - ${file(functions/auth/functions.yml)}
   - ${file(functions/dish/functions.yml)}

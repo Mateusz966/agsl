@@ -1,6 +1,0 @@
-register:
-  handler: functions/auth/register.handle
-  events:
-    - http:
-        path: /auth/register
-        method: POST
