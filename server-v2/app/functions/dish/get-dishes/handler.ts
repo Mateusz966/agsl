@@ -10,7 +10,7 @@ import { StatusCodes } from "http-status-codes";
 import { httpCorsConfigured } from "../../../shared/middleware/http-cors-configured";
 import { awsLambdaResponse } from "../../../shared/response";
 
-export const dishHandler = async () => {
+export const dishesHandler = async () => {
 
   //TODO MOCK DISH
   return awsLambdaResponse(StatusCodes.OK, [
@@ -73,4 +73,4 @@ export const handle = middy<APIGatewayProxyEvent, APIGatewayProxyResult>()
   .use(httpHeaderNormalizer())
   .use(httpCorsConfigured)
   // TODO query parser
-  .handler(dishHandler);
+  .handler(dishesHandler);
