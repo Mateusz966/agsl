@@ -1,5 +1,4 @@
-import { RegisterPayload, registerSchema } from "../event.schema";
-import { User } from "../../../entities/user.entity";
+import { LoginPayload, loginSchema } from "../event.schema";
 import middy from "@middy/core";
 import httpEventNormalizer from "@middy/http-event-normalizer";
 import jsonBodyParser from "@middy/http-json-body-parser";
@@ -15,11 +14,11 @@ import { CognitoIdentityProvider } from "@aws-sdk/client-cognito-identity-provid
 
 const config = createConfig(process.env);
 
-export const loginHandler = async (event: RegisterPayload) => {
+export const loginHandler = async (event: LoginPayload) => {
   const { email, password } = event.body;
   await dataSource.initialize();
   const cognitoProvider = new CognitoIdentityProvider({
-    region: "eu-central-1",
+    region: config.awsRegion,
     credentials: {
       accessKeyId: config.awsAccessKeyId,
       secretAccessKey: config.awsSecretKey,
@@ -44,5 +43,5 @@ export const handle = middy<APIGatewayProxyEvent, APIGatewayProxyResult>()
   .use(httpHeaderNormalizer())
   .use(httpCorsConfigured)
   // TODO query parser
-  .use(zodValidator(registerSchema))
+  .use(zodValidator(loginSchema))
   .handler(loginHandler);
