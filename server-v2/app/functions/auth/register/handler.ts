@@ -19,7 +19,7 @@ export const reqisterHandler = async (event: RegisterPayload) => {
   const { email, password } = event.body;
   await dataSource.initialize();
   const cognitoProvider = new CognitoIdentityProvider({
-    region: "eu-central-1",
+    region: config.awsRegion,
     credentials: {
       accessKeyId: config.awsAccessKeyId,
       secretAccessKey: config.awsSecretKey,
