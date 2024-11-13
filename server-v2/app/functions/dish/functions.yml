@@ -1,0 +1,12 @@
+get-dish:
+  handler: functions/dish/get-dish/handler.handle
+  events:
+    - http:
+        path: /v2/dishes/{id}
+        method: get
+get-dishes:
+  handler: functions/dish/get-dishes/handler.handle
+  events:
+    - http:
+        path: /v2/dishes
+        method: get

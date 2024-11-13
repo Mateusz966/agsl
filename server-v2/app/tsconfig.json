@@ -1,0 +1,26 @@
+{
+  "compilerOptions": {
+    "preserveConstEnums": true,
+    "strict": true,
+    "sourceMap": true,
+    "allowJs": true,
+    "target": "ES2020",
+    "module": "commonjs",
+    "outDir": ".build",
+    "moduleResolution": "node",
+    "experimentalDecorators": true,
+    "emitDecoratorMetadata": true,
+    "lib": ["ES2022"],
+    "rootDir": "./",
+    "resolveJsonModule": true,
+    "esModuleInterop": true,
+    "types": [
+      "node",
+      "webpack-env"
+    ]
+  },
+  "exclude": ["node_modules", "build"],
+  "ts-node": {
+    "files": true
+  }
+}

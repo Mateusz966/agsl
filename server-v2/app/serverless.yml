@@ -1,0 +1,22 @@
+# "org" ensures this Service is used with the correct Serverless Framework Access Key.
+org: abcdef1235
+# "app" enables Serverless Framework Dashboard features and sharing them with other Services.
+app: agsl
+# "service" is the name of this project. This will also be added to your AWS resource names.
+service: agsl
+
+build: 
+  esbuild: false
+
+plugins:
+  - serverless-offline
+  - serverless-webpack
+
+provider:
+  name: aws
+  runtime: nodejs20.x
+
+functions:
+  - ${file(functions/migrations/function.yml)}
+  - ${file(functions/auth/functions.yml)}
+  - ${file(functions/dish/functions.yml)}

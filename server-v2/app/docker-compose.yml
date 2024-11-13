@@ -1,0 +1,28 @@
+version: '3.4'
+
+services:
+  postgres:
+    image: postgres:16-alpine
+    environment:
+      POSTGRES_PASSWORD: password
+      POSTGRES_USERNAME: postgres
+      POSTGRES_DB: app
+    ports:
+      - "5666:5432"
+    networks:
+      - app
+
+  postgres_test:
+    image: postgres:16-alpine
+    environment:
+      POSTGRES_PASSWORD: password
+      POSTGRES_USERNAME: postgres
+      POSTGRES_DB: app
+    networks:
+      - app
+
+networks:
+  app:
+
+volumes:
+  build:
