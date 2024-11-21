@@ -1,0 +1,8 @@
+Comment: "Create Dish"
+StartAt: createDish
+States:
+  createDish:
+    Type: Task
+    Resource: !GetAtt create-dish-lambda.Arn
+    TimeoutSeconds: 28
+    End: true

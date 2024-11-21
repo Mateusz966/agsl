@@ -1,0 +1,2 @@
+name: CreateDish${self:service}${opt:stage, 'dev'}
+definition: ${file(./workflows/create-dish/workflow.asl.yml)}

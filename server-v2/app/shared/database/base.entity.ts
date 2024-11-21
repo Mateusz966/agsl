@@ -11,7 +11,10 @@ export abstract class BaseEntity<T> {
   @UpdateDateColumn()
   updatedAt!: Date;
 
-  public static create<T extends BaseEntity<T>>(this: new () => T, data: Partial<T>): T {
+  public static create<T extends BaseEntity<T>>(
+    this: new () => T,
+    data: Partial<T>
+  ): T {
     const entity = new this();
     Object.assign(entity, data);
     if (!entity.id) entity.id = v4();

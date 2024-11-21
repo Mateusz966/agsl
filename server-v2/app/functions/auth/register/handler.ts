@@ -47,6 +47,5 @@ export const handle = middy<APIGatewayProxyEvent, APIGatewayProxyResult>()
   .use(httpEventNormalizer())
   .use(httpHeaderNormalizer())
   .use(httpCorsConfigured)
-  // TODO query parser
   .use(zodValidator(registerSchema))
   .handler(reqisterHandler);

@@ -6,8 +6,9 @@ const loadEnvs = (env: any) => ({
   awsSecretKey: env.AWS_SECRET_KEY,
   awsAccessKeyId: env.AWS_ACCESS_KEY_ID,
   cognitoAppClientId: env.COGNITO_APP_CLIENT_ID,
-  awsRegion: env.AWS_REGION,
+  awsRegion: env.AWS_APP_REGION,
 });
+
 
 const validateConfig = (config: any) => {
   const schema = z.object({
