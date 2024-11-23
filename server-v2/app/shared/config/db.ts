@@ -4,6 +4,10 @@ import { DataSource } from "typeorm";
 import { loadEnvs } from "../utils/env";
 import { User } from "../../entities/user.entity";
 import { Migration1730148420238 } from "../../migrations/1730148420238-migration";
+import { Dish } from "../../entities/dish.entity";
+import { ShoppingList } from "../../entities/shopping-list.entity";
+import { Ingredients } from "../../entities/ingredients.entity";
+import { DishPhoto } from "../../entities/dish-photo.entity";
 
 // MODELS_IMPORT
 
@@ -11,10 +15,14 @@ loadEnvs();
 
 const loadDbConfigFromEnvs = (env: any) => ({
   type: "postgres",
-  synchronize: true,
+  synchronize: false,
   logging: true,
   entities: [
     User,
+    Dish,
+    ShoppingList,
+    Ingredients,
+    DishPhoto,
     // MODELS_SETUP
   ],
   migrations: [],

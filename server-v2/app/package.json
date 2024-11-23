@@ -13,6 +13,7 @@
     "@aws-sdk/client-cognito-identity-provider": "^3.682.0",
     "@middy/core": "^4.7.0",
     "@middy/http-cors": "^4.7.0",
+    "@middy/http-error-handler": "^4.7.0",
     "@middy/http-event-normalizer": "^4.7.0",
     "@middy/http-header-normalizer": "^4.7.0",
     "@middy/http-json-body-parser": "^4.7.0",

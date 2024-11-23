@@ -1,5 +1,3 @@
-
-
 import middy from "@middy/core";
 import httpEventNormalizer from "@middy/http-event-normalizer";
 import jsonBodyParser from "@middy/http-json-body-parser";
@@ -9,9 +7,9 @@ import { APIGatewayProxyEvent, APIGatewayProxyResult } from "aws-lambda";
 import { StatusCodes } from "http-status-codes";
 import { httpCorsConfigured } from "../../../shared/middleware/http-cors-configured";
 import { awsLambdaResponse } from "../../../shared/response";
+import { httpErrorHandlerConfigured } from "../../../shared/errors/error-handler";
 
 export const dishHandler = async () => {
-
   //TODO MOCK DISH
   return awsLambdaResponse(StatusCodes.OK, {
     id: "cfa6f23a-6582-451d-929b-e781d637b52d",
@@ -47,4 +45,5 @@ export const handle = middy<APIGatewayProxyEvent, APIGatewayProxyResult>()
   .use(httpHeaderNormalizer())
   .use(httpCorsConfigured)
   // TODO query parser
+  .use(httpErrorHandlerConfigured)
   .handler(dishHandler);
